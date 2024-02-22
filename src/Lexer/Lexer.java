@@ -6,10 +6,11 @@ public class Lexer {
 
     static Map<String, TokenType> KEYWORDS;
     static {
-        KEYWORDS = new HashMap<String, TokenType>();
+        KEYWORDS = new HashMap<>();
+        KEYWORDS.put("var", TokenType.Var);
     }
     public static List<Token> tokenize(String code) {
-        List<Token> tokens = new ArrayList<Token>();
+        List<Token> tokens = new ArrayList<>();
 
         List<String> src = new ArrayList<>(List.of(code.split("")));
 
@@ -18,6 +19,12 @@ public class Lexer {
                 tokens.add(new Token(TokenType.Equals, src.remove(0)));
             else if (src.get(0).equals(";"))
                 tokens.add(new Token(TokenType.Semicolon, src.remove(0)));
+            else if (src.get(0).equals("("))
+                tokens.add(new Token(TokenType.OpenParen, src.remove(0)));
+            else if (src.get(0).equals(")"))
+                tokens.add(new Token(TokenType.CloseParen, src.remove(0)));
+            else if (src.get(0).equals("+") || src.get(0).equals("-") || src.get(0).equals("*") || src.get(0).equals("/"))
+                tokens.add(new Token(TokenType.BinaryOperator, src.remove(0)));
             else if (isSkippable(src.get(0)))
                 src.remove(0);
             else if (isInt(src.get(0))) {
@@ -39,7 +46,7 @@ public class Lexer {
                 // Unrecognized name must mean user defined symbol.
                 tokens.add(new Token(Objects.requireNonNullElse(reserved, TokenType.Identifier), identifier.toString()));
             } else {
-                System.err.printf("Unknown token: '%s'%n", src.remove(0));;
+                System.err.printf("Unknown token: '%s'%n", src.remove(0));
                 System.exit(-1);
             }
         }

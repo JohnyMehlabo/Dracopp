@@ -7,7 +7,7 @@ public class Main {
     private static List<Token> tokens;
     public static void main(String[] args) {
         String src = """
-                var int asd = 14;
+                var int asd = (14 + 8)*2;
                 """;
 
         tokens = Lexer.tokenize(src);

@@ -8,6 +8,6 @@
 	- More Polishing
 	
 ## Roadmap:
-	- Basic Lexer
-	- Basic Parser
-	- Basic Compiling
+	- Basic lexer ✔
+	- Basic parser
+	- Basic compiling
