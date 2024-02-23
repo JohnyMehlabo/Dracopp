@@ -1,5 +1,6 @@
 package Parser.Stmts;
 
+import Interpreter.Interpreter;
 import Lexer.Token;
 import Lexer.TokenType;
 import Parser.Exprs.Expr;
@@ -38,5 +39,10 @@ public class VarDeclarationStmt implements Stmt {
     public void log() {
         System.out.printf("Var Declaration Statement:\n\tName: %s\n\tType: %s\nInitial value:\n", name, type);
         if (initialValue != null) initialValue.log();
+    }
+
+    @Override
+    public void run() {
+        Interpreter.declareVar(name, type, initialValue);
     }
 }

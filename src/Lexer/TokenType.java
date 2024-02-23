@@ -12,6 +12,8 @@ public enum TokenType {
     OpenParen,
     CloseParen,
 
+    Debug,
+
     Semicolon,
     EOF
 }

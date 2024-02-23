@@ -28,4 +28,11 @@ public class ProgramStmt implements Stmt {
             stmt.log();
         }
     }
+
+    @Override
+    public void run() {
+        for (Stmt stmt : statements) {
+            stmt.run();
+        }
+    }
 }

@@ -1,5 +1,8 @@
 package Parser.Exprs;
 
+import Interpreter.Integer32Value;
+import Interpreter.RuntimeValue;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,5 +42,38 @@ public class BinaryOperationExpr implements Expr{
         System.out.println("RHS:");
         rhs.log();
         System.out.printf("Operator: %s\n", operator.toString());
+    }
+
+    @Override
+    public RuntimeValue value() {
+        RuntimeValue lhsValue, rhsValue;
+
+        lhsValue = lhs.value();
+        rhsValue = rhs.value();
+
+        if (lhsValue instanceof Integer32Value && rhsValue instanceof Integer32Value) {
+            int finalValue = intOperation((Integer32Value) lhsValue, (Integer32Value) rhsValue);
+            return new Integer32Value(finalValue);
+        }
+
+        else {
+            System.err.println("Invalid binary operator types");
+            System.exit(-1);
+        }
+
+        return null;
+    }
+
+    private int intOperation(Integer32Value lhsValue, Integer32Value rhsValue) {
+        int finalValue = 0;
+
+        switch (operator) {
+            case Sum -> finalValue = lhsValue.value + rhsValue.value;
+            case Subtraction -> finalValue = lhsValue.value - rhsValue.value;
+            case Multiplication -> finalValue = lhsValue.value * rhsValue.value;
+            case Division -> finalValue = lhsValue.value / rhsValue.value;
+        }
+
+        return finalValue;
     }
 }

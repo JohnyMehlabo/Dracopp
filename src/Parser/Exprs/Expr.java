@@ -1,6 +1,8 @@
 package Parser.Exprs;
 
-import Parser.Stmts.Stmt;
+import Interpreter.RuntimeValue;
 
-public interface Expr extends Stmt {
+public interface Expr {
+    void log();
+    RuntimeValue value();
 }

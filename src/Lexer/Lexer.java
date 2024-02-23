@@ -8,6 +8,7 @@ public class Lexer {
     static {
         KEYWORDS = new HashMap<>();
         KEYWORDS.put("var", TokenType.Var);
+        KEYWORDS.put("debug", TokenType.Debug);
     }
     public static List<Token> tokenize(String code) {
         List<Token> tokens = new ArrayList<>();

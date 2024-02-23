@@ -29,6 +29,7 @@ public class Parser {
     public static Stmt parseStmt() {
         return switch (at().kind) {
             case Var -> VarDeclarationStmt.parse();
+            case Debug -> InterpreterDebugStmt.parse();
             default -> null;
         };
     }

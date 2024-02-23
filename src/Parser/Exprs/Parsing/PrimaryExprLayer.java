@@ -2,6 +2,7 @@ package Parser.Exprs.Parsing;
 
 import Lexer.TokenType;
 import Parser.Exprs.Expr;
+import Parser.Exprs.IdentifierExpr;
 import Parser.Exprs.IntegerLiteralExpr;
 import Parser.Parser;
 
@@ -16,6 +17,7 @@ public class PrimaryExprLayer implements ExprLayer {
                 Parser.expect(TokenType.CloseParen, "Expected closing parenthesis");
                 yield expr;
             }
+            case Identifier -> new IdentifierExpr(Parser.eat().value);
             default -> null;
         };
     }
