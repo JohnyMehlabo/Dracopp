@@ -31,4 +31,9 @@ public class InterpreterDebugStmt implements Stmt {
 
         return new InterpreterDebugStmt(expr);
     }
+
+    @Override
+    public void codegen() {
+
+    }
 }

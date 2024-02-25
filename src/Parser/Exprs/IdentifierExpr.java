@@ -16,6 +16,11 @@ public class IdentifierExpr implements Expr {
     }
 
     @Override
+    public void codegen() {
+        // TODO: Implement this
+    }
+
+    @Override
     public RuntimeValue value() {
         return Interpreter.resolveVar(symbol);
     }

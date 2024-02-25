@@ -1,12 +1,14 @@
 package Parser.Exprs;
 
+import Compiler.Assembler.Assembler;
+import Compiler.Assembler.Register;
 import Interpreter.Integer32Value;
 import Interpreter.RuntimeValue;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class BinaryOperationExpr implements Expr{
+public class BinaryOperationExpr implements Expr {
 
     public enum Operator {
         Sum, Subtraction, Multiplication, Division;
@@ -42,6 +44,26 @@ public class BinaryOperationExpr implements Expr{
         System.out.println("RHS:");
         rhs.log();
         System.out.printf("Operator: %s\n", operator.toString());
+    }
+
+    @Override
+    public void codegen() {
+        lhs.codegen();
+        Assembler.push(Register.x32.EAX);
+        rhs.codegen();
+        Assembler.pop(Register.x32.EBX);
+
+        switch (operator) {
+            case Sum: {
+                Assembler.add(Register.x32.EAX, Register.x32.EBX);
+                break;
+            }
+            default: {
+                // TODO: Implement this
+                System.err.println("Not implemented");
+            }
+
+        }
     }
 
     @Override

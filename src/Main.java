@@ -1,28 +1,35 @@
+import Compiler.Assembler.Assembler;
+import Compiler.Assembler.Register;
+import Compiler.Elf.Elf;
+import Compiler.Elf.Section;
+import Compiler.Compiler;
 import Interpreter.Interpreter;
 import Lexer.Lexer;
 import Lexer.Token;
 import Parser.Parser;
 import Parser.Stmts.Stmt;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
 public class Main {
     private static List<Token> tokens;
     private static Stmt AST;
-    public static void main(String[] args) {
-        /* String src = """
-                var int asd = (123 + 35) * 2;
-                """; */
-
-
+    private static ByteArrayOutputStream data;
+    public static void main(String[] args) throws IOException {
         String src = """
-                var int x = 10;
-                var int y = 5;
-                debug x - y;
+                2+3;
                 """;
+
         tokens = Lexer.tokenize(src);
         AST = Parser.parse(tokens);
+
+        Compiler.compile(AST);
+
+        data = Assembler.getData();
+        logData();
 
         Interpreter.run(AST);
     }
@@ -38,5 +45,12 @@ public class Main {
 
     static void logAST() {
         AST.log();
+    }
+
+    static void logData() {
+        for (byte b : data.toByteArray()) {
+            System.out.printf("%02x ", b);
+        }
+        System.out.print('\n');
     }
 }

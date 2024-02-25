@@ -45,4 +45,9 @@ public class VarDeclarationStmt implements Stmt {
     public void run() {
         Interpreter.declareVar(name, type, initialValue);
     }
+
+    @Override
+    public void codegen() {
+        // TODO: Implement this
+    }
 }

@@ -35,4 +35,11 @@ public class ProgramStmt implements Stmt {
             stmt.run();
         }
     }
+
+    @Override
+    public void codegen() {
+        for (Stmt stmt : statements) {
+            stmt.codegen();
+        }
+    }
 }
