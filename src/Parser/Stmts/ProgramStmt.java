@@ -1,10 +1,10 @@
 package Parser.Stmts;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import Lexer.TokenType;
 import Parser.Parser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProgramStmt implements Stmt {
     public List<Stmt> statements = new ArrayList<>();

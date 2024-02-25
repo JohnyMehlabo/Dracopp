@@ -1,8 +1,6 @@
 package Compiler.Assembler;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Assembler {
     private static final ByteArrayOutputStream data = new ByteArrayOutputStream();

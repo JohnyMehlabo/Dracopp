@@ -1,7 +1,4 @@
 import Compiler.Assembler.Assembler;
-import Compiler.Assembler.Register;
-import Compiler.Elf.Elf;
-import Compiler.Elf.Section;
 import Compiler.Compiler;
 import Interpreter.Interpreter;
 import Lexer.Lexer;

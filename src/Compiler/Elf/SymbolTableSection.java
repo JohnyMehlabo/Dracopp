@@ -1,7 +1,5 @@
 package Compiler.Elf;
 
-import Compiler.Assembler.Assembler;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
