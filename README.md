@@ -5,9 +5,21 @@
 - Written in Java
 - References
 - OOP
-- More Polishing
+- More Polished
 	
 ## Roadmap:
+### First step - **Basics**
 - [x] Basic lexer
 - [x] Basic parser
-- [ ] Basic compiling
+- [x] Basic compiling
+
+### Second step - **Taking shape**
+- [ ] Functions
+- [ ] Type system
+- [ ] Loops
+
+### Third step - **Memory**
+- [ ] Pointers
+- [ ] Arrays
+- [ ] Structs
+

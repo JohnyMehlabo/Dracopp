@@ -61,7 +61,7 @@ public class Elf {
         section.index = (short) (sections.size() - 1);
     }
 
-    public static void save() throws IOException {
+    public static void save(Path path) throws IOException {
         ByteArrayOutputStream data = new ByteArrayOutputStream();
 
         // ELF Header
@@ -85,7 +85,7 @@ public class Elf {
             data.write(section.getData());
         }
 
-        Files.write(Path.of("out.o"), data.toByteArray());
+        Files.write(path, data.toByteArray());
     }
 
     private static void addPadding(int paddingSize, ByteArrayOutputStream data) {

@@ -4,11 +4,12 @@ import java.util.*;
 
 public class Lexer {
 
-    static Map<String, TokenType> KEYWORDS;
+    static final Map<String, TokenType> KEYWORDS;
     static {
         KEYWORDS = new HashMap<>();
         KEYWORDS.put("var", TokenType.Var);
         KEYWORDS.put("debug", TokenType.Debug);
+        KEYWORDS.put("if", TokenType.If);
     }
     public static List<Token> tokenize(String code) {
         List<Token> tokens = new ArrayList<>();
@@ -24,6 +25,10 @@ public class Lexer {
                 tokens.add(new Token(TokenType.OpenParen, src.remove(0)));
             else if (src.get(0).equals(")"))
                 tokens.add(new Token(TokenType.CloseParen, src.remove(0)));
+            else if (src.get(0).equals("{"))
+                tokens.add(new Token(TokenType.OpenBrace, src.remove(0)));
+            else if (src.get(0).equals("}"))
+                tokens.add(new Token(TokenType.CloseBrace, src.remove(0)));
             else if (src.get(0).equals("+") || src.get(0).equals("-") || src.get(0).equals("*") || src.get(0).equals("/"))
                 tokens.add(new Token(TokenType.BinaryOperator, src.remove(0)));
             else if (isSkippable(src.get(0)))

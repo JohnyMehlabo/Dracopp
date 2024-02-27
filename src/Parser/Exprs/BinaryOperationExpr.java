@@ -2,8 +2,7 @@ package Parser.Exprs;
 
 import Compiler.Assembler.Assembler;
 import Compiler.Assembler.Register;
-import Interpreter.Integer32Value;
-import Interpreter.RuntimeValue;
+import Compiler.Assembler.RegisterMemory32;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,9 +26,9 @@ public class BinaryOperationExpr implements Expr {
         }
     }
 
-    Expr lhs;
-    Expr rhs;
-    Operator operator;
+    final Expr lhs;
+    final Expr rhs;
+    final Operator operator;
 
     public BinaryOperationExpr(Expr lhs, Expr rhs, String operator) {
         this.lhs = lhs;
@@ -48,54 +47,26 @@ public class BinaryOperationExpr implements Expr {
 
     @Override
     public void codegen() {
-        lhs.codegen();
-        Assembler.push(Register.x32.EAX);
         rhs.codegen();
+        Assembler.push(Register.x32.EAX);
+        lhs.codegen();
         Assembler.pop(Register.x32.EBX);
 
         switch (operator) {
-            case Sum: {
+            case Sum:
                 Assembler.add(Register.x32.EAX, Register.x32.EBX);
                 break;
-            }
-            default: {
-                // TODO: Implement this
-                System.err.println("Not implemented");
-            }
+            case Subtraction:
+                Assembler.sub(new RegisterMemory32(Register.x32.EAX), Register.x32.EBX);
+                break;
+            case Multiplication:
+                Assembler.mul(Register.x32.EBX);
+                break;
+            case Division:
+                Assembler.mov(Register.x32.EDX, 0);
+                Assembler.div(Register.x32.EBX);
+                break;
 
         }
-    }
-
-    @Override
-    public RuntimeValue value() {
-        RuntimeValue lhsValue, rhsValue;
-
-        lhsValue = lhs.value();
-        rhsValue = rhs.value();
-
-        if (lhsValue instanceof Integer32Value && rhsValue instanceof Integer32Value) {
-            int finalValue = intOperation((Integer32Value) lhsValue, (Integer32Value) rhsValue);
-            return new Integer32Value(finalValue);
-        }
-
-        else {
-            System.err.println("Invalid binary operator types");
-            System.exit(-1);
-        }
-
-        return null;
-    }
-
-    private int intOperation(Integer32Value lhsValue, Integer32Value rhsValue) {
-        int finalValue = 0;
-
-        switch (operator) {
-            case Sum -> finalValue = lhsValue.value + rhsValue.value;
-            case Subtraction -> finalValue = lhsValue.value - rhsValue.value;
-            case Multiplication -> finalValue = lhsValue.value * rhsValue.value;
-            case Division -> finalValue = lhsValue.value / rhsValue.value;
-        }
-
-        return finalValue;
     }
 }

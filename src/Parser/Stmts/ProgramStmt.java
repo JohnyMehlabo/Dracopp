@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProgramStmt implements Stmt {
-    public List<Stmt> statements = new ArrayList<>();
+    public final List<Stmt> statements = new ArrayList<>();
 
     public ProgramStmt() {}
 
@@ -26,13 +26,6 @@ public class ProgramStmt implements Stmt {
         for (Stmt stmt : statements) {
             System.out.println("Program Statement");
             stmt.log();
-        }
-    }
-
-    @Override
-    public void run() {
-        for (Stmt stmt : statements) {
-            stmt.run();
         }
     }
 

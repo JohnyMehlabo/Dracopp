@@ -13,7 +13,7 @@ public class PrimaryExprLayer implements ExprLayer {
             case IntLiteral -> new IntegerLiteralExpr(Integer.parseInt(Parser.eat().value));
             case OpenParen -> {
                 Parser.eat();
-                Expr expr = ExprParser.parseExpr();
+                Expr expr = Parser.parseExpr();
                 Parser.expect(TokenType.CloseParen, "Expected closing parenthesis");
                 yield expr;
             }

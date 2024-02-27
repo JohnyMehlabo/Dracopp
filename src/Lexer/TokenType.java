@@ -11,6 +11,10 @@ public enum TokenType {
 
     OpenParen,
     CloseParen,
+    OpenBrace,
+    CloseBrace,
+
+    If,
 
     Debug,
 

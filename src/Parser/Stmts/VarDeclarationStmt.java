@@ -1,10 +1,12 @@
 package Parser.Stmts;
 
-import Interpreter.Interpreter;
+import Compiler.Assembler.Assembler;
+import Compiler.Assembler.Register;
+import Compiler.Assembler.RegisterMemory32;
+import Compiler.Compiler;
 import Lexer.Token;
 import Lexer.TokenType;
 import Parser.Exprs.Expr;
-import Parser.Exprs.Parsing.ExprParser;
 import Parser.Parser;
 
 public class VarDeclarationStmt implements Stmt {
@@ -27,7 +29,7 @@ public class VarDeclarationStmt implements Stmt {
         Expr expr = null;
         if (Parser.at().kind == TokenType.Equals) {
             Parser.eat();
-            expr = ExprParser.parseExpr();
+            expr = Parser.parseExpr();
         }
 
         Parser.expect(TokenType.Semicolon, "Expected ';' after a variable declaration statement");
@@ -42,12 +44,14 @@ public class VarDeclarationStmt implements Stmt {
     }
 
     @Override
-    public void run() {
-        Interpreter.declareVar(name, type, initialValue);
-    }
-
-    @Override
     public void codegen() {
-        // TODO: Implement this
+        Compiler.stackPtr += 4;
+        Compiler.scope.declareVar(name, Compiler.stackPtr);
+        if (initialValue != null) {
+            initialValue.codegen();
+            Assembler.mov(new RegisterMemory32(null, Register.x32.EBP, (byte)-Compiler.stackPtr), Register.x32.EAX);
+
+        }
+        Assembler.sub(new RegisterMemory32(Register.x32.ESP), (byte)4);
     }
 }

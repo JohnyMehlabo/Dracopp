@@ -1,10 +1,13 @@
 package Parser.Exprs;
 
-import Interpreter.Interpreter;
-import Interpreter.RuntimeValue;
+import Compiler.Assembler.Assembler;
+import Compiler.Assembler.Register;
+import Compiler.Assembler.RegisterMemory32;
+import Compiler.Compiler;
+import Compiler.Scope.Variable;
 
 public class IdentifierExpr implements Expr {
-    String symbol;
+    final String symbol;
 
     public IdentifierExpr(String symbol) {
         this.symbol = symbol;
@@ -18,10 +21,8 @@ public class IdentifierExpr implements Expr {
     @Override
     public void codegen() {
         // TODO: Implement this
-    }
+        Variable var = Compiler.scope.resolveVar(symbol);
 
-    @Override
-    public RuntimeValue value() {
-        return Interpreter.resolveVar(symbol);
+        Assembler.mov(Register.x32.EAX, new RegisterMemory32(null, Register.x32.EBP, (byte) -var.stackPos));
     }
 }

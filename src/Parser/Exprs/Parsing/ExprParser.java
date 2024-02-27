@@ -10,7 +10,7 @@ public class ExprParser {
             new PrimaryExprLayer()
     };
 
-    public static Expr parseNextLayer(int depth) {
+    protected static Expr parseNextLayer(int depth) {
         return layers[depth + 1].parse(depth + 1);
     }
 

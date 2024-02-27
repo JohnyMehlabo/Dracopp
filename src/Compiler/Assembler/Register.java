@@ -26,4 +26,8 @@ public enum Register {
         AH, CH,
         DH, BH
     }
+
+    public static class ValueAt {
+        Register register;
+    }
 }

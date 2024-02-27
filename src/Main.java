@@ -1,34 +1,31 @@
 import Compiler.Assembler.Assembler;
 import Compiler.Compiler;
-import Interpreter.Interpreter;
 import Lexer.Lexer;
 import Lexer.Token;
 import Parser.Parser;
 import Parser.Stmts.Stmt;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 
 public class Main {
     private static List<Token> tokens;
     private static Stmt AST;
-    private static ByteArrayOutputStream data;
+    private static byte[] data;
     public static void main(String[] args) throws IOException {
-        String src = """
-                2+3;
-                """;
+        String src = Files.readString(Path.of("code.d++"));
 
         tokens = Lexer.tokenize(src);
         AST = Parser.parse(tokens);
 
+        logAST();
+
         Compiler.compile(AST);
-
-        data = Assembler.getData();
+        data = Assembler.getData().toByteArray();
         logData();
-
-        Interpreter.run(AST);
     }
 
     static void logTokens() {
@@ -45,7 +42,7 @@ public class Main {
     }
 
     static void logData() {
-        for (byte b : data.toByteArray()) {
+        for (byte b : data) {
             System.out.printf("%02x ", b);
         }
         System.out.print('\n');

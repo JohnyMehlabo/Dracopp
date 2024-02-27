@@ -29,3 +29,6 @@ bin/
 .DS_Store
 
 out.o
+build.sh
+code.d++
+main

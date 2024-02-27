@@ -4,25 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Assembler/Register.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Compiler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Elf/Elf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Elf/Section.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Elf/StringTableSection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Elf/SymbolTableSection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Parser/Stmts/ExprStmt.java" afterDir="false" />
+    <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="Added ELF generation">
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory32.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Elf/ElfHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Elf/Label.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Elf/RelocationSection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Scope.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Parser/Stmts/BlockStmt.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Parser/Stmts/IfStmt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Compiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Compiler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Elf/Elf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Elf/Elf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Elf/SymbolTableSection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Elf/SymbolTableSection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interpreter/Integer32Value.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interpreter/Interpreter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interpreter/RuntimeValue.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Lexer/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/Lexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Lexer/TokenType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/TokenType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/BinaryOperationExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/BinaryOperationExpr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Expr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Expr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/IdentifierExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/IdentifierExpr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/IntegerLiteralExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/IntegerLiteralExpr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/ExprParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/ExprParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/PrimaryExprLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/PrimaryExprLayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/ExprStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/ExprStmt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/InterpreterDebugStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/InterpreterDebugStmt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/ProgramStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/ProgramStmt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/Stmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/Stmt.java" afterDir="false" />
@@ -47,6 +58,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 8
@@ -62,11 +76,20 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Shell Script.Build.executor": "Run",
     "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true"
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Programacion/Proyectos/Dracopp/build.sh",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "terminal"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="Compiler.Assembler" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.main">
     <configuration name="main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Dracopp" />
@@ -74,6 +97,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Build" type="ShConfigurationType">
+      <option name="SCRIPT_TEXT" value="" />
+      <option name="INDEPENDENT_SCRIPT_PATH" value="false" />
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/build.sh" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="false" />
+      <option name="INTERPRETER_PATH" value="//wsl$/kali-linux/usr/bin/bash" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="true" />
+      <envs />
+      <method v="2">
+        <option name="RunConfigurationTask" enabled="true" run_configuration_name="main" run_configuration_type="Application" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.main" />
+      <item itemvalue="Shell Script.Build" />
+    </list>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -91,6 +135,38 @@
       <option name="presentableId" value="Default" />
       <updated>1708786269927</updated>
     </task>
+    <task id="LOCAL-00001" summary="Added ELF generation">
+      <option name="closed" value="true" />
+      <created>1708898805265</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1708898805265</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added ELF generation">
+      <option name="closed" value="true" />
+      <created>1708898845502</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1708898845502</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added ELF generation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added ELF generation" />
   </component>
 </project>

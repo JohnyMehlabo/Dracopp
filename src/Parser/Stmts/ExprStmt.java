@@ -2,12 +2,11 @@ package Parser.Stmts;
 
 import Lexer.TokenType;
 import Parser.Exprs.Expr;
-import Parser.Exprs.Parsing.ExprParser;
 import Parser.Parser;
 
 public class ExprStmt implements Stmt {
 
-    Expr expr;
+    final Expr expr;
 
     @Override
     public void log() {
@@ -19,17 +18,12 @@ public class ExprStmt implements Stmt {
         expr.codegen();
     }
 
-    @Override
-    public void run() {
-        expr.value();
-    }
-
     private ExprStmt(Expr expr) {
         this.expr = expr;
     }
 
     public static ExprStmt parse() {
-        ExprStmt exprStmt = new ExprStmt(ExprParser.parseExpr());
+        ExprStmt exprStmt = new ExprStmt(Parser.parseExpr());
         Parser.expect(TokenType.Semicolon, "Expected ';' after an expression statement");
         return exprStmt;
     }
