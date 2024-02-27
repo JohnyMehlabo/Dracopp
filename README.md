@@ -5,7 +5,7 @@
 - Written in Java
 - References
 - OOP
-- More Polished
+- More polished
 	
 ## Roadmap:
 ### First step - **Basics**
