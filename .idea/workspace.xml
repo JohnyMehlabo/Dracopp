@@ -4,40 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="Added ELF generation">
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory32.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Elf/ElfHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Elf/Label.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Elf/RelocationSection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Scope.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Parser/Stmts/BlockStmt.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Parser/Stmts/IfStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="Added basic compiling">
+      <change afterPath="$PROJECT_DIR$/src/Parser/Stmts/WhileStmt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/Register.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Compiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Compiler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Elf/Elf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Elf/Elf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Elf/SymbolTableSection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Elf/SymbolTableSection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interpreter/Integer32Value.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interpreter/Interpreter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interpreter/RuntimeValue.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lexer/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/Lexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lexer/TokenType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/TokenType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/BinaryOperationExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/BinaryOperationExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Expr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Expr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/IdentifierExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/IdentifierExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/IntegerLiteralExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/IntegerLiteralExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/ExprParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/ExprParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/PrimaryExprLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/PrimaryExprLayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/ExprStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/ExprStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/InterpreterDebugStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/InterpreterDebugStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/ProgramStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/ProgramStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/Stmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/Stmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/VarDeclarationStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/VarDeclarationStmt.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +29,20 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;JohnyMehlabo&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="d06ee4db-47a7-4ec7-93b6-2a28ff5d385a" />
+        <option name="url" value="https://github.com/JohnyMehlabo/Dracopp.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -69,24 +57,27 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Debug",
-    "Application.main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Shell Script.Build.executor": "Run",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Programacion/Proyectos/Dracopp/build.sh",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "terminal"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Shell Script.Build.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Programacion/Proyectos/Dracopp/build.sh&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="Compiler.Assembler" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Parser.Stmts" />
     </key>
   </component>
   <component name="RunManager" selected="Application.main">
@@ -151,7 +142,23 @@
       <option name="project" value="LOCAL" />
       <updated>1708898845502</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Got rid of interpreter">
+      <option name="closed" value="true" />
+      <created>1709040201440</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1709040201440</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added basic compiling">
+      <option name="closed" value="true" />
+      <created>1709040247191</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1709040247191</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -167,6 +174,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added ELF generation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added ELF generation" />
+    <MESSAGE value="Got rid of interpreter" />
+    <MESSAGE value="Added basic compiling" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added basic compiling" />
   </component>
 </project>

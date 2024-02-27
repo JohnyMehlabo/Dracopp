@@ -15,6 +15,7 @@ public enum TokenType {
     CloseBrace,
 
     If,
+    While,
 
     Debug,
 

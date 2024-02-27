@@ -14,6 +14,7 @@ public class Compiler {
     public static Scope scope = new Scope(null);
     public static int stackPtr = 0;
     public static int ifCount = 0;
+    public static int whileCount = 0;
 
     public static void startScope() {
         scope = new Scope(scope);

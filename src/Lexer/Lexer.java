@@ -10,6 +10,7 @@ public class Lexer {
         KEYWORDS.put("var", TokenType.Var);
         KEYWORDS.put("debug", TokenType.Debug);
         KEYWORDS.put("if", TokenType.If);
+        KEYWORDS.put("while", TokenType.While);
     }
     public static List<Token> tokenize(String code) {
         List<Token> tokens = new ArrayList<>();
