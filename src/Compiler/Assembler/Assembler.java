@@ -35,12 +35,12 @@ public class Assembler {
     public static void ret() {
         data.write(0xc3);
     }
+    public static void leave() {data.write(0xc9); }
 
     // TODO
     public static void push(Register.x32 reg) {
         data.write((byte)0x50 + reg.ordinal());
     }
-
     // TODO
     public static void pop(Register.x32 reg) {
         data.write((byte)0x58 + reg.ordinal());
@@ -62,7 +62,6 @@ public class Assembler {
         data.write(imm8);
     }
 
-    // TODO
     public static void int_(byte imm8) {
         data.write((byte)0xcd);
         data.write(imm8);
@@ -84,36 +83,38 @@ public class Assembler {
         data.write((byte)0x90);
     }
 
-    public static void jmp(String labelName)  {
+    public static void jmp(String labelName) {
         data.write(0xe9);
-        try {
-            labelRelocations.put(data.size(), labelName);
-            data.write(new byte[] {(byte) 0xfc, (byte) 0xff, (byte) 0xff, (byte) 0xff});
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        labelRelocations.put(data.size(), labelName);
+        writeUndefined32Rel();
+    }
+    public static void call(String labelName) {
+        data.write(0xe8);
+        labelRelocations.put(data.size(), labelName);
+        writeUndefined32Rel();
     }
     public static void je(String labelName) {
         data.write(0x0f);
         data.write(0x84);
-        try {
-            labelRelocations.put(data.size(), labelName);
-            data.write(new byte[] {(byte) 0xfc, (byte) 0xff, (byte) 0xff, (byte) 0xff});
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        labelRelocations.put(data.size(), labelName);
+        writeUndefined32Rel();
     }
-    public static void jz(String labelName)  {
+    public static void jz(String labelName) {
         je(labelName);
     }
 
+    private static void writeUndefined32Rel() {
+        data.write(0xfc);
+        data.write(0xff);
+        data.write(0xff);
+        data.write(0xff);
+    }
     private static void littleEndian(int imm32) {
         data.write((byte) (imm32 & 0b11111111));
         data.write((byte) ((imm32 & (0b11111111 << 8)) >> 8));
         data.write((byte) ((imm32 & (0b11111111 << 16)) >> 16));
         data.write((byte) ((imm32 & (0b11111111 << 24)) >> 24));
     }
-
     private static void generateAddressingBytes32(RegisterMemory32 regM, int regBits) {
         if (regM.readAddress) {
             if (regM.hasDisplacement ||  (regM.addressReg == Register.x32.EBP)) {

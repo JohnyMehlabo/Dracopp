@@ -16,6 +16,7 @@ public enum TokenType {
 
     If,
     While,
+    Func,
 
     Debug,
 

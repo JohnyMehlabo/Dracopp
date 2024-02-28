@@ -91,7 +91,6 @@ public class ElfHandler {
         Text.initRelocationSection();
         Assembler.setData(Text.textSectionData);
         Assembler.setSection(Text.textSection);
-        Text.addLabel("_start", 1);
     }
 
     public static void save(Path outputFile) throws IOException {

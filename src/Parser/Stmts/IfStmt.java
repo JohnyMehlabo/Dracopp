@@ -9,6 +9,8 @@ import Lexer.TokenType;
 import Parser.Exprs.Expr;
 import Parser.Parser;
 
+import java.io.IOException;
+
 public class IfStmt implements Stmt {
     final Expr condition;
     final Stmt body;
@@ -23,7 +25,7 @@ public class IfStmt implements Stmt {
     }
 
     @Override
-    public void codegen() {
+    public void codegen(){
         condition.codegen();
         Assembler.test(new RegisterMemory32(Register.x32.EAX), Register.x32.EAX);
 

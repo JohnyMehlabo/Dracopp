@@ -15,7 +15,7 @@ public class IdentifierExpr implements Expr {
 
     @Override
     public void log() {
-        System.out.printf("Identifier Expr: %s\n", symbol);
+        System.out.printf("Identifier Expression: %s\n", symbol);
     }
 
     @Override

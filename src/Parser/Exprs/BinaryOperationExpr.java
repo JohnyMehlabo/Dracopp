@@ -38,7 +38,7 @@ public class BinaryOperationExpr implements Expr {
 
     @Override
     public void log() {
-        System.out.println("Binary Operation Expr:\nLHS:");
+        System.out.println("Binary Operation Expression:\nLHS:");
         lhs.log();
         System.out.println("RHS:");
         rhs.log();

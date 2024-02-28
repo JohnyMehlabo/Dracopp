@@ -10,7 +10,8 @@ public class ExprStmt implements Stmt {
 
     @Override
     public void log() {
-        System.out.print("Expression Stmt: ");
+        System.out.println("Expression Statement: ");
+        expr.log();
     }
 
     @Override

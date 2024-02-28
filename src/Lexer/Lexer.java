@@ -11,6 +11,7 @@ public class Lexer {
         KEYWORDS.put("debug", TokenType.Debug);
         KEYWORDS.put("if", TokenType.If);
         KEYWORDS.put("while", TokenType.While);
+        KEYWORDS.put("func", TokenType.Func);
     }
     public static List<Token> tokenize(String code) {
         List<Token> tokens = new ArrayList<>();

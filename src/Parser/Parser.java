@@ -36,6 +36,7 @@ public class Parser {
             case OpenBrace -> BlockStmt.parse();
             case If -> IfStmt.parse();
             case While -> WhileStmt.parse();
+            case Func -> FuncDeclarationStmt.parse();
             default -> ExprStmt.parse();
         };
     }

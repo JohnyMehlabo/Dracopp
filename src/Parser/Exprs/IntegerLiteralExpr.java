@@ -12,7 +12,7 @@ public class IntegerLiteralExpr implements Expr {
 
     @Override
     public void log() {
-        System.out.printf("Integer Literal Expr:\n\tValue: %d\n", value);
+        System.out.printf("Integer Literal Expression:\n\tValue: %d\n", value);
     }
 
     @Override

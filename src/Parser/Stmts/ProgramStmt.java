@@ -23,8 +23,8 @@ public class ProgramStmt implements Stmt {
 
     @Override
     public void log() {
+        System.out.println("Program Statement");
         for (Stmt stmt : statements) {
-            System.out.println("Program Statement");
             stmt.log();
         }
     }

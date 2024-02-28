@@ -9,13 +9,15 @@ import Lexer.TokenType;
 import Parser.Exprs.Expr;
 import Parser.Parser;
 
+import java.io.IOException;
+
 public class WhileStmt implements Stmt {
     final Expr condition;
     final Stmt body;
 
     @Override
     public void log() {
-        System.out.println("If Statement: ");
+        System.out.println("While Statement: ");
         System.out.println("\tCondition: ");
         condition.log();
         System.out.println("\tBody: ");
@@ -23,7 +25,7 @@ public class WhileStmt implements Stmt {
     }
 
     @Override
-    public void codegen() {
+    public void codegen(){
         ElfHandler.Text.addLabel(String.format("while_%d_start", Compiler.whileCount), 0);
         condition.codegen();
         Assembler.test(new RegisterMemory32(Register.x32.EAX), Register.x32.EAX);

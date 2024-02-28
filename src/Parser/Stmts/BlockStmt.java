@@ -13,7 +13,7 @@ public class BlockStmt implements Stmt {
 
     @Override
     public void log() {
-        System.out.println("Block Stmt: ");
+        System.out.println("Block Statement: ");
         for (Stmt stmt : body) { stmt.log(); }
     }
 
