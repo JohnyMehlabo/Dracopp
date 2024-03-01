@@ -1,15 +1,14 @@
 package Compiler.Assembler;
 
-public class RegisterMemory32 {
-    Register.x32 reg;
+public class RegisterMemory16 {
+    Register.x16 reg;
     boolean readAddress = false;
     Register.x32 addressReg;
     boolean hasDisplacement = false;
     byte displacement = 0;
 
-    public RegisterMemory32(RegisterMemory registerMemory) {
-        this.reg = (Register.x32) Register.fromSize(registerMemory.reg.ordinal(), 2);
-
+    public RegisterMemory16(RegisterMemory registerMemory) {
+        this.reg = (Register.x16) Register.fromSize(registerMemory.reg.ordinal(), 2);
         this.addressReg = registerMemory.addressReg;
         if (addressReg != null)
             this.readAddress = true;
@@ -17,17 +16,17 @@ public class RegisterMemory32 {
         if (displacement != 0)
             this.hasDisplacement = true;
     }
-    public RegisterMemory32(Register.x32 reg) {
+    public RegisterMemory16(Register.x16 reg) {
         this.reg = reg;
     }
 
-    public RegisterMemory32(Register.x32 reg, Register.x32 addressReg) {
+    public RegisterMemory16(Register.x16 reg, Register.x32 addressReg) {
         this.reg = reg;
         this.readAddress = true;
         this.addressReg = addressReg;
     }
 
-    public RegisterMemory32(Register.x32 reg, Register.x32 addressReg, byte displacement) {
+    public RegisterMemory16(Register.x16 reg, Register.x32 addressReg, byte displacement) {
         this.reg = reg;
         this.addressReg = addressReg;
         if (addressReg != null)

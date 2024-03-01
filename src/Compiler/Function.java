@@ -1,9 +1,13 @@
 package Compiler;
 
-public class Function {
-    String name;
+import Compiler.Types.Type;
 
-    Function(String name) {
+public class Function {
+    public String name;
+    public Type returnType;
+
+    Function(String name, Type returnType) {
         this.name = name;
+        this.returnType = returnType;
     }
 }

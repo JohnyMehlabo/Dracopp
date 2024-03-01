@@ -15,7 +15,7 @@
 
 ### Second step - **Taking shape**
 - [ ] Functions
-- [ ] Type system
+- [x] Type system
 - [x] Loops
 
 ### Third step - **Memory**

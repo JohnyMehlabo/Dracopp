@@ -1,33 +1,39 @@
 package Compiler.Assembler;
 
-public enum Register {
-    ;
-    public enum x64 {
+public interface Register {
+    enum x64 implements Register {
         RAX, RCX,
         RDX, RBX,
         RSP, RBP,
         RSI, RDI
     }
-    public enum x32 {
+    enum x32 implements Register {
         EAX, ECX,
         EDX, EBX,
         ESP, EBP,
         ESI, EDI
     }
-    public enum x16 {
+    enum x16 implements Register {
         AX, CX,
         DX, BX,
         SP, BP,
         SI, DI
     }
-    public enum x8 {
+    enum x8 implements Register {
         AL, CL,
         DL, BL,
         AH, CH,
         DH, BH
     }
+    int ordinal();
 
-    public static class ValueAt {
-        Register register;
+    static Register fromSize(int ordinal, int size) {
+        return switch (size) {
+            case 8 -> x64.values()[ordinal];
+            case 4 -> x32.values()[ordinal];
+            case 2 -> x16.values()[ordinal];
+            case 1 -> x8.values()[ordinal];
+            default -> null;
+        };
     }
 }

@@ -2,6 +2,8 @@ package Parser.Exprs;
 
 import Compiler.Assembler.Assembler;
 import Compiler.Compiler;
+import Compiler.Function;
+import Compiler.Types.Type;
 
 public class FuncCallExpr implements Expr{
     Expr caller;
@@ -14,10 +16,13 @@ public class FuncCallExpr implements Expr{
     }
 
     @Override
-    public void codegen() {
+    public Type codegen() {
         if (caller.getClass().equals(IdentifierExpr.class)) {
-            if (Compiler.resolveFunction(((IdentifierExpr) caller).symbol) != null)
+            Function function = Compiler.resolveFunction(((IdentifierExpr) caller).symbol);
+            if (function != null) {
                 Assembler.call(((IdentifierExpr) caller).symbol);
+                return function.returnType;
+            }
             else {
                 System.err.printf("Attempting to call undefined function '%s'\n", ((IdentifierExpr) caller).symbol);
                 System.exit(-1);
@@ -26,6 +31,8 @@ public class FuncCallExpr implements Expr{
             System.err.println("Caller must be an identifier expression");
             System.exit(-1);
         }
+
+        return null;
     }
 
     public FuncCallExpr(Expr caller) {

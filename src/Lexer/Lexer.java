@@ -31,8 +31,19 @@ public class Lexer {
                 tokens.add(new Token(TokenType.OpenBrace, src.remove(0)));
             else if (src.get(0).equals("}"))
                 tokens.add(new Token(TokenType.CloseBrace, src.remove(0)));
-            else if (src.get(0).equals("+") || src.get(0).equals("-") || src.get(0).equals("*") || src.get(0).equals("/"))
+            else if (src.get(0).equals("+") || src.get(0).equals("*") || src.get(0).equals("/"))
                 tokens.add(new Token(TokenType.BinaryOperator, src.remove(0)));
+            else if (src.get(0).equals("-")) {
+                if (src.size() > 1){
+                    if (src.get(1).equals(">")) {
+                        src.remove(0);
+                        src.remove(0);
+                        tokens.add(new Token(TokenType.Arrow, "->"));
+                        continue;
+                    }
+                }
+                tokens.add(new Token(TokenType.BinaryOperator, "-"));
+            }
             else if (isSkippable(src.get(0)))
                 src.remove(0);
             else if (isInt(src.get(0))) {

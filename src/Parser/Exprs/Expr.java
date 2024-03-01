@@ -1,8 +1,7 @@
 package Parser.Exprs;
 
-import java.io.IOException;
-
+import Compiler.Types.Type;
 public interface Expr {
     void log();
-    void codegen();
+    Type codegen();
 }

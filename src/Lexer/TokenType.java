@@ -6,6 +6,7 @@ public enum TokenType {
     Var,
     Identifier,
 
+    Arrow,
     BinaryOperator,
     Equals,
 

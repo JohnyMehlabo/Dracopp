@@ -1,6 +1,8 @@
 package Compiler.Assembler;
 
-import Compiler.Elf.*;
+import Compiler.Elf.ElfHandler;
+import Compiler.Elf.Section;
+import Compiler.Elf.SymbolTableSection;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -13,18 +15,96 @@ public class Assembler {
 
     private static final Map<Integer, String> labelRelocations = new HashMap<>();
 
+    // Immediate
     public static void mov(Register.x32 reg, int imm32) {
         data.write((byte) (0xb8 | reg.ordinal()));
         littleEndian(imm32);
+    }
+
+    // r/m <-- r
+    public static void mov(RegisterMemory dst, int dstSize, Register src, int srcSize) {
+        if (dstSize == srcSize) {
+            switch (dstSize) {
+                case 4:
+                    mov(new RegisterMemory32(dst), ((Register.x32) src));
+                    break;
+                case 2:
+                    mov(new RegisterMemory16(dst), ((Register.x16) src));
+                    break;
+                case 1:
+                    mov(new RegisterMemory8(dst), ((Register.x8) src));
+                    break;
+            }
+        }
+
     }
     public static void mov(RegisterMemory32 dst , Register.x32 src) {
         data.write(0x89);
         generateAddressingBytes32(dst, src.ordinal());
     }
+    public static void mov(RegisterMemory16 dst , Register.x16 src) {
+        data.write(0x66);
+        data.write(0x89);
+        generateAddressingBytes32(dst, src.ordinal());
+    }
+    public static void mov(RegisterMemory8 dst , Register.x8 src) {
+        data.write(0x88);
+        generateAddressingBytes32(dst, src.ordinal());
+    }
+
+    // r <-- r/m
+    public static void mov(Register dst, int dstSize, RegisterMemory src, int srcSize) {
+        if (dstSize == srcSize) {
+            switch (dstSize) {
+                case 4:
+                    Assembler.mov((Register.x32) dst, new RegisterMemory32(src));
+                    break;
+                case 2:
+                    Assembler.mov((Register.x16) dst, new RegisterMemory16(src));
+                    break;
+                case 1:
+                    Assembler.mov((Register.x8) dst, new RegisterMemory8(src));
+                    break;
+            }
+        }
+    }
     public static void mov(Register.x32 dst, RegisterMemory32 src) {
         data.write(0x8b);
         generateAddressingBytes32(src, dst.ordinal());
     }
+    public static void mov(Register.x16 dst, RegisterMemory16 src) {
+        data.write(0x66);
+        data.write(0x8b);
+        generateAddressingBytes32(src, dst.ordinal());
+    }
+    public static void mov(Register.x8 dst, RegisterMemory8 src) {
+        data.write(0x8a);
+        generateAddressingBytes32(src, dst.ordinal());
+    }
+
+    public static void movsx(Register dst, int dstSize, RegisterMemory src, int srcSize) {
+        if (dstSize == 4 && srcSize == 2) movsx((Register.x32) dst, new RegisterMemory16(src));
+        if (dstSize == 4 && srcSize == 1) movsx((Register.x32) dst, new RegisterMemory8(src));
+        if (dstSize == 2 && srcSize == 1) movsx((Register.x16) dst, new RegisterMemory8(src));
+
+    }
+    public static void movsx(Register.x16 dst, RegisterMemory8 src) {
+        data.write(0x66);
+        data.write(0x0f);
+        data.write(0xbe);
+        generateAddressingBytes32(src, dst.ordinal());
+    }
+    public static void movsx(Register.x32 dst, RegisterMemory8 src) {
+        data.write(0x0f);
+        data.write(0xbe);
+        generateAddressingBytes32(src, dst.ordinal());
+    }
+    public static void movsx(Register.x32 dst, RegisterMemory16 src) {
+        data.write(0x0f);
+        data.write(0xbf);
+        generateAddressingBytes32(src, dst.ordinal());
+    }
+
 
     public static void test(RegisterMemory32 reg , Register.x32 other) {
         data.write(0x85);
@@ -126,7 +206,35 @@ public class Assembler {
             }
         }
         else {
-            data.write(0b11000000 | regM.reg.ordinal() | (regBits << 3));
+            data.write(0b11000000 | ((Register.x32) regM.reg).ordinal() | (regBits << 3));
+        }
+    }
+    private static void generateAddressingBytes32(RegisterMemory16 regM, int regBits) {
+        if (regM.readAddress) {
+            if (regM.hasDisplacement ||  (regM.addressReg == Register.x32.EBP)) {
+                data.write(0b01000000 | regM.addressReg.ordinal() | (regBits << 3));
+                data.write(regM.displacement);
+            }
+            else {
+                data.write(regM.addressReg.ordinal() | (regBits << 3));
+            }
+        }
+        else {
+            data.write(0b11000000 | ((Register.x16) regM.reg).ordinal() | (regBits << 3));
+        }
+    }
+    private static void generateAddressingBytes32(RegisterMemory8 regM, int regBits) {
+        if (regM.readAddress) {
+            if (regM.hasDisplacement ||  (regM.addressReg == Register.x32.EBP)) {
+                data.write(0b01000000 | regM.addressReg.ordinal() | (regBits << 3));
+                data.write(regM.displacement);
+            }
+            else {
+                data.write(regM.addressReg.ordinal() | (regBits << 3));
+            }
+        }
+        else {
+            data.write(0b11000000 | ((Register.x8) regM.reg).ordinal() | (regBits << 3));
         }
     }
 

@@ -1,8 +1,8 @@
 package Parser.Stmts;
 
+import Compiler.Compiler;
 import Lexer.TokenType;
 import Parser.Parser;
-import Compiler.Compiler;
 
 import java.util.ArrayList;
 import java.util.List;

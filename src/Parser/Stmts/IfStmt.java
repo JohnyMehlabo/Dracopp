@@ -1,15 +1,13 @@
 package Parser.Stmts;
 
 import Compiler.Assembler.Assembler;
-import Compiler.Compiler;
 import Compiler.Assembler.Register;
 import Compiler.Assembler.RegisterMemory32;
+import Compiler.Compiler;
 import Compiler.Elf.ElfHandler;
 import Lexer.TokenType;
 import Parser.Exprs.Expr;
 import Parser.Parser;
-
-import java.io.IOException;
 
 public class IfStmt implements Stmt {
     final Expr condition;

@@ -3,6 +3,8 @@ package Parser.Exprs;
 import Compiler.Assembler.Assembler;
 import Compiler.Assembler.Register;
 import Compiler.Assembler.RegisterMemory32;
+import Compiler.Types.BasicType;
+import Compiler.Types.Type;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,10 +48,13 @@ public class BinaryOperationExpr implements Expr {
     }
 
     @Override
-    public void codegen() {
-        rhs.codegen();
+    public Type codegen() {
+        Type rhsType = rhs.codegen();
+        Type.cast(rhsType, BasicType.Int);
         Assembler.push(Register.x32.EAX);
-        lhs.codegen();
+
+        Type lhsType = lhs.codegen();
+        Type.cast(lhsType, BasicType.Int);
         Assembler.pop(Register.x32.EBX);
 
         switch (operator) {
@@ -66,7 +71,7 @@ public class BinaryOperationExpr implements Expr {
                 Assembler.mov(Register.x32.EDX, 0);
                 Assembler.div(Register.x32.EBX);
                 break;
-
         }
+        return BasicType.Int;
     }
 }

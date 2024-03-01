@@ -2,6 +2,8 @@ package Parser.Exprs;
 
 import Compiler.Assembler.Assembler;
 import Compiler.Assembler.Register;
+import Compiler.Types.BasicType;
+import Compiler.Types.Type;
 
 public class IntegerLiteralExpr implements Expr {
     final int value;
@@ -16,7 +18,8 @@ public class IntegerLiteralExpr implements Expr {
     }
 
     @Override
-    public void codegen() {
+    public Type codegen() {
         Assembler.mov(Register.x32.EAX, value);
+        return BasicType.Int;
     }
 }

@@ -9,8 +9,6 @@ import Lexer.TokenType;
 import Parser.Exprs.Expr;
 import Parser.Parser;
 
-import java.io.IOException;
-
 public class WhileStmt implements Stmt {
     final Expr condition;
     final Stmt body;

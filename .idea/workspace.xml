@@ -4,30 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="Added while loops">
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Function.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/SubscriptsExprLayer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Parser/Stmts/FuncDeclarationStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="Added basic functions">
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory16.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory8.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Types/BasicType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Types/Type.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory32.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory32.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Compiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Compiler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Elf/ElfHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Elf/ElfHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Function.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Scope.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Scope.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lexer/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/Lexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lexer/TokenType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/TokenType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/BinaryOperationExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/BinaryOperationExpr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Expr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Expr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/IdentifierExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/IdentifierExpr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/IntegerLiteralExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/IntegerLiteralExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/ExprParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/ExprParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/BlockStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/BlockStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/ExprStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/ExprStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/IfStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/IfStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/ProgramStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/ProgramStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/Stmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/Stmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/WhileStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/WhileStmt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/FuncDeclarationStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/FuncDeclarationStmt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/VarDeclarationStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/VarDeclarationStmt.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,10 +38,16 @@
       <list>
         <option value="Enum" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Type-Safety" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -63,7 +68,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -85,7 +90,7 @@
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Programacion/Proyectos/Dracopp",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "terminal"
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -96,6 +101,7 @@
       <recent name="Compiler.Assembler" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Compiler.Assembler" />
       <recent name="Parser.Stmts" />
     </key>
   </component>
@@ -185,7 +191,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709051983701</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added basic functions">
+      <option name="closed" value="true" />
+      <created>1709145361560</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1709145361560</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -204,7 +218,8 @@
     <MESSAGE value="Got rid of interpreter" />
     <MESSAGE value="Added basic compiling" />
     <MESSAGE value="Added while loops" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added while loops" />
+    <MESSAGE value="Added basic functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added basic functions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
