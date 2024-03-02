@@ -21,6 +21,7 @@ public enum TokenType {
 
     Debug,
 
+    Comma,
     Semicolon,
     EOF
 }

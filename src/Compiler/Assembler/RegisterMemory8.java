@@ -8,8 +8,8 @@ public class RegisterMemory8 {
     byte displacement = 0;
 
     public RegisterMemory8(RegisterMemory registerMemory) {
-        this.reg = (Register.x8) Register.fromSize(registerMemory.reg.ordinal(), 1);
-
+        if (registerMemory.reg != null)
+            this.reg = (Register.x8) Register.fromSize(registerMemory.reg.ordinal(), 1);
         this.addressReg = registerMemory.addressReg;
         if (addressReg != null)
             this.readAddress = true;

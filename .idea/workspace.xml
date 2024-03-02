@@ -4,27 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="Added basic functions">
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory16.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory8.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Types/BasicType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Types/Type.java" afterDir="false" />
+    <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory16.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory16.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory32.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory32.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory8.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory8.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Compiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Compiler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Function.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Scope.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Scope.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lexer/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/Lexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lexer/TokenType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/TokenType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/BinaryOperationExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/BinaryOperationExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Expr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Expr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/IdentifierExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/IdentifierExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/IntegerLiteralExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/IntegerLiteralExpr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/SubscriptsExprLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/SubscriptsExprLayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/FuncDeclarationStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/FuncDeclarationStmt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/VarDeclarationStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/VarDeclarationStmt.java" afterDir="false" />
     </list>
@@ -78,21 +71,21 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Debug",
-    "Application.main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Shell Script.Build.executor": "Run",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Programacion/Proyectos/Dracopp",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Shell Script.Build.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Programacion/Proyectos/Dracopp&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Programacion\Proyectos\Dracopp" />
@@ -199,7 +192,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709145361560</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added type system">
+      <option name="closed" value="true" />
+      <created>1709315512896</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1709315512896</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -219,15 +220,21 @@
     <MESSAGE value="Added basic compiling" />
     <MESSAGE value="Added while loops" />
     <MESSAGE value="Added basic functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added basic functions" />
+    <MESSAGE value="Added type system" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added type system" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Parser/Parser.java</url>
-          <line>39</line>
-          <option name="timeStamp" value="5" />
+          <url>file://$PROJECT_DIR$/src/Compiler/Compiler.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Parser/Stmts/ProgramStmt.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

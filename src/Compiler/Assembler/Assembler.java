@@ -22,17 +22,17 @@ public class Assembler {
     }
 
     // r/m <-- r
-    public static void mov(RegisterMemory dst, int dstSize, Register src, int srcSize) {
+    public static void mov(RegisterMemory dst, int dstSize, int srcOrdinal, int srcSize) {
         if (dstSize == srcSize) {
             switch (dstSize) {
                 case 4:
-                    mov(new RegisterMemory32(dst), ((Register.x32) src));
+                    mov(new RegisterMemory32(dst), Register.x32.values()[srcOrdinal]);
                     break;
                 case 2:
-                    mov(new RegisterMemory16(dst), ((Register.x16) src));
+                    mov(new RegisterMemory16(dst), Register.x16.values()[srcOrdinal]);
                     break;
                 case 1:
-                    mov(new RegisterMemory8(dst), ((Register.x8) src));
+                    mov(new RegisterMemory8(dst), Register.x8.values()[srcOrdinal]);
                     break;
             }
         }
@@ -53,17 +53,17 @@ public class Assembler {
     }
 
     // r <-- r/m
-    public static void mov(Register dst, int dstSize, RegisterMemory src, int srcSize) {
+    public static void mov(int dstOrdinal, int dstSize, RegisterMemory src, int srcSize) {
         if (dstSize == srcSize) {
             switch (dstSize) {
                 case 4:
-                    Assembler.mov((Register.x32) dst, new RegisterMemory32(src));
+                    Assembler.mov(Register.x32.values()[dstOrdinal], new RegisterMemory32(src));
                     break;
                 case 2:
-                    Assembler.mov((Register.x16) dst, new RegisterMemory16(src));
+                    Assembler.mov(Register.x16.values()[dstOrdinal], new RegisterMemory16(src));
                     break;
                 case 1:
-                    Assembler.mov((Register.x8) dst, new RegisterMemory8(src));
+                    Assembler.mov(Register.x8.values()[dstOrdinal], new RegisterMemory8(src));
                     break;
             }
         }

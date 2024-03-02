@@ -24,8 +24,7 @@ public class IdentifierExpr implements Expr {
         Variable var = Compiler.scope.resolveVar(symbol);
 
         int size = Type.getSizeOf(var.type);
-        Register reg = Register.fromSize(Register.x32.EAX.ordinal(), size);
-        Assembler.mov(reg, size, new RegisterMemory(null, Register.x32.EBP, (byte) -var.stackPos), size);
+        Assembler.mov(Register.x32.EAX.ordinal(), size, new RegisterMemory(null, Register.x32.EBP, (byte) -var.stackPos), size);
 
         return var.type;
     }

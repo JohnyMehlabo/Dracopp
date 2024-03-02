@@ -13,8 +13,8 @@
 - [x] Basic parser
 - [x] Basic compiling
 
-### Second step - **Taking shape**
-- [ ] Functions
+### ~~Second step - **Taking shape**~~
+- [x] Functions
 - [x] Type system
 - [x] Loops
 

@@ -23,6 +23,8 @@ public class Lexer {
                 tokens.add(new Token(TokenType.Equals, src.remove(0)));
             else if (src.get(0).equals(";"))
                 tokens.add(new Token(TokenType.Semicolon, src.remove(0)));
+            else if (src.get(0).equals(","))
+                tokens.add(new Token(TokenType.Comma, src.remove(0)));
             else if (src.get(0).equals("("))
                 tokens.add(new Token(TokenType.OpenParen, src.remove(0)));
             else if (src.get(0).equals(")"))

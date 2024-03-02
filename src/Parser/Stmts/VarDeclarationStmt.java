@@ -60,8 +60,7 @@ public class VarDeclarationStmt implements Stmt {
         Compiler.scope.declareVar(name, type, Compiler.stackPtr);
         if (initialValue != null) {
             initialValue.codegen();
-            Register reg = Register.fromSize(Register.x32.EAX.ordinal(), size);
-            Assembler.mov(new RegisterMemory(null, Register.x32.EBP, (byte) -Compiler.stackPtr), size, reg, size);
+            Assembler.mov(new RegisterMemory(null, Register.x32.EBP, (byte) -Compiler.stackPtr), size, Register.x32.EAX.ordinal(), size);
         }
         Assembler.sub(new RegisterMemory32(Register.x32.ESP), (byte)4);
     }
