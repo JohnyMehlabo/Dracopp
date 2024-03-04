@@ -6,10 +6,7 @@ import Compiler.Assembler.RegisterMemory;
 
 public interface Type {
 
-    static int getSizeOf(Type type) {
-        if (type instanceof BasicType) {return ((BasicType) type).size; }
-        else return -1;
-    }
+    int getSize();
 
     static void cast(Type from, Type to) {
         if (from.getClass() == to.getClass()) {
@@ -22,5 +19,9 @@ public interface Type {
             System.err.println("Types types don't match");
             System.exit(-1);
         }
+    }
+
+    static void castToSize(Type type, int size) {
+        Assembler.movsx(Register.x32.EAX, size, new RegisterMemory(Register.x32.EAX), type.getSize());
     }
 }

@@ -26,13 +26,7 @@ public class VarDeclarationStmt implements Stmt {
     public static VarDeclarationStmt parse() {
         Parser.eat();
 
-        Token typeToken = Parser.expect(TokenType.Identifier, "Expected type identifier");
-
-        Type type = BasicType.get(typeToken.value);
-        if (type == null) {
-            System.err.printf("Unknown type in variable declaration: '%s'\n", typeToken.value);
-            System.exit(-1);
-        }
+        Type type = Parser.parseType();
 
         Token nameToken = Parser.expect(TokenType.Identifier, "Expected name identifier");
 
@@ -55,11 +49,12 @@ public class VarDeclarationStmt implements Stmt {
 
     @Override
     public void codegen() {
-        int size = Type.getSizeOf(type);
+        int size = type.getSize();
         Compiler.stackPtr += size;
         Compiler.scope.declareVar(name, type, Compiler.stackPtr);
         if (initialValue != null) {
-            initialValue.codegen();
+            Type valueType = initialValue.codegen();
+            Type.cast(valueType, type);
             Assembler.mov(new RegisterMemory(null, Register.x32.EBP, (byte) -Compiler.stackPtr), size, Register.x32.EAX.ordinal(), size);
         }
         Assembler.sub(new RegisterMemory32(Register.x32.ESP), (byte)4);

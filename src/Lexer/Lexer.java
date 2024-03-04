@@ -21,6 +21,8 @@ public class Lexer {
         while (!src.isEmpty()) {
             if (src.get(0).equals("="))
                 tokens.add(new Token(TokenType.Equals, src.remove(0)));
+            else if (src.get(0).equals("&"))
+                tokens.add(new Token(TokenType.AddressOf, src.remove(0)));
             else if (src.get(0).equals(";"))
                 tokens.add(new Token(TokenType.Semicolon, src.remove(0)));
             else if (src.get(0).equals(","))

@@ -19,7 +19,7 @@
 - [x] Loops
 
 ### Third step - **Memory**
-- [ ] Pointers
+- [x] Pointers
 - [ ] Arrays
 - [ ] Structs
 

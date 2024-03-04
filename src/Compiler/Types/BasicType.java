@@ -18,5 +18,8 @@ public enum BasicType implements Type {
         return Arrays.stream(BasicType.values()).filter(t ->t.name.equals(name)).findFirst().orElse(null);
     }
 
-
+    @Override
+    public int getSize() {
+        return size;
+    }
 }

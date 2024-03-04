@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Dracopp:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Dracopp_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Types/PointerType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/MemoryOperatorExprLayer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Parser/Exprs/UnaryOperationExpr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory16.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory16.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory32.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory32.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory8.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory8.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Compiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Compiler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Function.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Types/BasicType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Types/BasicType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Types/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Types/Type.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lexer/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/Lexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lexer/TokenType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/TokenType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Expr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Expr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/IdentifierExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/IdentifierExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/SubscriptsExprLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/SubscriptsExprLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/ExprParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/ExprParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/FuncDeclarationStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/FuncDeclarationStmt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/VarDeclarationStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/VarDeclarationStmt.java" afterDir="false" />
     </list>
@@ -30,8 +37,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -71,21 +78,24 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Debug&quot;,
-    &quot;Application.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Shell Script.Build.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Programacion/Proyectos/Dracopp&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Debug",
+    "Application.main.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Shell Script.Build.executor": "Run",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Programacion/Proyectos/Dracopp",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Programacion\Proyectos\Dracopp" />
@@ -200,7 +210,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709315512896</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added function args">
+      <option name="closed" value="true" />
+      <created>1709398209747</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1709398209747</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -221,27 +239,31 @@
     <MESSAGE value="Added while loops" />
     <MESSAGE value="Added basic functions" />
     <MESSAGE value="Added type system" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added type system" />
+    <MESSAGE value="Added function args" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added function args" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Compiler/Compiler.java</url>
-          <line>47</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Parser/Stmts/ProgramStmt.java</url>
-          <line>34</line>
-          <option name="timeStamp" value="2" />
+          <url>file://$PROJECT_DIR$/src/Compiler/Types/Type.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
+      <default-breakpoints>
+        <breakpoint enabled="true" type="java-exception" />
+      </default-breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="Parser.Stmts.FuncDeclarationStmt" memberName="body" />
       </pinned-members>
     </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="from" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

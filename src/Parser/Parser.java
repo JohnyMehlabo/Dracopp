@@ -1,5 +1,8 @@
 package Parser;
 
+import Compiler.Types.BasicType;
+import Compiler.Types.PointerType;
+import Compiler.Types.Type;
 import Lexer.Token;
 import Lexer.TokenType;
 import Parser.Exprs.Expr;
@@ -48,5 +51,20 @@ public class Parser {
 
     public static Expr parseExpr(){
         return ExprParser.parseExpr();
+    }
+
+    public static Type parseType() {
+        Token typeToken = Parser.expect(TokenType.Identifier, "Expected type identifier");
+
+        Type type = BasicType.get(typeToken.value);
+        if (type == null) {
+            System.err.printf("Unknown type in variable declaration: '%s'\n", typeToken.value);
+            System.exit(-1);
+        }
+        while (at().kind == TokenType.BinaryOperator && at().value.equals("*")) {
+            eat();
+            type = new PointerType(type);
+        }
+        return type;
     }
 }

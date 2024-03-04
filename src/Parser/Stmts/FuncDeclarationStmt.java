@@ -6,7 +6,6 @@ import Compiler.Assembler.RegisterMemory;
 import Compiler.Assembler.RegisterMemory32;
 import Compiler.Compiler;
 import Compiler.Elf.ElfHandler;
-import Compiler.Types.BasicType;
 import Compiler.Types.Type;
 import Lexer.Token;
 import Lexer.TokenType;
@@ -47,7 +46,7 @@ public class FuncDeclarationStmt implements Stmt {
         for (int i = 0; i < args.keySet().size(); i++) {
             String argName = (String) args.keySet().toArray()[i];
             Type argType = args.get(argName);
-            int typeSize = Type.getSizeOf(argType);
+            int typeSize = argType.getSize();
             Compiler.stackPtr += typeSize;
             Assembler.mov(Register.x32.EAX, new RegisterMemory32(ARG_REGISTER_LIST.get(i)));
             Assembler.mov(new RegisterMemory(null, Register.x32.EBP, (byte) -Compiler.stackPtr), typeSize, Register.x32.EAX.ordinal(), typeSize);
@@ -75,12 +74,7 @@ public class FuncDeclarationStmt implements Stmt {
     }
 
     private static Map.Entry<String, Type> parseArg() {
-        Token typeToken = Parser.expect(TokenType.Identifier, "Expected type identifier");
-        Type type = BasicType.get(typeToken.value);
-        if (type == null) {
-            System.err.printf("Unknown in return arg: '%s'\n", typeToken.value);
-            System.exit(-1);
-        }
+        Type type = Parser.parseType();
         Token nameToken = Parser.expect(TokenType.Identifier, "Expected name identifier");
         return new AbstractMap.SimpleEntry<>(nameToken.value, type);
     }
@@ -104,13 +98,7 @@ public class FuncDeclarationStmt implements Stmt {
         Parser.expect(TokenType.CloseParen, "Expected closing ')'");
 
         Parser.expect(TokenType.Arrow, "Expected '->'");
-        Token typeToken = Parser.expect(TokenType.Identifier, "Expected type identifier");
-
-        Type returnType = BasicType.get(typeToken.value);
-        if (returnType == null) {
-            System.err.printf("Unknown type in return value: '%s'\n", typeToken.value);
-            System.exit(-1);
-        }
+        Type returnType = Parser.parseType();
 
         Parser.expect(TokenType.OpenBrace, "Expected opening '{'");
         while ((Parser.at().kind != TokenType.CloseBrace) && Parser.notEOF()) {

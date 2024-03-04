@@ -7,9 +7,9 @@ public class ExprParser {
     private static final ExprLayer[] layers = new ExprLayer[] {
             new AdditiveExprLayer(),
             new MultiplicativeExprLayer(),
+            new MemoryOperatorExprLayer(),
             new SubscriptsExprLayer(),
             new PrimaryExprLayer()
-
     };
 
     protected static Expr parseNextLayer(int depth) {

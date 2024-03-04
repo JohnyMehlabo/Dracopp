@@ -39,7 +39,7 @@ public class FuncCallExpr implements Expr{
                 for (int i = 0; i < function.args.size(); i++) {
                     Type argType = args.get(i).codegen();
                     Type.cast(argType, function.args.get(i).type);
-                    Type.cast(function.args.get(i).type, BasicType.Int);
+                    Type.castToSize(function.args.get(i).type, 4);
                     Assembler.mov(ARG_REGISTER_LIST.get(i), new RegisterMemory32(Register.x32.EAX));
                 }
 

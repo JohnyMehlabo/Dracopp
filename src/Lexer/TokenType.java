@@ -7,6 +7,7 @@ public enum TokenType {
     Identifier,
 
     Arrow,
+    AddressOf,
     BinaryOperator,
     Equals,
 
