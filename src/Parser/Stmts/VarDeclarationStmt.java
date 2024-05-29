@@ -57,6 +57,6 @@ public class VarDeclarationStmt implements Stmt {
             Type.cast(valueType, type);
             Assembler.mov(new RegisterMemory(null, Register.x32.EBP, (byte) -Compiler.stackPtr), size, Register.x32.EAX.ordinal(), size);
         }
-        Assembler.sub(new RegisterMemory32(Register.x32.ESP), (byte)4);
+        Assembler.sub(new RegisterMemory32(Register.x32.ESP), (byte)type.getSize());
     }
 }

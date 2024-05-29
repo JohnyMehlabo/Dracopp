@@ -30,6 +30,9 @@ public class SymbolTableSection extends Section {
         public int getValue() {
             return value;
         }
+        public int getSectionHeaderIndex() {
+            return sectionHeaderIndex;
+        }
     }
 
     StringTableSection stringTableSection;

@@ -3,6 +3,8 @@ package Compiler.Assembler;
 import Compiler.Elf.ElfHandler;
 import Compiler.Elf.Section;
 import Compiler.Elf.SymbolTableSection;
+import Compiler.Function;
+import Compiler.Compiler;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -243,17 +245,24 @@ public class Assembler {
 
         for (Integer offset : labelRelocations.keySet()) {
             String name = labelRelocations.get(offset);
+
             SymbolTableSection.Symbol sym = ElfHandler.symbolTableSection.getSymbolByName(name);
             if (sym != null) {
-                int rel = sym.getValue() - offset - 4;
-                dataAsArray[offset] = (byte) (rel & 0b11111111);
-                dataAsArray[offset+1] = (byte) ((rel & (0b11111111 << 8)) >> 8);
-                dataAsArray[offset+2] = (byte) ((rel & (0b11111111 << 16)) >> 16);
-                dataAsArray[offset+3] = (byte) ((rel & (0b11111111 << 24)) >> 24);
+                if (sym.getSectionHeaderIndex() != 0) {
+                    int rel = sym.getValue() - offset - 4;
+                    dataAsArray[offset] = (byte) (rel & 0b11111111);
+                    dataAsArray[offset+1] = (byte) ((rel & (0b11111111 << 8)) >> 8);
+                    dataAsArray[offset+2] = (byte) ((rel & (0b11111111 << 16)) >> 16);
+                    dataAsArray[offset+3] = (byte) ((rel & (0b11111111 << 24)) >> 24);
 
-                data.reset();
-                data.write(dataAsArray);
-            } else {
+                    data.reset();
+                    data.write(dataAsArray);
+                }
+                else {
+                    ElfHandler.Text.relocationSection.addRelocation(labelRelocations.get(offset), offset, (byte) 2);
+                }
+            }
+            else {
                 ElfHandler.Text.relocationSection.addRelocation(labelRelocations.get(offset), offset, (byte) 2);
             }
         }

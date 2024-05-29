@@ -22,4 +22,5 @@
 - [x] Pointers
 - [ ] Arrays
 - [ ] Structs
+- [ ] Strings
 

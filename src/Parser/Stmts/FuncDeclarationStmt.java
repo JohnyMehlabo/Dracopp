@@ -18,16 +18,19 @@ public class FuncDeclarationStmt implements Stmt {
     List<Stmt> body;
     Map<String, Type> args;
     Type returnType;
+    boolean defined;
 
-    static final List<Register.x32> ARG_REGISTER_LIST = new ArrayList<>(List.of(Register.x32.ECX, Register.x32.EDX, Register.x32.EDI, Register.x32.ESI));
+    static final List<Register.x32> ARG_REGISTER_LIST = new ArrayList<>(List.of(Register.x32.EAX, Register.x32.EBX, Register.x32.ECX, Register.x32.EDX, Register.x32.ESI, Register.x32.EDI));
 
     @Override
     public void log() {
         System.out.println("Function Declaration Statement:");
         System.out.printf("\tName: %s\n", name);
-        System.out.println("\tBody:");
-        for (Stmt stmt : body) {
-            stmt.log();
+        if (defined) {
+            System.out.println("\tBody:");
+            for (Stmt stmt : body) {
+                stmt.log();
+            }
         }
     }
 
@@ -35,21 +38,25 @@ public class FuncDeclarationStmt implements Stmt {
     public void codegen() {
         Compiler.addFunction(name, returnType, args);
 
+        if (!defined) return;
         Compiler.startScope();
+
+
+        if (args.size() > ARG_REGISTER_LIST.size()) {
+            System.err.printf("Function with too many arguments. Maximum of %d\n", ARG_REGISTER_LIST.size());
+            System.exit(-1);
+        }
 
         ElfHandler.Text.addLabel(name, 1);
         Assembler.push(Register.x32.EBP);
         Assembler.mov(new RegisterMemory32(Register.x32.EBP), Register.x32.ESP);
-
-
 
         for (int i = 0; i < args.keySet().size(); i++) {
             String argName = (String) args.keySet().toArray()[i];
             Type argType = args.get(argName);
             int typeSize = argType.getSize();
             Compiler.stackPtr += typeSize;
-            Assembler.mov(Register.x32.EAX, new RegisterMemory32(ARG_REGISTER_LIST.get(i)));
-            Assembler.mov(new RegisterMemory(null, Register.x32.EBP, (byte) -Compiler.stackPtr), typeSize, Register.x32.EAX.ordinal(), typeSize);
+            Assembler.mov(new RegisterMemory(null, Register.x32.EBP, (byte) -Compiler.stackPtr), typeSize, ARG_REGISTER_LIST.get(i).ordinal(), typeSize);
             Assembler.sub(new RegisterMemory32(Register.x32.ESP), (byte) typeSize);
             Compiler.scope.declareVar(argName, argType, Compiler.stackPtr);
         }
@@ -66,11 +73,12 @@ public class FuncDeclarationStmt implements Stmt {
         Compiler.stackPtr = 0;
     }
 
-    private FuncDeclarationStmt(String name, List<Stmt> body, Map<String, Type> args, Type returnType) {
+    private FuncDeclarationStmt(String name, List<Stmt> body, Map<String, Type> args, Type returnType, boolean defined) {
         this.name = name;
         this.body = body;
         this.args = args;
         this.returnType = returnType;
+        this.defined = defined;
     }
 
     private static Map.Entry<String, Type> parseArg() {
@@ -100,12 +108,18 @@ public class FuncDeclarationStmt implements Stmt {
         Parser.expect(TokenType.Arrow, "Expected '->'");
         Type returnType = Parser.parseType();
 
+        if (Parser.at().kind == TokenType.Semicolon) {
+            Parser.eat();
+            return new FuncDeclarationStmt(name, body, args, returnType, false);
+        }
+
+
         Parser.expect(TokenType.OpenBrace, "Expected opening '{'");
         while ((Parser.at().kind != TokenType.CloseBrace) && Parser.notEOF()) {
             body.add(Parser.parseStmt());
         }
         Parser.expect(TokenType.CloseBrace, "Expected closing '}'");
 
-        return new FuncDeclarationStmt(name, body, args, returnType);
+        return new FuncDeclarationStmt(name, body, args, returnType, true);
     }
 }

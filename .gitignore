@@ -28,8 +28,7 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-out.o
-std_start.o
+*.o
 build.sh
 code.d++
 main

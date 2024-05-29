@@ -17,7 +17,8 @@ public class FuncCallExpr implements Expr{
     Expr caller;
     List<Expr> args;
 
-    static final List<Register.x32> ARG_REGISTER_LIST = new ArrayList<>(List.of(Register.x32.ECX, Register.x32.EDX, Register.x32.EDI, Register.x32.ESI));
+    static final List<Register.x32> ARG_REGISTER_LIST = new ArrayList<>(List.of(Register.x32.EAX, Register.x32.EBX, Register.x32.ECX, Register.x32.EDX, Register.x32.ESI, Register.x32.EDI));
+    static final List<Register.x32> PROTECTED_REGISTER_LIST = new ArrayList<>(List.of(Register.x32.EAX, Register.x32.EBX, Register.x32.ECX));
 
     @Override
     public void log() {
@@ -36,11 +37,22 @@ public class FuncCallExpr implements Expr{
                     System.exit(-1);
                 }
 
+                int protectedRegistersCount = 0;
+
                 for (int i = 0; i < function.args.size(); i++) {
+                    Register.x32 register = ARG_REGISTER_LIST.get(i);
                     Type argType = args.get(i).codegen();
                     Type.cast(argType, function.args.get(i).type);
                     Type.castToSize(function.args.get(i).type, 4);
-                    Assembler.mov(ARG_REGISTER_LIST.get(i), new RegisterMemory32(Register.x32.EAX));
+                    Assembler.mov(register, new RegisterMemory32(Register.x32.EAX));
+                    if (PROTECTED_REGISTER_LIST.contains(register)) {
+                        Assembler.push(register);
+                        protectedRegistersCount++;
+                    }
+                }
+
+                for (int i = protectedRegistersCount - 1; i >= 0 ; i--) {
+                    Assembler.pop(PROTECTED_REGISTER_LIST.get(i));
                 }
 
                 Assembler.call(((IdentifierExpr) caller).symbol);
