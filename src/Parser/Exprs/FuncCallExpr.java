@@ -2,12 +2,9 @@ package Parser.Exprs;
 
 import Compiler.Assembler.Assembler;
 import Compiler.Assembler.Register;
-import Compiler.Assembler.RegisterMemory;
 import Compiler.Assembler.RegisterMemory32;
 import Compiler.Compiler;
 import Compiler.Function;
-import Compiler.Function.Arg;
-import Compiler.Types.BasicType;
 import Compiler.Types.Type;
 
 import java.util.ArrayList;

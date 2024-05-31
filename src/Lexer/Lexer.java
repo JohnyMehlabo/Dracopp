@@ -39,8 +39,8 @@ public class Lexer {
                 tokens.add(new Token(TokenType.BinaryOperator, src.remove(0)));
             else if (src.get(0).equals("-")) {
                 if (src.size() > 1){
-                    if (src.get(1).equals(">")) {
-                        src.remove(0);
+                    src.remove(0);
+                    if (src.get(0).equals(">")) {
                         src.remove(0);
                         tokens.add(new Token(TokenType.Arrow, "->"));
                         continue;
@@ -50,6 +50,34 @@ public class Lexer {
             }
             else if (isSkippable(src.get(0)))
                 src.remove(0);
+            else if (src.get(0).equals("\"")) {
+                src.remove(0);
+                StringBuilder stringBuilder = new StringBuilder();
+                while (!src.isEmpty() && !src.get(0).equals("\"")) {
+                    if (src.get(0).equals("\\")) {
+                        src.remove(0);
+                        switch (src.remove(0)) {
+                            case "\"": stringBuilder.append("\""); break;
+                            case "n": stringBuilder.append("\n"); break;
+                            case "t": stringBuilder.append("\t"); break;
+                            case "0": stringBuilder.append("\0"); break;
+                            default: {
+                                System.err.println("Unknown escaping char after \"\\\"");
+                                System.exit(-1);
+                            }
+                        }
+                    }
+                    else {
+                        stringBuilder.append(src.remove(0));
+                    }
+                }
+                if (src.isEmpty()) {
+                    System.err.println("Missing closing \" at end of string literal");
+                    System.exit(-1);
+                }
+                src.remove(0);
+                tokens.add(new Token(TokenType.StringLiteral, stringBuilder.toString()));
+            }
             else if (isInt(src.get(0))) {
                 StringBuilder num = new StringBuilder();
                 while (!src.isEmpty() && isInt(src.get(0))) {

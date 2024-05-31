@@ -5,7 +5,6 @@ import Compiler.Assembler.Register;
 import Compiler.Assembler.RegisterMemory;
 import Compiler.Assembler.RegisterMemory32;
 import Compiler.Compiler;
-import Compiler.Types.BasicType;
 import Compiler.Types.Type;
 import Lexer.Token;
 import Lexer.TokenType;

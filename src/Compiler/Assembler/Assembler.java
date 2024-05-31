@@ -3,8 +3,6 @@ package Compiler.Assembler;
 import Compiler.Elf.ElfHandler;
 import Compiler.Elf.Section;
 import Compiler.Elf.SymbolTableSection;
-import Compiler.Function;
-import Compiler.Compiler;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -70,6 +68,14 @@ public class Assembler {
             }
         }
     }
+
+    // TODO
+    public static void lea(Register.x32 dst, int memory) {
+        data.write(0x8d);
+        data.write(dst.ordinal() << 3 | 0x05);
+        littleEndian(memory);
+    }
+
     public static void mov(Register.x32 dst, RegisterMemory32 src) {
         data.write(0x8b);
         generateAddressingBytes32(src, dst.ordinal());
@@ -208,7 +214,7 @@ public class Assembler {
             }
         }
         else {
-            data.write(0b11000000 | ((Register.x32) regM.reg).ordinal() | (regBits << 3));
+            data.write(0b11000000 | regM.reg.ordinal() | (regBits << 3));
         }
     }
     private static void generateAddressingBytes32(RegisterMemory16 regM, int regBits) {
@@ -222,7 +228,7 @@ public class Assembler {
             }
         }
         else {
-            data.write(0b11000000 | ((Register.x16) regM.reg).ordinal() | (regBits << 3));
+            data.write(0b11000000 | regM.reg.ordinal() | (regBits << 3));
         }
     }
     private static void generateAddressingBytes32(RegisterMemory8 regM, int regBits) {
@@ -236,7 +242,7 @@ public class Assembler {
             }
         }
         else {
-            data.write(0b11000000 | ((Register.x8) regM.reg).ordinal() | (regBits << 3));
+            data.write(0b11000000 | regM.reg.ordinal() | (regBits << 3));
         }
     }
 

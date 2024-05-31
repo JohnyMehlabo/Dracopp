@@ -4,6 +4,7 @@ import Lexer.TokenType;
 import Parser.Exprs.Expr;
 import Parser.Exprs.IdentifierExpr;
 import Parser.Exprs.IntegerLiteralExpr;
+import Parser.Exprs.StringLiteralExpr;
 import Parser.Parser;
 
 public class PrimaryExprLayer implements ExprLayer {
@@ -11,6 +12,7 @@ public class PrimaryExprLayer implements ExprLayer {
     public Expr parse(int depth) {
         return switch (Parser.at().kind) {
             case IntLiteral -> new IntegerLiteralExpr(Integer.parseInt(Parser.eat().value));
+            case StringLiteral -> new StringLiteralExpr(Parser.eat().value);
             case OpenParen -> {
                 Parser.eat();
                 Expr expr = Parser.parseExpr();

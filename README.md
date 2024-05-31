@@ -22,5 +22,6 @@
 - [x] Pointers
 - [ ] Arrays
 - [ ] Structs
-- [ ] Strings
+- [x] Strings
+- [x] Assignment
 

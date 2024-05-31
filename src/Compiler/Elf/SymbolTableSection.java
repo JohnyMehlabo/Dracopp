@@ -55,7 +55,7 @@ public class SymbolTableSection extends Section {
             if (index == -1) {
                 System.err.println("Symbol not found");
             }
-            index +=  + localSymbols.size();
+            index += localSymbols.size();
         }
         return index;
     }
@@ -84,7 +84,7 @@ public class SymbolTableSection extends Section {
         this.size = 16 * localSymbols.size() + 16 * globalSymbols.size();
         return symbol;
     }
-    public Symbol addSymbol(int nameIndex, int value, int size, byte info, byte other, short sectionHeaderIndex) throws IOException {
+    public Symbol addSymbol(int nameIndex, int value, int size, byte info, byte other, short sectionHeaderIndex) {
 
         Symbol symbol = new Symbol("", nameIndex, value, size, info, other, sectionHeaderIndex);
 

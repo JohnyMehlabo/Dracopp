@@ -29,7 +29,7 @@ public class RelocationSection extends Section {
     public void addRelocation(String name, int offset, byte type) throws IOException {
         SymbolTableSection.Symbol sym = ElfHandler.symbolTableSection.addSymbol(name, 0, 0, (byte) 16, (byte) 0, (short) 0);
         int symIndex = symbolTableSection.getSymbolIndex(sym);
-        relocations.add(new Relocation(offset, (((symIndex)<<8)+(byte)(type))));
+        relocations.add(new Relocation(offset, (((symIndex)<<8)+ type)));
         size = relocations.size() * 8;
     }
 

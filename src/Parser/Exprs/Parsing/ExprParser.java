@@ -5,6 +5,7 @@ import Parser.Exprs.Expr;
 public class ExprParser {
 
     private static final ExprLayer[] layers = new ExprLayer[] {
+            new AssignmentExprLayer(),
             new AdditiveExprLayer(),
             new MultiplicativeExprLayer(),
             new MemoryOperatorExprLayer(),

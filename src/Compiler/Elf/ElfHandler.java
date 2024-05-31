@@ -4,6 +4,7 @@ import Compiler.Assembler.Assembler;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
@@ -82,12 +83,54 @@ public class ElfHandler {
         }
     }
 
+    public static class Data {
+        private static Section dataSection;
+        private static final ByteArrayOutputStream dataSectionData = new ByteArrayOutputStream();
+        private static int stringCount = 0;
+
+        private static final Map<String, Label> labels = new HashMap<>();
+
+        public static void addLabel(String name, int global) {
+            int value = dataSectionData.size();
+            short index = dataSection.getIndex();
+
+            Label label = new Label(value, index, name);
+            labels.put(name, label);
+
+            try {
+                symbolTableSection.addSymbol(name, value, 0, (byte) (global << 4), (byte) 0, index);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        public static Label getLabel(String name) {
+            return labels.get(name);
+        }
+
+        public static String addString(String string) {
+            String stringLabel = String.format("string_%d", stringCount);
+            try {
+                addLabel(stringLabel, 1);
+                dataSectionData.write(string.getBytes(StandardCharsets.US_ASCII));
+            }
+            catch (IOException ignored) {
+            }
+            stringCount++;
+            return stringLabel;
+        }
+
+        public static short getSectionIndex() {
+            return dataSection.getIndex();
+        }
+    }
+
     public static void initElfHandler() throws IOException {
         addSection(0, 0, 0, 0, 0, 0, 0, 0);
         initStringTableSection();
         initSymbolTableSection();
 
         Text.textSection = addSection(".text", 1,  2 | 4, 0, 0, 0, 16, 0);
+        Data.dataSection = addSection(".data", 1,  2, 0, 0, 0, 16, 0);
         Text.initRelocationSection();
         Assembler.setData(Text.textSectionData);
         Assembler.setSection(Text.textSection);
@@ -96,6 +139,7 @@ public class ElfHandler {
     public static void save(Path outputFile) throws IOException {
         Assembler.computeRelocations();
         Text.textSection.setData(Assembler.getData().toByteArray());
+        Data.dataSection.setData(Data.dataSectionData.toByteArray());
 
         Elf.save(outputFile);
 
