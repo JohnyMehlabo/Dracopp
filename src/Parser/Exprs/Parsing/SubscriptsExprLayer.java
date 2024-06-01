@@ -1,14 +1,14 @@
 package Parser.Exprs.Parsing;
 
-import Compiler.Types.Type;
+import Lexer.Token;
 import Lexer.TokenType;
 import Parser.Exprs.Expr;
 import Parser.Exprs.FuncCallExpr;
+import Parser.Exprs.MemberAccessorExpr;
 import Parser.Parser;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class SubscriptsExprLayer implements ExprLayer {
     @Override
@@ -25,6 +25,11 @@ public class SubscriptsExprLayer implements ExprLayer {
             }
             Parser.expect(TokenType.CloseParen, "Expected closing ')'");
             left = new FuncCallExpr(left, args);
+        }
+        while (Parser.at().kind == TokenType.MemberAccessor) {
+            Parser.eat();
+            Token memberIdentifier = Parser.expect(TokenType.Identifier, "Expected member name identifier in member access");
+            left = new MemberAccessorExpr(left, memberIdentifier.value);
         }
 
         return left;

@@ -2,9 +2,10 @@ package Parser.Stmts;
 
 import Compiler.Assembler.Assembler;
 import Compiler.Assembler.Register;
-import Compiler.Assembler.RegisterMemory32;
+import Compiler.Assembler.RegisterMemory;
 import Compiler.Compiler;
 import Compiler.Elf.ElfHandler;
+import Compiler.Types.Type;
 import Lexer.TokenType;
 import Parser.Exprs.Expr;
 import Parser.Parser;
@@ -25,8 +26,8 @@ public class WhileStmt implements Stmt {
     @Override
     public void codegen(){
         ElfHandler.Text.addLabel(String.format("while_%d_start", Compiler.whileCount), 0);
-        condition.codegen();
-        Assembler.test(new RegisterMemory32(Register.x32.EAX), Register.x32.EAX);
+        Type type = condition.codegen();
+        Assembler.test(new RegisterMemory(Register.x32.EAX), type.getSize(), Register.x32.EAX.ordinal(), type.getSize());
         Assembler.jz(String.format("while_%d_end", Compiler.whileCount));
 
         body.codegen();

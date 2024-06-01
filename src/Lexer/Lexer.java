@@ -12,6 +12,7 @@ public class Lexer {
         KEYWORDS.put("if", TokenType.If);
         KEYWORDS.put("while", TokenType.While);
         KEYWORDS.put("func", TokenType.Func);
+        KEYWORDS.put("struct", TokenType.Struct);
     }
     public static List<Token> tokenize(String code) {
         List<Token> tokens = new ArrayList<>();
@@ -27,6 +28,10 @@ public class Lexer {
                 tokens.add(new Token(TokenType.Semicolon, src.remove(0)));
             else if (src.get(0).equals(","))
                 tokens.add(new Token(TokenType.Comma, src.remove(0)));
+            else if (src.get(0).equals("."))
+                tokens.add(new Token(TokenType.MemberAccessor, src.remove(0)));
+            else if (src.get(0).equals(":"))
+                tokens.add(new Token(TokenType.MemberAccessor, src.remove(0)));
             else if (src.get(0).equals("("))
                 tokens.add(new Token(TokenType.OpenParen, src.remove(0)));
             else if (src.get(0).equals(")"))
@@ -71,6 +76,7 @@ public class Lexer {
                         stringBuilder.append(src.remove(0));
                     }
                 }
+                stringBuilder.append("\0");
                 if (src.isEmpty()) {
                     System.err.println("Missing closing \" at end of string literal");
                     System.exit(-1);

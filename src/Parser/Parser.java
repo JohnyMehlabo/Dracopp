@@ -1,8 +1,6 @@
 package Parser;
 
-import Compiler.Types.BasicType;
-import Compiler.Types.PointerType;
-import Compiler.Types.Type;
+import Compiler.Types.*;
 import Lexer.Token;
 import Lexer.TokenType;
 import Parser.Exprs.Expr;
@@ -40,6 +38,7 @@ public class Parser {
             case If -> IfStmt.parse();
             case While -> WhileStmt.parse();
             case Func -> FuncDeclarationStmt.parse();
+            case Struct -> StructDeclarationStmt.parse();
             default -> ExprStmt.parse();
         };
     }
@@ -54,13 +53,22 @@ public class Parser {
     }
 
     public static Type parseType() {
-        Token typeToken = Parser.expect(TokenType.Identifier, "Expected type identifier");
+        Type type;
+        if (Parser.at().kind == TokenType.Struct) {
+            Parser.eat();
+            Token structIdentifier = Parser.expect(TokenType.Identifier, "Expected struct name after keyword \"struct\"");
+            Struct struct = Struct.resolveStruct(structIdentifier.value);
+            type = new StructType(struct);
+        } else {
+            Token typeToken = Parser.expect(TokenType.Identifier, "Expected type identifier");
 
-        Type type = BasicType.get(typeToken.value);
-        if (type == null) {
-            System.err.printf("Unknown type in variable declaration: '%s'\n", typeToken.value);
-            System.exit(-1);
+            type = BasicType.get(typeToken.value);
+            if (type == null) {
+                System.err.printf("Unknown type in variable declaration: '%s'\n", typeToken.value);
+                System.exit(-1);
+            }
         }
+
         while (at().kind == TokenType.BinaryOperator && at().value.equals("*")) {
             eat();
             type = new PointerType(type);

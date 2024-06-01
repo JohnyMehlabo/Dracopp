@@ -21,7 +21,7 @@
 ### Third step - **Memory**
 - [x] Pointers
 - [ ] Arrays
-- [ ] Structs
+- [x] Structs
 - [x] Strings
 - [x] Assignment
 

@@ -35,6 +35,9 @@ public class Assembler {
                     mov(new RegisterMemory8(dst), Register.x8.values()[srcOrdinal]);
                     break;
             }
+        } else {
+            System.err.println("Sizes don't match");
+            System.exit(-1);
         }
 
     }
@@ -66,6 +69,9 @@ public class Assembler {
                     Assembler.mov(Register.x8.values()[dstOrdinal], new RegisterMemory8(src));
                     break;
             }
+        } else {
+            System.err.println("Sizes don't match");
+            System.exit(-1);
         }
     }
 
@@ -114,12 +120,38 @@ public class Assembler {
     }
 
 
+
+    public static void test(RegisterMemory regM, int regMSize, int registerOrdinal, int registerSize) {
+        if (regMSize == registerSize) {
+            switch (regMSize) {
+                case 4:
+                    test(new RegisterMemory32(regM), Register.x32.values()[registerOrdinal]);
+                    break;
+                case 2:
+                    test(new RegisterMemory16(regM), Register.x16.values()[registerOrdinal]);
+                    break;
+                case 1:
+                    test(new RegisterMemory8(regM), Register.x8.values()[registerOrdinal]);
+                    break;
+            }
+        } else {
+            System.err.println("Sizes don't match");
+            System.exit(-1);
+        }
+    }
     public static void test(RegisterMemory32 reg , Register.x32 other) {
         data.write(0x85);
         generateAddressingBytes32(reg, other.ordinal());
     }
+    public static void test(RegisterMemory16 reg , Register.x16 other) {
+        data.write(0x85);
+        generateAddressingBytes32(reg, other.ordinal());
+    }
+    public static void test(RegisterMemory8 reg , Register.x8 other) {
+        data.write(0x84);
+        generateAddressingBytes32(reg, other.ordinal());
+    }
 
-    // Remember that this is a near ret.
     public static void ret() {
         data.write(0xc3);
     }
@@ -134,10 +166,14 @@ public class Assembler {
         data.write((byte)0x58 + reg.ordinal());
     }
 
-    // TODO
-    public static void add(Register.x32 dst, Register.x32 src) {
+    public static void add(RegisterMemory32 dst, Register.x32 src) {
         data.write((byte)0x01);
-        data.write(0b11000000 | src.ordinal() << 3 | dst.ordinal());
+        generateAddressingBytes32(dst, src.ordinal());
+    }
+    public static void add(RegisterMemory32 dst, int imm32) {
+        data.write((byte)0x81);
+        generateAddressingBytes32(dst, 0);
+        littleEndian(imm32);
     }
 
     public static void sub(RegisterMemory32 dst, Register.x32 src) {
@@ -152,6 +188,13 @@ public class Assembler {
 
     public static void int_(byte imm8) {
         data.write((byte)0xcd);
+        data.write(imm8);
+    }
+
+    // TODO
+    public static void shl(RegisterMemory32 regM, byte imm8) {
+        data.write(0xc1);
+        generateAddressingBytes32(regM, 4);
         data.write(imm8);
     }
 

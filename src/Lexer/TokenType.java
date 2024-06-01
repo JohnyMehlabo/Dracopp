@@ -9,6 +9,8 @@ public enum TokenType {
 
     Arrow,
     AddressOf,
+    MemberAccessor,
+    PointerMemberAccessor,
     BinaryOperator,
     Equals,
 
@@ -20,6 +22,7 @@ public enum TokenType {
     If,
     While,
     Func,
+    Struct,
 
     Debug,
 

@@ -2,8 +2,8 @@ package Parser.Exprs;
 
 import Compiler.Assembler.Assembler;
 import Compiler.Assembler.Register;
+import Compiler.Assembler.RegisterMemory;
 import Compiler.Assembler.RegisterMemory32;
-import Compiler.Types.BasicType;
 import Compiler.Types.PointerType;
 import Compiler.Types.Type;
 
@@ -54,7 +54,7 @@ public class UnaryOperationExpr implements Expr {
                 Type type = expr.codegen();
 
                 if (type instanceof PointerType){
-                    Assembler.mov(Register.x32.EAX, new RegisterMemory32(null, Register.x32.EAX));
+                    Assembler.mov(Register.x32.EAX.ordinal(), ((PointerType) type).to.getSize(), new RegisterMemory(null, Register.x32.EAX), ((PointerType) type).to.getSize());
                     return ((PointerType) type).to;
                 }
                 System.err.println("Cannot dereference non-pointer type");
