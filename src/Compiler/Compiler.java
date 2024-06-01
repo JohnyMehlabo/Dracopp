@@ -1,8 +1,8 @@
 package Compiler;
 
 import Compiler.Elf.ElfHandler;
-import Compiler.Types.Type;
 import Compiler.Function.Arg;
+import Compiler.Types.Type;
 import Parser.Stmts.Stmt;
 
 import java.io.IOException;

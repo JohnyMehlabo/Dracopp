@@ -5,6 +5,7 @@ import Lexer.TokenType;
 import Parser.Exprs.Expr;
 import Parser.Exprs.FuncCallExpr;
 import Parser.Exprs.MemberAccessorExpr;
+import Parser.Exprs.PointerMemberAccessorExpr;
 import Parser.Parser;
 
 import java.util.ArrayList;
@@ -30,6 +31,11 @@ public class SubscriptsExprLayer implements ExprLayer {
             Parser.eat();
             Token memberIdentifier = Parser.expect(TokenType.Identifier, "Expected member name identifier in member access");
             left = new MemberAccessorExpr(left, memberIdentifier.value);
+        }
+        while (Parser.at().kind == TokenType.PointerMemberAccessor) {
+            Parser.eat();
+            Token memberIdentifier = Parser.expect(TokenType.Identifier, "Expected member name identifier in member access");
+            left = new PointerMemberAccessorExpr(left, memberIdentifier.value);
         }
 
         return left;

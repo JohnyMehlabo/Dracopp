@@ -3,7 +3,6 @@ package Parser.Exprs;
 import Compiler.Assembler.Assembler;
 import Compiler.Assembler.Register;
 import Compiler.Assembler.RegisterMemory;
-import Compiler.Assembler.RegisterMemory32;
 import Compiler.Types.Type;
 
 public class AssignmentExpr implements Expr{

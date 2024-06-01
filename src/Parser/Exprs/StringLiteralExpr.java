@@ -2,7 +2,6 @@ package Parser.Exprs;
 
 import Compiler.Assembler.Assembler;
 import Compiler.Assembler.Register;
-import Compiler.Elf.Elf;
 import Compiler.Elf.ElfHandler;
 import Compiler.Types.BasicType;
 import Compiler.Types.PointerType;

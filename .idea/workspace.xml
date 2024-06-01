@@ -9,22 +9,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="Added strings and assignment">
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Types/Struct.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Types/StructType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Parser/Exprs/MemberAccessorExpr.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Parser/Stmts/StructDeclarationStmt.java" afterDir="false" />
+    <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="Added structs">
+      <change afterPath="$PROJECT_DIR$/src/Parser/Exprs/PointerMemberAccessorExpr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Compiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Compiler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lexer/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/Lexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Lexer/TokenType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/TokenType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/BinaryOperationExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/BinaryOperationExpr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/AssignmentExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/AssignmentExpr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/AssignmentExprLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/AssignmentExprLayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/SubscriptsExprLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/SubscriptsExprLayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/UnaryOperationExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/UnaryOperationExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/IfStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/IfStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/WhileStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/WhileStmt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/StringLiteralExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/StringLiteralExpr.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,8 +95,8 @@
       <recent name="Compiler.Assembler" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="Parser.Exprs.Parsing" />
       <recent name="Parser.Exprs" />
+      <recent name="Parser.Exprs.Parsing" />
       <recent name="Compiler.Assembler" />
       <recent name="Parser.Stmts" />
     </key>
@@ -242,7 +235,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717178224418</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Added structs">
+      <option name="closed" value="true" />
+      <created>1717244893298</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1717244893298</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -267,7 +268,8 @@
     <MESSAGE value="Added pointers support" />
     <MESSAGE value="Miscellaneous changes" />
     <MESSAGE value="Added strings and assignment" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added strings and assignment" />
+    <MESSAGE value="Added structs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added structs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -282,6 +284,11 @@
           <line>67</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Parser/Exprs/MemberAccessorExpr.java</url>
+          <line>27</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint enabled="true" type="java-exception" />
@@ -292,13 +299,5 @@
         <PinnedItemInfo parentTag="Parser.Stmts.FuncDeclarationStmt" memberName="body" />
       </pinned-members>
     </pin-to-top-manager>
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="labelRelocations" language="JAVA" />
-        <watch expression="from" />
-        <watch expression="Parser.at()" language="JAVA" />
-        <watch expression="Parser.tokens" language="JAVA" />
-      </configuration>
-    </watches-manager>
   </component>
 </project>

@@ -31,7 +31,7 @@ public class Lexer {
             else if (src.get(0).equals("."))
                 tokens.add(new Token(TokenType.MemberAccessor, src.remove(0)));
             else if (src.get(0).equals(":"))
-                tokens.add(new Token(TokenType.MemberAccessor, src.remove(0)));
+                tokens.add(new Token(TokenType.PointerMemberAccessor, src.remove(0)));
             else if (src.get(0).equals("("))
                 tokens.add(new Token(TokenType.OpenParen, src.remove(0)));
             else if (src.get(0).equals(")"))
