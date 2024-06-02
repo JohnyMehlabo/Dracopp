@@ -2,10 +2,7 @@ package Parser.Exprs.Parsing;
 
 import Lexer.Token;
 import Lexer.TokenType;
-import Parser.Exprs.Expr;
-import Parser.Exprs.FuncCallExpr;
-import Parser.Exprs.MemberAccessorExpr;
-import Parser.Exprs.PointerMemberAccessorExpr;
+import Parser.Exprs.*;
 import Parser.Parser;
 
 import java.util.ArrayList;
@@ -17,7 +14,7 @@ public class SubscriptsExprLayer implements ExprLayer {
         Expr left = ExprParser.parseNextLayer(depth);
         List<Expr> args = new ArrayList<>();
 
-        if (Parser.at().kind == TokenType.OpenParen) {
+        while (Parser.at().kind == TokenType.OpenParen) {
             Parser.eat();
             while (Parser.at().kind != TokenType.CloseParen && Parser.notEOF()) {
                 if (!args.isEmpty())
@@ -26,6 +23,12 @@ public class SubscriptsExprLayer implements ExprLayer {
             }
             Parser.expect(TokenType.CloseParen, "Expected closing ')'");
             left = new FuncCallExpr(left, args);
+        }
+        while (Parser.at().kind == TokenType.OpenBracket) {
+            Parser.eat();
+            Token indexToken = Parser.expect(TokenType.IntLiteral, "Expected index after \"[\" in array subscript");
+            Parser.expect(TokenType.CloseBracket, "Expected closing \"]\" after index in array subscript");
+            left = new ArraySubscriptExpr(left, Integer.parseInt(indexToken.value));
         }
         while (Parser.at().kind == TokenType.MemberAccessor) {
             Parser.eat();

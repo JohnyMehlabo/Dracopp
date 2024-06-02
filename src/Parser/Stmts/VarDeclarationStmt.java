@@ -26,8 +26,8 @@ public class VarDeclarationStmt implements Stmt {
         Parser.eat();
 
         Type type = Parser.parseType();
-
         Token nameToken = Parser.expect(TokenType.Identifier, "Expected name identifier");
+        type = Parser.parseArrayType(type);
 
         Expr expr = null;
         if (Parser.at().kind == TokenType.Equals) {
@@ -56,6 +56,6 @@ public class VarDeclarationStmt implements Stmt {
             Type.cast(valueType, type);
             Assembler.mov(new RegisterMemory(null, Register.x32.EBP, (byte) -Compiler.stackPtr), size, Register.x32.EAX.ordinal(), size);
         }
-        Assembler.sub(new RegisterMemory32(Register.x32.ESP), (byte)type.getSize());
+        Assembler.sub(new RegisterMemory32(Register.x32.ESP), type.getSize());
     }
 }

@@ -30,10 +30,7 @@ public class Struct {
         for (Map.Entry<String, Type> member : members.entrySet()) {
             Type type = member.getValue();
             int size = type.getSize();
-            int alignmentSize = size;
-
-            if (type instanceof StructType)
-                alignmentSize = ((StructType) type).getAlignmentSize();
+            int alignmentSize = type.getAlignmentSize();
 
             if (alignmentSize > highestSize)
                 highestSize = alignmentSize;

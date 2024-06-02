@@ -43,6 +43,26 @@ public class UnaryOperationExpr implements Expr {
     }
 
     @Override
+    public Type address() {
+        switch (operator) {
+            case Dereference: {
+                Assembler.push(Register.x32.EAX);
+                Type type = expr.codegen();
+                if (type instanceof PointerType){
+                    Assembler.mov(Register.x32.ECX, new RegisterMemory32(Register.x32.EAX));
+                    Assembler.pop(Register.x32.EAX);
+                    return ((PointerType) type).to;
+                }
+                System.err.println("Cannot dereference non-pointer type");
+                System.exit(-1);
+            }
+            default:
+                Expr.super.address();
+        }
+        return null;
+    }
+
+    @Override
     public Type codegen() {
         switch (operator) {
             case AddressOf: {

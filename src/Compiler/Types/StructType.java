@@ -12,6 +12,7 @@ public class StructType implements Type {
         return struct.size;
     }
 
+    @Override
     public int getAlignmentSize() {
         return struct.alignmentSize;
     }

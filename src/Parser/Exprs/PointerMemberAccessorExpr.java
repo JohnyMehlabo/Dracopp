@@ -26,6 +26,7 @@ public class PointerMemberAccessorExpr implements Expr {
 
     @Override
     public Type address() {
+        Assembler.push(Register.x32.EAX);
         Type type = data.codegen();
         if (!(type instanceof PointerType)) {
             System.err.println("Can't pointer-access member of non-pointer type");
@@ -40,6 +41,7 @@ public class PointerMemberAccessorExpr implements Expr {
         Member member = struct.getMember(memberName);
 
         Assembler.mov(Register.x32.ECX, new RegisterMemory32(Register.x32.EAX));
+        Assembler.pop(Register.x32.EAX);
         Assembler.add(new RegisterMemory32(Register.x32.ECX), member.offset);
         return member.type;
     }

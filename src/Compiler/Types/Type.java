@@ -7,6 +7,9 @@ import Compiler.Assembler.RegisterMemory;
 public interface Type {
 
     int getSize();
+    default int getAlignmentSize() {
+        return getSize();
+    };
 
     static void cast(Type from, Type to) {
         if (from.getClass() == to.getClass()) {

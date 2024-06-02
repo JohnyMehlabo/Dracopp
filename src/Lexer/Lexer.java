@@ -40,6 +40,10 @@ public class Lexer {
                 tokens.add(new Token(TokenType.OpenBrace, src.remove(0)));
             else if (src.get(0).equals("}"))
                 tokens.add(new Token(TokenType.CloseBrace, src.remove(0)));
+            else if (src.get(0).equals("["))
+                tokens.add(new Token(TokenType.OpenBracket, src.remove(0)));
+            else if (src.get(0).equals("]"))
+                tokens.add(new Token(TokenType.CloseBracket, src.remove(0)));
             else if (src.get(0).equals("+") || src.get(0).equals("*") || src.get(0).equals("/"))
                 tokens.add(new Token(TokenType.BinaryOperator, src.remove(0)));
             else if (src.get(0).equals("-")) {

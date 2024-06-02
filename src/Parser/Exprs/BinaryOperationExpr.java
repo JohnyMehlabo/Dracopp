@@ -3,10 +3,7 @@ package Parser.Exprs;
 import Compiler.Assembler.Assembler;
 import Compiler.Assembler.Register;
 import Compiler.Assembler.RegisterMemory32;
-import Compiler.Types.BasicType;
-import Compiler.Types.PointerType;
-import Compiler.Types.StructType;
-import Compiler.Types.Type;
+import Compiler.Types.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -79,8 +76,8 @@ public class BinaryOperationExpr implements Expr {
         Assembler.pop(Register.x32.EBX);
 
         if (isPointerArithmetic) {
-            if (pointerType.to instanceof StructType) {
-                System.err.println("Can't perform pointer arithmetic on struct pointer");
+            if (pointerType.to instanceof StructType || pointerType.to instanceof ArrayType) {
+                System.err.println("Can't perform pointer arithmetic on struct or array pointer");
                 System.exit(-1);
             }
             switch (operator) {

@@ -75,4 +75,14 @@ public class Parser {
         }
         return type;
     }
+    public static Type parseArrayType(Type originalType) {
+        Type type = originalType;
+        while (at().kind == TokenType.OpenBracket) {
+            Parser.eat();
+            Token size = Parser.expect(TokenType.IntLiteral, "Expected array size after \"[\"");
+            type = new ArrayType(type, Integer.parseInt(size.value));
+            Parser.expect(TokenType.CloseBracket, "Expected closing \"]\" after array size");
+        }
+        return type;
+    }
 }

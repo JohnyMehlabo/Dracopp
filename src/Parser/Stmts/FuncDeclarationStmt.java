@@ -57,7 +57,7 @@ public class FuncDeclarationStmt implements Stmt {
             int typeSize = argType.getSize();
             Compiler.stackPtr += typeSize;
             Assembler.mov(new RegisterMemory(null, Register.x32.EBP, (byte) -Compiler.stackPtr), typeSize, ARG_REGISTER_LIST.get(i).ordinal(), typeSize);
-            Assembler.sub(new RegisterMemory32(Register.x32.ESP), (byte) typeSize);
+            Assembler.sub(new RegisterMemory32(Register.x32.ESP), typeSize);
             Compiler.scope.declareVar(argName, argType, Compiler.stackPtr);
         }
 

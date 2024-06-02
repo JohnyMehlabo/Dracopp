@@ -18,6 +18,8 @@ public enum TokenType {
     CloseParen,
     OpenBrace,
     CloseBrace,
+    OpenBracket,
+    CloseBracket,
 
     If,
     While,

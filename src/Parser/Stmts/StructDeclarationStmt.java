@@ -44,6 +44,7 @@ public class StructDeclarationStmt implements Stmt{
         while (Parser.notEOF() && Parser.at().kind != TokenType.CloseBrace) {
             Type type = Parser.parseType();
             Token memberNameToken = Parser.expect(TokenType.Identifier, "Expected member name after type in struct declaration");
+            type = Parser.parseArrayType(type);
             Parser.expect(TokenType.Semicolon, "Expected \";\" after member in struct declaration");
             members.put(memberNameToken.value, type);
         }

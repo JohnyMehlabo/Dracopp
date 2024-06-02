@@ -180,10 +180,10 @@ public class Assembler {
         data.write((byte)0x29);
         generateAddressingBytes32(dst, src.ordinal());
     }
-    public static void sub(RegisterMemory32 dst, byte imm8) {
-        data.write((byte)0x83);
+    public static void sub(RegisterMemory32 dst, int imm32) {
+        data.write((byte)0x81);
         generateAddressingBytes32(dst, 5);
-        data.write(imm8);
+        littleEndian(imm32);
     }
 
     public static void int_(byte imm8) {
