@@ -3,6 +3,7 @@ package Parser.Exprs;
 import Compiler.Assembler.Assembler;
 import Compiler.Assembler.Register;
 import Compiler.Assembler.RegisterMemory32;
+import Compiler.Assembler.RegisterMemory8;
 import Compiler.Types.*;
 
 import java.util.HashMap;
@@ -11,7 +12,7 @@ import java.util.Map;
 public class BinaryOperationExpr implements Expr {
 
     public enum Operator {
-        Sum, Subtraction, Multiplication, Division;
+        Sum, Subtraction, Multiplication, Division, Greater, Less, Modulus;
 
         static final Map<String, Operator> STRING_OPERATOR_MAP;
         static {
@@ -20,6 +21,9 @@ public class BinaryOperationExpr implements Expr {
             STRING_OPERATOR_MAP.put("-", Subtraction);
             STRING_OPERATOR_MAP.put("*", Multiplication);
             STRING_OPERATOR_MAP.put("/", Division);
+            STRING_OPERATOR_MAP.put("%", Modulus);
+            STRING_OPERATOR_MAP.put(">", Greater);
+            STRING_OPERATOR_MAP.put("<", Less);
         }
 
         public static Operator fromString(String s) {
@@ -112,9 +116,26 @@ public class BinaryOperationExpr implements Expr {
                     Assembler.mul(Register.x32.EBX);
                     break;
                 case Division:
+                    Assembler.push(Register.x32.EDX);
                     Assembler.mov(Register.x32.EDX, 0);
                     Assembler.div(Register.x32.EBX);
+                    Assembler.pop(Register.x32.EDX);
                     break;
+                case Modulus:
+                    Assembler.push(Register.x32.EDX);
+                    Assembler.mov(Register.x32.EDX, 0);
+                    Assembler.div(Register.x32.EBX);
+                    Assembler.mov(Register.x32.EAX, new RegisterMemory32(Register.x32.EDX));
+                    Assembler.pop(Register.x32.EDX);
+                    break;
+                case Greater:
+                    Assembler.cmp(new RegisterMemory32(Register.x32.EAX), Register.x32.EBX);
+                    Assembler.setg(new RegisterMemory8(Register.x8.AL));
+                    return BasicType.Bool;
+                case Less:
+                    Assembler.cmp(new RegisterMemory32(Register.x32.EAX), Register.x32.EBX);
+                    Assembler.setl(new RegisterMemory8(Register.x8.AL));
+                    return BasicType.Bool;
             }
             return BasicType.Int;
         }

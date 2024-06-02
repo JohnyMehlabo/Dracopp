@@ -119,7 +119,21 @@ public class Assembler {
         generateAddressingBytes32(src, dst.ordinal());
     }
 
+    public static void cmp(RegisterMemory32 regM , Register.x32 reg) {
+        data.write(0x39);
+        generateAddressingBytes32(regM, reg.ordinal());
+    }
 
+    public static void setg(RegisterMemory8 regM) {
+        data.write(0x0f);
+        data.write(0x9f);
+        generateAddressingBytes32(regM, 0);
+    }
+    public static void setl(RegisterMemory8 regM) {
+        data.write(0x0f);
+        data.write(0x9c);
+        generateAddressingBytes32(regM, 0);
+    }
 
     public static void test(RegisterMemory regM, int regMSize, int registerOrdinal, int registerSize) {
         if (regMSize == registerSize) {

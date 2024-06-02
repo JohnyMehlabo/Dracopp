@@ -6,6 +6,7 @@ public class ExprParser {
 
     private static final ExprLayer[] layers = new ExprLayer[] {
             new AssignmentExprLayer(),
+            new GreaterLessExprLayer(),
             new AdditiveExprLayer(),
             new MultiplicativeExprLayer(),
             new MemoryOperatorExprLayer(),

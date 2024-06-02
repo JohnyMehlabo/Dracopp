@@ -22,6 +22,10 @@ public class Lexer {
         while (!src.isEmpty()) {
             if (src.get(0).equals("="))
                 tokens.add(new Token(TokenType.Equals, src.remove(0)));
+            if (src.get(0).equals(">"))
+                tokens.add(new Token(TokenType.BinaryOperator, src.remove(0)));
+            if (src.get(0).equals("<"))
+                tokens.add(new Token(TokenType.BinaryOperator, src.remove(0)));
             else if (src.get(0).equals("&"))
                 tokens.add(new Token(TokenType.AddressOf, src.remove(0)));
             else if (src.get(0).equals(";"))
@@ -44,7 +48,7 @@ public class Lexer {
                 tokens.add(new Token(TokenType.OpenBracket, src.remove(0)));
             else if (src.get(0).equals("]"))
                 tokens.add(new Token(TokenType.CloseBracket, src.remove(0)));
-            else if (src.get(0).equals("+") || src.get(0).equals("*") || src.get(0).equals("/"))
+            else if (src.get(0).equals("+") || src.get(0).equals("*") || src.get(0).equals("/") || src.get(0).equals("%"))
                 tokens.add(new Token(TokenType.BinaryOperator, src.remove(0)));
             else if (src.get(0).equals("-")) {
                 if (src.size() > 1){
