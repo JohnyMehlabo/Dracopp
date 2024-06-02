@@ -18,7 +18,7 @@
 - [x] Type system
 - [x] Loops
 
-### Third step - **Memory**
+### ~~Third step - **Memory**~~
 - [x] Pointers
 - [x] Arrays
 - [x] Structs
