@@ -73,11 +73,19 @@ public class Parser {
             eat();
             type = new PointerType(type);
         }
+        while (at().kind == TokenType.AddressOf) {
+            eat();
+            type = new ReferenceType(type);
+        }
         return type;
     }
     public static Type parseArrayType(Type originalType) {
         Type type = originalType;
         while (at().kind == TokenType.OpenBracket) {
+            if (type instanceof ReferenceType) {
+                System.err.println("Cannot have array of references");
+                System.exit(-1);
+            }
             Parser.eat();
             Token size = Parser.expect(TokenType.IntLiteral, "Expected array size after \"[\"");
             type = new ArrayType(type, Integer.parseInt(size.value));

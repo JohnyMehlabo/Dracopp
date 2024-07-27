@@ -9,7 +9,7 @@ public interface Type {
     int getSize();
     default int getAlignmentSize() {
         return getSize();
-    };
+    }
 
     static void cast(Type from, Type to) {
         if (from.getClass() == to.getClass()) {
@@ -18,7 +18,12 @@ public interface Type {
                     Assembler.movsx(Register.x32.EAX, ((BasicType) to).size, new RegisterMemory(Register.x32.EAX), ((BasicType) from).size);
                 }
             }
-        } else {
+        } else if(from instanceof ReferenceType) {
+            int size = ((ReferenceType) from).to.getSize();
+            Assembler.mov(Register.x32.EAX.ordinal(), size, new RegisterMemory(null, Register.x32.EAX), size);
+            Type.cast(((ReferenceType) from).to, to);
+        }
+        else {
             System.err.println("Types types don't match");
             System.exit(-1);
         }

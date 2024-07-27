@@ -5,6 +5,7 @@ import Compiler.Assembler.Register;
 import Compiler.Assembler.RegisterMemory32;
 import Compiler.Compiler;
 import Compiler.Function;
+import Compiler.Types.ReferenceType;
 import Compiler.Types.Type;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class FuncCallExpr implements Expr{
 
     @Override
     public Type codegen() {
-        if (caller.getClass().equals(IdentifierExpr.class)) {
+        if (caller instanceof IdentifierExpr) {
             Function function = Compiler.resolveFunction(((IdentifierExpr) caller).symbol);
             if (function != null) {
                 if (args.size() != function.args.size()) {
@@ -39,8 +40,16 @@ public class FuncCallExpr implements Expr{
                 for (int i = 0; i < function.args.size(); i++) {
                     Register.x32 register = ARG_REGISTER_LIST.get(i);
                     Type argType = args.get(i).codegen();
-                    Type.cast(argType, function.args.get(i).type);
-                    Type.castToSize(function.args.get(i).type, 4);
+                    Type dstType = function.args.get(i).type;
+
+                    if (dstType instanceof ReferenceType && !(argType instanceof ReferenceType) ) {
+                        // TODO: Implement type safety for T --> T& casting
+                        args.get(i).address();
+                        Assembler.mov(Register.x32.EAX, new RegisterMemory32(Register.x32.ECX));
+                    } else {
+                        Type.cast(argType, dstType);
+                    }
+                    Type.castToSize(dstType, 4);
                     Assembler.mov(register, new RegisterMemory32(Register.x32.EAX));
                     if (PROTECTED_REGISTER_LIST.contains(register)) {
                         Assembler.push(register);

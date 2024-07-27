@@ -92,7 +92,7 @@ public class FuncDeclarationStmt implements Stmt {
 
         String name = Parser.expect(TokenType.Identifier, "Expected identifier after 'func'").value;
         List<Stmt> body = new ArrayList<>();
-        Map<String, Type> args = new HashMap<>();
+        Map<String, Type> args = new LinkedHashMap<>();
 
         Parser.expect(TokenType.OpenParen, "Expected opening '('");
 

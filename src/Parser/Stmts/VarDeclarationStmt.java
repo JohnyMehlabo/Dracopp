@@ -5,6 +5,7 @@ import Compiler.Assembler.Register;
 import Compiler.Assembler.RegisterMemory;
 import Compiler.Assembler.RegisterMemory32;
 import Compiler.Compiler;
+import Compiler.Types.ReferenceType;
 import Compiler.Types.Type;
 import Lexer.Token;
 import Lexer.TokenType;
@@ -51,7 +52,16 @@ public class VarDeclarationStmt implements Stmt {
         int size = type.getSize();
         Compiler.stackPtr += size;
         Compiler.scope.declareVar(name, type, Compiler.stackPtr);
-        if (initialValue != null) {
+        if (type instanceof ReferenceType) {
+            if (initialValue == null) {
+                System.err.println("Reference type value must be initialized");
+                System.exit(-1);
+            }
+            // TODO: Implement type safety in reference variables
+            initialValue.address();
+            Assembler.mov(new RegisterMemory(null, Register.x32.EBP, (byte) -Compiler.stackPtr), size, Register.x32.ECX.ordinal(), size);
+        }
+        else if (initialValue != null) {
             Type valueType = initialValue.codegen();
             Type.cast(valueType, type);
             Assembler.mov(new RegisterMemory(null, Register.x32.EBP, (byte) -Compiler.stackPtr), size, Register.x32.EAX.ordinal(), size);

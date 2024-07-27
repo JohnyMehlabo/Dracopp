@@ -8,6 +8,7 @@ import Compiler.Compiler;
 import Compiler.Scope.Variable;
 import Compiler.Types.ArrayType;
 import Compiler.Types.PointerType;
+import Compiler.Types.ReferenceType;
 import Compiler.Types.Type;
 
 public class IdentifierExpr implements Expr {
@@ -45,6 +46,10 @@ public class IdentifierExpr implements Expr {
         Variable var = Compiler.scope.resolveVar(symbol);
         Assembler.mov(Register.x32.ECX, new RegisterMemory32(Register.x32.EBP));
         Assembler.sub(new RegisterMemory32(Register.x32.ECX), var.stackPos);
+        if (var.type instanceof ReferenceType) {
+            Assembler.mov(Register.x32.ECX, new RegisterMemory32(null, Register.x32.ECX));
+            return ((ReferenceType) var.type).to;
+        }
         return var.type;
     }
 }
