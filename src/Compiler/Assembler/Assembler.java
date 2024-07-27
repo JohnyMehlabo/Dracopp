@@ -129,9 +129,19 @@ public class Assembler {
         data.write(0x9f);
         generateAddressingBytes32(regM, 0);
     }
+    public static void setge(RegisterMemory8 regM) {
+        data.write(0x0f);
+        data.write(0x9d);
+        generateAddressingBytes32(regM, 0);
+    }
     public static void setl(RegisterMemory8 regM) {
         data.write(0x0f);
         data.write(0x9c);
+        generateAddressingBytes32(regM, 0);
+    }
+    public static void setle(RegisterMemory8 regM) {
+        data.write(0x0f);
+        data.write(0x9e);
         generateAddressingBytes32(regM, 0);
     }
 

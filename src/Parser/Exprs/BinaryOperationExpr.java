@@ -12,7 +12,7 @@ import java.util.Map;
 public class BinaryOperationExpr implements Expr {
 
     public enum Operator {
-        Sum, Subtraction, Multiplication, Division, Greater, Less, Modulus;
+        Sum, Subtraction, Multiplication, Division, Greater, GreaterEqual, Less, LessEqual, Modulus;
 
         static final Map<String, Operator> STRING_OPERATOR_MAP;
         static {
@@ -23,7 +23,9 @@ public class BinaryOperationExpr implements Expr {
             STRING_OPERATOR_MAP.put("/", Division);
             STRING_OPERATOR_MAP.put("%", Modulus);
             STRING_OPERATOR_MAP.put(">", Greater);
+            STRING_OPERATOR_MAP.put(">=", GreaterEqual);
             STRING_OPERATOR_MAP.put("<", Less);
+            STRING_OPERATOR_MAP.put("<=", LessEqual);
         }
 
         public static Operator fromString(String s) {
@@ -132,9 +134,17 @@ public class BinaryOperationExpr implements Expr {
                     Assembler.cmp(new RegisterMemory32(Register.x32.EAX), Register.x32.EBX);
                     Assembler.setg(new RegisterMemory8(Register.x8.AL));
                     return BasicType.Bool;
+                case GreaterEqual:
+                    Assembler.cmp(new RegisterMemory32(Register.x32.EAX), Register.x32.EBX);
+                    Assembler.setge(new RegisterMemory8(Register.x8.AL));
+                    return BasicType.Bool;
                 case Less:
                     Assembler.cmp(new RegisterMemory32(Register.x32.EAX), Register.x32.EBX);
                     Assembler.setl(new RegisterMemory8(Register.x8.AL));
+                    return BasicType.Bool;
+                case LessEqual:
+                    Assembler.cmp(new RegisterMemory32(Register.x32.EAX), Register.x32.EBX);
+                    Assembler.setle(new RegisterMemory8(Register.x8.AL));
                     return BasicType.Bool;
             }
             return BasicType.Int;

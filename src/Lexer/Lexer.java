@@ -22,10 +22,28 @@ public class Lexer {
         while (!src.isEmpty()) {
             if (src.get(0).equals("="))
                 tokens.add(new Token(TokenType.Equals, src.remove(0)));
-            if (src.get(0).equals(">"))
-                tokens.add(new Token(TokenType.BinaryOperator, src.remove(0)));
-            if (src.get(0).equals("<"))
-                tokens.add(new Token(TokenType.BinaryOperator, src.remove(0)));
+            else if (src.get(0).equals(">")) {
+                if (src.size() > 1) {
+                    src.remove(0);
+                    if (src.get(0).equals("=")) {
+                        src.remove(0);
+                        tokens.add(new Token(TokenType.BinaryOperator, ">="));
+                        continue;
+                    }
+                }
+                tokens.add(new Token(TokenType.BinaryOperator, ">"));
+            }
+            else if (src.get(0).equals("<")) {
+                if (src.size() > 1) {
+                    src.remove(0);
+                    if (src.get(0).equals("=")) {
+                        src.remove(0);
+                        tokens.add(new Token(TokenType.BinaryOperator, "<="));
+                        continue;
+                    }
+                }
+                tokens.add(new Token(TokenType.BinaryOperator, "<"));
+            }
             else if (src.get(0).equals("&"))
                 tokens.add(new Token(TokenType.AddressOf, src.remove(0)));
             else if (src.get(0).equals(";"))
