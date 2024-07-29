@@ -10,11 +10,12 @@ public class MemoryOperatorExprLayer implements ExprLayer{
     public Expr parse(int depth) {
         if (Parser.at().kind == TokenType.AddressOf) {
             Parser.eat();
-            return new UnaryOperationExpr(ExprParser.parseNextLayer(depth), "&");
+            // TODO: Find better way to do this
+            return new UnaryOperationExpr(ExprParser.parseNextLayer(depth - 1), "&");
         }
         if (Parser.at().kind == TokenType.BinaryOperator && Parser.at().value.equals("*")) {
             Parser.eat();
-            return new UnaryOperationExpr(ExprParser.parseNextLayer(depth), "*");
+            return new UnaryOperationExpr(ExprParser.parseNextLayer(depth - 1), "*");
         }
 
         return ExprParser.parseNextLayer(depth);

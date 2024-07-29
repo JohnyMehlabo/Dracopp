@@ -40,6 +40,10 @@ public class Struct {
             this.members.put(member.getKey(), new Member(member.getValue(), offset));
             offset += size;
         }
+        if (highestSize == 0) {
+            System.err.println("Attempt to declare empty struct");
+            System.exit(-1);
+        }
         if (offset % highestSize > 0)
             offset += highestSize - (offset % highestSize);
         size = offset;

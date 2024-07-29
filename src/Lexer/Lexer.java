@@ -8,11 +8,13 @@ public class Lexer {
     static {
         KEYWORDS = new HashMap<>();
         KEYWORDS.put("var", TokenType.Var);
-        KEYWORDS.put("debug", TokenType.Debug);
         KEYWORDS.put("if", TokenType.If);
         KEYWORDS.put("while", TokenType.While);
         KEYWORDS.put("func", TokenType.Func);
         KEYWORDS.put("struct", TokenType.Struct);
+        KEYWORDS.put("class", TokenType.Class);
+        KEYWORDS.put("extends", TokenType.Extends);
+        KEYWORDS.put("method", TokenType.Method);
     }
     public static List<Token> tokenize(String code) {
         List<Token> tokens = new ArrayList<>();

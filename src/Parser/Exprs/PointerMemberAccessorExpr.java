@@ -4,11 +4,8 @@ import Compiler.Assembler.Assembler;
 import Compiler.Assembler.Register;
 import Compiler.Assembler.RegisterMemory;
 import Compiler.Assembler.RegisterMemory32;
-import Compiler.Types.PointerType;
-import Compiler.Types.Struct;
-import Compiler.Types.Struct.Member;
-import Compiler.Types.StructType;
-import Compiler.Types.Type;
+import Compiler.Types.*;
+import Compiler.Types.Class;
 
 public class PointerMemberAccessorExpr implements Expr {
     Expr data;
@@ -32,18 +29,32 @@ public class PointerMemberAccessorExpr implements Expr {
             System.err.println("Can't pointer-access member of non-pointer type");
             System.exit(-1);
         }
-        if (!(((PointerType) type).to instanceof StructType))  {
+        Type pointedType = ((PointerType) type).to;
+        if (pointedType instanceof StructType)  {
+            Struct struct = ((StructType) ((PointerType) type).to).struct;
+            Struct.Member member = struct.getMember(memberName);
+
+            Assembler.mov(Register.x32.ECX, new RegisterMemory32(Register.x32.EAX));
+            Assembler.pop(Register.x32.EAX);
+            Assembler.add(new RegisterMemory32(Register.x32.ECX), member.offset);
+            return member.type;
+
+        }
+        if (pointedType instanceof ClassType)  {
+            Class aClass = ((ClassType) ((PointerType) type).to).aClass;
+            Class.Member member = aClass.getMember(memberName);
+
+            Assembler.mov(Register.x32.ECX, new RegisterMemory32(Register.x32.EAX));
+            Assembler.pop(Register.x32.EAX);
+            Assembler.add(new RegisterMemory32(Register.x32.ECX), member.offset);
+            return member.type;
+
+        }
+        else  {
             System.err.println("Can't pointer-access member of non-struct pointer type");
             System.exit(-1);
         }
-
-        Struct struct = ((StructType) ((PointerType) type).to).struct;
-        Member member = struct.getMember(memberName);
-
-        Assembler.mov(Register.x32.ECX, new RegisterMemory32(Register.x32.EAX));
-        Assembler.pop(Register.x32.EAX);
-        Assembler.add(new RegisterMemory32(Register.x32.ECX), member.offset);
-        return member.type;
+        return null;
     }
 
     @Override

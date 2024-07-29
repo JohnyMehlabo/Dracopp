@@ -5,7 +5,6 @@ import Compiler.Assembler.Register;
 import Compiler.Assembler.RegisterMemory;
 import Compiler.Assembler.RegisterMemory32;
 import Compiler.Types.ArrayType;
-import Compiler.Types.PointerType;
 import Compiler.Types.StructType;
 import Compiler.Types.Type;
 

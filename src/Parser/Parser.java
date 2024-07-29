@@ -1,6 +1,7 @@
 package Parser;
 
 import Compiler.Types.*;
+import Compiler.Types.Class;
 import Lexer.Token;
 import Lexer.TokenType;
 import Parser.Exprs.Expr;
@@ -33,12 +34,12 @@ public class Parser {
     public static Stmt parseStmt() {
         return switch (at().kind) {
             case Var -> VarDeclarationStmt.parse();
-            case Debug -> InterpreterDebugStmt.parse();
             case OpenBrace -> BlockStmt.parse();
             case If -> IfStmt.parse();
             case While -> WhileStmt.parse();
             case Func -> FuncDeclarationStmt.parse();
             case Struct -> StructDeclarationStmt.parse();
+            case Class -> ClassDeclarationStmt.parse();
             default -> ExprStmt.parse();
         };
     }
@@ -59,7 +60,12 @@ public class Parser {
             Token structIdentifier = Parser.expect(TokenType.Identifier, "Expected struct name after keyword \"struct\"");
             Struct struct = Struct.resolveStruct(structIdentifier.value);
             type = new StructType(struct);
-        } else {
+        } else if (Parser.at().kind == TokenType.Class) {
+            Parser.eat();
+            Token structIdentifier = Parser.expect(TokenType.Identifier, "Expected class name after keyword \"struct\"");
+            Class aClass = Class.resolveClass(structIdentifier.value);
+            type = new ClassType(aClass);
+        }else {
             Token typeToken = Parser.expect(TokenType.Identifier, "Expected type identifier");
 
             type = BasicType.get(typeToken.value);

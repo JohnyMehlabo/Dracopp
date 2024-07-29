@@ -14,31 +14,33 @@ public class SubscriptsExprLayer implements ExprLayer {
         Expr left = ExprParser.parseNextLayer(depth);
         List<Expr> args = new ArrayList<>();
 
-        while (Parser.at().kind == TokenType.OpenParen) {
-            Parser.eat();
-            while (Parser.at().kind != TokenType.CloseParen && Parser.notEOF()) {
-                if (!args.isEmpty())
-                    Parser.expect(TokenType.Comma, "Expected ',' after argument");
-                args.add(Parser.parseExpr());
+        while (Parser.at().kind == TokenType.OpenParen || Parser.at().kind == TokenType.OpenBracket || Parser.at().kind == TokenType.MemberAccessor || Parser.at().kind == TokenType.PointerMemberAccessor) {
+            if (Parser.at().kind == TokenType.OpenParen) {
+                Parser.eat();
+                while (Parser.at().kind != TokenType.CloseParen && Parser.notEOF()) {
+                    if (!args.isEmpty())
+                        Parser.expect(TokenType.Comma, "Expected ',' after argument");
+                    args.add(Parser.parseExpr());
+                }
+                Parser.expect(TokenType.CloseParen, "Expected closing ')'");
+                left = new FuncCallExpr(left, args);
             }
-            Parser.expect(TokenType.CloseParen, "Expected closing ')'");
-            left = new FuncCallExpr(left, args);
-        }
-        while (Parser.at().kind == TokenType.OpenBracket) {
-            Parser.eat();
-            Token indexToken = Parser.expect(TokenType.IntLiteral, "Expected index after \"[\" in array subscript");
-            Parser.expect(TokenType.CloseBracket, "Expected closing \"]\" after index in array subscript");
-            left = new ArraySubscriptExpr(left, Integer.parseInt(indexToken.value));
-        }
-        while (Parser.at().kind == TokenType.MemberAccessor) {
-            Parser.eat();
-            Token memberIdentifier = Parser.expect(TokenType.Identifier, "Expected member name identifier in member access");
-            left = new MemberAccessorExpr(left, memberIdentifier.value);
-        }
-        while (Parser.at().kind == TokenType.PointerMemberAccessor) {
-            Parser.eat();
-            Token memberIdentifier = Parser.expect(TokenType.Identifier, "Expected member name identifier in member access");
-            left = new PointerMemberAccessorExpr(left, memberIdentifier.value);
+            if (Parser.at().kind == TokenType.OpenBracket) {
+                Parser.eat();
+                Token indexToken = Parser.expect(TokenType.IntLiteral, "Expected index after \"[\" in array subscript");
+                Parser.expect(TokenType.CloseBracket, "Expected closing \"]\" after index in array subscript");
+                left = new ArraySubscriptExpr(left, Integer.parseInt(indexToken.value));
+            }
+            if (Parser.at().kind == TokenType.MemberAccessor) {
+                Parser.eat();
+                Token memberIdentifier = Parser.expect(TokenType.Identifier, "Expected member name identifier in member access");
+                left = new MemberAccessorExpr(left, memberIdentifier.value);
+            }
+            if (Parser.at().kind == TokenType.PointerMemberAccessor) {
+                Parser.eat();
+                Token memberIdentifier = Parser.expect(TokenType.Identifier, "Expected member name identifier in member access");
+                left = new PointerMemberAccessorExpr(left, memberIdentifier.value);
+            }
         }
 
         return left;

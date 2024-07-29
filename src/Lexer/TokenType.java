@@ -25,8 +25,9 @@ public enum TokenType {
     While,
     Func,
     Struct,
-
-    Debug,
+    Class,
+    Extends,
+    Method,
 
     Comma,
     Semicolon,

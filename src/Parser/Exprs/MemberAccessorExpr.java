@@ -4,8 +4,9 @@ import Compiler.Assembler.Assembler;
 import Compiler.Assembler.Register;
 import Compiler.Assembler.RegisterMemory;
 import Compiler.Assembler.RegisterMemory32;
+import Compiler.Types.Class;
+import Compiler.Types.ClassType;
 import Compiler.Types.Struct;
-import Compiler.Types.Struct.Member;
 import Compiler.Types.StructType;
 import Compiler.Types.Type;
 
@@ -26,16 +27,25 @@ public class MemberAccessorExpr implements Expr {
     @Override
     public Type address() {
         Type type = data.address();
-        if (!(type instanceof StructType)) {
-            System.err.println("Can't access member of non-struct type");
+        if (type instanceof StructType) {
+            Struct struct = ((StructType) type).struct;
+            Struct.Member member = struct.getMember(memberName);
+
+            Assembler.add(new RegisterMemory32(Register.x32.ECX), member.offset);
+            return member.type;
+        }
+        else if (type instanceof ClassType) {
+            Class aClass = ((ClassType) type).aClass;
+            Class.Member member = aClass.getMember(memberName);
+
+            Assembler.add(new RegisterMemory32(Register.x32.ECX), member.offset);
+            return member.type;
+        }
+        else {
+            System.err.println("Can't access member of non-struct or non-class type");
             System.exit(-1);
         }
-
-        Struct struct = ((StructType) type).struct;
-        Member member = struct.getMember(memberName);
-
-        Assembler.add(new RegisterMemory32(Register.x32.ECX), member.offset);
-        return member.type;
+        return null;
     }
 
     @Override

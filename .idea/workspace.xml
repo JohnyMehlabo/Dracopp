@@ -9,15 +9,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="Added support for reference type">
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Types/ReferenceType.java" afterDir="false" />
+    <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="Added support for classes">
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Types/Class.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Types/ClassType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Parser/Stmts/ClassDeclarationStmt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Types/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Types/Type.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Elf/Elf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Elf/Elf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Function.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Types/Struct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Types/Struct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Lexer/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/Lexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Lexer/TokenType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/TokenType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/ArraySubscriptExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/ArraySubscriptExpr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/IdentifierExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/IdentifierExpr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/MemberAccessorExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/MemberAccessorExpr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/MemoryOperatorExprLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/MemoryOperatorExprLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/SubscriptsExprLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/SubscriptsExprLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/PointerMemberAccessorExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/PointerMemberAccessorExpr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/FuncDeclarationStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/FuncDeclarationStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/VarDeclarationStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/VarDeclarationStmt.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +44,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Type-Safety" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -59,7 +67,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -77,9 +85,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Shell Script.Build.executor": "Run",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "classes",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Programacion/Proyectos/Dracopp",
+    "last_opened_file_path": "D:/Programacion/Proyectos/Dracopp/tests",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
@@ -89,16 +98,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Programacion\Proyectos\Dracopp\tests" />
       <recent name="D:\Programacion\Proyectos\Dracopp" />
     </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="Compiler.Assembler" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Parser.Stmts" />
+      <recent name="Compiler.Types" />
       <recent name="Parser.Exprs" />
       <recent name="Parser.Exprs.Parsing" />
       <recent name="Compiler.Assembler" />
-      <recent name="Parser.Stmts" />
     </key>
   </component>
   <component name="RunManager" selected="Application.main">
@@ -283,7 +294,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722083197842</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Added support for reference type">
+      <option name="closed" value="true" />
+      <created>1722089079264</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1722089079264</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -314,20 +333,31 @@
     <MESSAGE value="Added comparative operators and modulo operation" />
     <MESSAGE value="Added greater or equal and less or equal operators" />
     <MESSAGE value="Added support for reference type" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added support for reference type" />
+    <MESSAGE value="Added support for classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added support for classes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Parser/Parser.java</url>
-          <line>23</line>
+          <line>24</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Parser/Stmts/FuncDeclarationStmt.java</url>
-          <line>38</line>
-          <option name="timeStamp" value="34" />
+          <url>file://$PROJECT_DIR$/src/Parser/Exprs/Expr.java</url>
+          <line>7</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Compiler/Types/Struct.java</url>
+          <line>44</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java</url>
+          <line>128</line>
+          <option name="timeStamp" value="46" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

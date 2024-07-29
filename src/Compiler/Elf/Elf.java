@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("SpellCheckingInspection")
 public class Elf {
     private static final short  ELF_HEADER_SIZE = 0x34;
     private static final short  SECTION_HEADER_SIZE = 0x28;
