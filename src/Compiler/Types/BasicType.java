@@ -7,6 +7,7 @@ public enum BasicType implements Type {
     Short("short", 2),
     Char("char", 1),
     Bool("bool", 1),
+    Void("void", 0),
     ;
     BasicType(String name, int size) {
         this.name = name;

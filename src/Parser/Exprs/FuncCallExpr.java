@@ -80,7 +80,7 @@ public class FuncCallExpr implements Expr{
                 argType = new PointerType(new ClassType(aClass));
             }
             else
-                argType = args.get(i).codegen();
+                argType = args.get(i-1).codegen();
 
             Type dstType = method.args.get(i).type;
 

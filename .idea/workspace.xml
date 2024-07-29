@@ -10,22 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="Added support for classes">
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Types/Class.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Types/ClassType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Parser/Stmts/ClassDeclarationStmt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Elf/Elf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Elf/Elf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Function.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Types/Struct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Types/Struct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Lexer/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/Lexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Lexer/TokenType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/TokenType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/ArraySubscriptExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/ArraySubscriptExpr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Types/BasicType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Types/BasicType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Types/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Types/Type.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/MemberAccessorExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/MemberAccessorExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/MemoryOperatorExprLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/MemoryOperatorExprLayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/SubscriptsExprLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/SubscriptsExprLayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/PointerMemberAccessorExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/PointerMemberAccessorExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/ClassDeclarationStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/ClassDeclarationStmt.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +74,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Shell Script.Build.executor": "Run",
-    "git-widget-placeholder": "classes",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Programacion/Proyectos/Dracopp/tests",
@@ -358,6 +347,11 @@
           <url>file://$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java</url>
           <line>128</line>
           <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Parser/Stmts/ClassDeclarationStmt.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="48" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

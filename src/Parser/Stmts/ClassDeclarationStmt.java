@@ -40,7 +40,7 @@ public class ClassDeclarationStmt implements Stmt{
             Compiler.startScope();
 
             if (methodDefinition.method.args.size() > ARG_REGISTER_LIST.size()) {
-                System.err.printf("Function with too many arguments. Maximum of %d\n", ARG_REGISTER_LIST.size());
+                System.err.printf("Function with too many arguments. Maximum of %d\n", ARG_REGISTER_LIST.size() - 1);
                 System.exit(-1);
             }
 

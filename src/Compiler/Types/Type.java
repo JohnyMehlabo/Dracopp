@@ -14,6 +14,10 @@ public interface Type {
     static void cast(Type from, Type to) {
         if (from.getClass() == to.getClass()) {
             if (from instanceof BasicType) {
+                if (((BasicType) from).size == 0) {
+                    System.err.println("Cannot cast from void type");
+                    System.exit(-1);
+                }
                 if (((BasicType) from).size < ((BasicType) to).size) {
                     Assembler.movsx(Register.x32.EAX, ((BasicType) to).size, new RegisterMemory(Register.x32.EAX), ((BasicType) from).size);
                 }
