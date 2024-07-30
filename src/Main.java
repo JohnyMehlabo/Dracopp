@@ -14,7 +14,12 @@ import java.util.Objects;
 public class Main {
     private static byte[] data;
     public static void main(String[] args) throws IOException {
-        Stmt AST = parseFile("code.d++");
+        if (args.length < 1) {
+            System.err.println("Missing require argument \"filename\"");
+            System.exit(-1);
+        }
+
+        Stmt AST = parseFile(args[0]);
         logAST(AST);
 
         Compiler.compile(AST);
@@ -31,6 +36,7 @@ public class Main {
         }
 
         List<Token> tokens = Lexer.tokenize(src);
+        logTokens(tokens);
         return Parser.parse(tokens);
     }
 
@@ -39,7 +45,7 @@ public class Main {
             System.out.printf("Kind: %s", tok.kind.name());
             if (!Objects.equals(tok.value, ""))
                 System.out.printf(", Value: '%s'%n", tok.value);
-            System.out.print('\n');
+            // System.out.print('\n');
         }
     }
 
