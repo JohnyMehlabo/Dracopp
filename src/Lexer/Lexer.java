@@ -113,11 +113,21 @@ public class Lexer {
                 tokens.add(new Token(TokenType.StringLiteral, stringBuilder.toString()));
             }
             else if (isInt(src.get(0))) {
+                boolean isFloat = false;
                 StringBuilder num = new StringBuilder();
-                while (!src.isEmpty() && isInt(src.get(0))) {
+                while (!src.isEmpty() && (isInt(src.get(0)) || src.get(0).equals("."))) {
+                    if (src.get(0).equals(".") && !isFloat)
+                        isFloat = true;
+                    else if (src.get(0).equals(".") && isFloat) {
+                        System.err.println("Invalid number construction. Unexpected \".\"");
+                        System.exit(-1);
+                    }
                     num.append(src.remove(0));
                 }
-                tokens.add(new Token(TokenType.IntLiteral, num.toString()));
+                if (!isFloat)
+                    tokens.add(new Token(TokenType.IntLiteral, num.toString()));
+                else
+                    tokens.add(new Token(TokenType.FloatLiteral, num.toString()));
             } else if (isAlpha(src.get(0))) {
                 StringBuilder identifier = new StringBuilder();
                 while (!src.isEmpty() && (isAlpha(src.get(0)) || isInt(src.get(0)) || src.get(0).equals("_"))) {

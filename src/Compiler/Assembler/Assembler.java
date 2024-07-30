@@ -234,6 +234,79 @@ public class Assembler {
         data.write(0b11000000 | 0b00110000 | other.ordinal());
     }
 
+    // Float operations (FPU)
+    public static void fld(RegisterMemory32 floatMemory) {
+        checkOnlyMemory(floatMemory);
+        data.write(0xd9);
+        generateAddressingBytes32(floatMemory, 0);
+    }
+
+    public static void fild(RegisterMemory32 intMemory) {
+        checkOnlyMemory(intMemory);
+        data.write(0xdb);
+        generateAddressingBytes32(intMemory, 0);
+    }
+
+    public static void fadd(RegisterMemory32 floatMemory) {
+        checkOnlyMemory(floatMemory);
+        data.write(0xd8);
+        generateAddressingBytes32(floatMemory, 0);
+    }
+    public static void fiadd(RegisterMemory32 intMemory) {
+        checkOnlyMemory(intMemory);
+        data.write(0xda);
+        generateAddressingBytes32(intMemory, 0);
+    }
+
+    public static void fsub(RegisterMemory32 floatMemory) {
+        checkOnlyMemory(floatMemory);
+        data.write(0xd8);
+        generateAddressingBytes32(floatMemory, 4);
+    }
+    public static void fisub(RegisterMemory32 intMemory) {
+        checkOnlyMemory(intMemory);
+        data.write(0xda);
+        generateAddressingBytes32(intMemory, 4);
+    }
+
+    public static void fmul(RegisterMemory32 floatMemory) {
+        checkOnlyMemory(floatMemory);
+        data.write(0xd8);
+        generateAddressingBytes32(floatMemory, 1);
+    }
+    public static void fimul(RegisterMemory32 intMemory) {
+        checkOnlyMemory(intMemory);
+        data.write(0xda);
+        generateAddressingBytes32(intMemory, 1);
+    }
+
+    public static void fdiv(RegisterMemory32 floatMemory) {
+        checkOnlyMemory(floatMemory);
+        data.write(0xd8);
+        generateAddressingBytes32(floatMemory, 6);
+    }
+    public static void fidiv(RegisterMemory32 intMemory) {
+        checkOnlyMemory(intMemory);
+        data.write(0xda);
+        generateAddressingBytes32(intMemory, 6);
+    }
+
+    public static void fstp(RegisterMemory32 floatMemory) {
+        checkOnlyMemory(floatMemory);
+        data.write(0xd9);
+        generateAddressingBytes32(floatMemory, 3);
+    }
+
+    // TODO: Reminder: CVTTSS2SI
+
+    public static void cvttss2si(Register.x32 register, RegisterMemory32 regM) {
+        checkOnlyMemory(regM);
+        data.write(0xf3);
+        data.write(0x0f);
+        data.write(0x2c);
+        generateAddressingBytes32(regM, register.ordinal());
+    }
+
     public static void nop() {
         data.write((byte)0x90);
     }
@@ -278,6 +351,7 @@ public class Assembler {
             }
             else {
                 data.write(regM.addressReg.ordinal() | (regBits << 3));
+                if (regM.addressReg ==  Register.x32.ESP) data.write(0x24);
             }
         }
         else {
@@ -310,6 +384,25 @@ public class Assembler {
         }
         else {
             data.write(0b11000000 | regM.reg.ordinal() | (regBits << 3));
+        }
+    }
+
+    private static void checkOnlyMemory(RegisterMemory32 memory) {
+        if (memory.reg != null) {
+            System.err.println("Cannot use register. Only memory allowed");
+            System.exit(-1);
+        }
+    }
+    private static void checkOnlyMemory(RegisterMemory16 memory) {
+        if (memory.reg != null) {
+            System.err.println("Cannot use register. Only memory allowed");
+            System.exit(-1);
+        }
+    }
+    private static void checkOnlyMemory(RegisterMemory8 memory) {
+        if (memory.reg != null) {
+            System.err.println("Cannot use register. Only memory allowed");
+            System.exit(-1);
         }
     }
 

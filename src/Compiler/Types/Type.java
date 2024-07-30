@@ -3,6 +3,7 @@ package Compiler.Types;
 import Compiler.Assembler.Assembler;
 import Compiler.Assembler.Register;
 import Compiler.Assembler.RegisterMemory;
+import Compiler.Assembler.RegisterMemory32;
 
 public interface Type {
 
@@ -17,6 +18,12 @@ public interface Type {
                 if (((BasicType) from).size == 0) {
                     System.err.println("Cannot cast from void type");
                     System.exit(-1);
+                }
+                // TODO: Do the reverse
+                if (((BasicType) from).isFloat() && !((BasicType) to).isFloat()) {
+                    Assembler.push(Register.x32.EAX);
+                    Assembler.cvttss2si(Register.x32.EAX, new RegisterMemory32(null, Register.x32.ESP));
+                    Assembler.add(new RegisterMemory32(Register.x32.ESP), 4);
                 }
                 if (((BasicType) from).size < ((BasicType) to).size) {
                     Assembler.movsx(Register.x32.EAX, ((BasicType) to).size, new RegisterMemory(Register.x32.EAX), ((BasicType) from).size);

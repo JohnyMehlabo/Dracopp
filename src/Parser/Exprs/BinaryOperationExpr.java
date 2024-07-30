@@ -52,9 +52,99 @@ public class BinaryOperationExpr implements Expr {
         System.out.printf("Operator: %s\n", operator.toString());
     }
 
+    private void floatArithmetic(Type rhsType, Type lhsType) {
+        // TODO: Clean the code for the 4 basic operations
+        switch (operator) {
+            case Sum:
+                Assembler.push(Register.x32.EAX);
+                if (((BasicType) lhsType).isFloat()) {
+                    Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                else {
+                    Assembler.fild(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                Assembler.pop(Register.x32.EAX);
+
+                Assembler.push(Register.x32.EBX);
+                if (((BasicType) rhsType).isFloat()) {
+                    Assembler.fadd(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                else {
+                    Assembler.fiadd(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                Assembler.fstp(new RegisterMemory32(null, Register.x32.ESP));
+                Assembler.pop(Register.x32.EAX);
+                break;
+            case Subtraction:
+                Assembler.push(Register.x32.EAX);
+                if (((BasicType) lhsType).isFloat()) {
+                    Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                else {
+                    Assembler.fild(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                Assembler.pop(Register.x32.EAX);
+
+                Assembler.push(Register.x32.EBX);
+                if (((BasicType) rhsType).isFloat()) {
+                    Assembler.fsub(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                else {
+                    Assembler.fisub(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                Assembler.fstp(new RegisterMemory32(null, Register.x32.ESP));
+                Assembler.pop(Register.x32.EAX);
+                break;
+            case Multiplication:
+                Assembler.push(Register.x32.EAX);
+                if (((BasicType) lhsType).isFloat()) {
+                    Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                else {
+                    Assembler.fild(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                Assembler.pop(Register.x32.EAX);
+
+                Assembler.push(Register.x32.EBX);
+                if (((BasicType) rhsType).isFloat()) {
+                    Assembler.fmul(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                else {
+                    Assembler.fimul(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                Assembler.fstp(new RegisterMemory32(null, Register.x32.ESP));
+                Assembler.pop(Register.x32.EAX);
+                break;
+            case Division:
+                Assembler.push(Register.x32.EAX);
+                if (((BasicType) lhsType).isFloat()) {
+                    Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                else {
+                    Assembler.fild(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                Assembler.pop(Register.x32.EAX);
+
+                Assembler.push(Register.x32.EBX);
+                if (((BasicType) rhsType).isFloat()) {
+                    Assembler.fdiv(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                else {
+                    Assembler.fidiv(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                Assembler.fstp(new RegisterMemory32(null, Register.x32.ESP));
+                Assembler.pop(Register.x32.EAX);
+                break;
+            default:
+                System.err.println("Not implemented");
+                System.exit(-1);
+        }
+    }
+
     @Override
     public Type codegen() {
         boolean isPointerArithmetic = false;
+        boolean isFloatArithmetic = false;
         PointerType pointerType = null;
 
         Type rhsType = rhs.codegen();
@@ -62,22 +152,44 @@ public class BinaryOperationExpr implements Expr {
             isPointerArithmetic = true;
             pointerType = (PointerType) rhsType;
         }
-        else
-            Type.cast(rhsType, BasicType.Int);
+        else if (rhsType instanceof BasicType) {
+            if (!((BasicType) rhsType).isFloat())
+                Type.cast(rhsType, BasicType.Int);
+            else
+                isFloatArithmetic = true;
+        }
+        else {
+            System.err.println("Invalid type for arithmetic");
+            System.exit(-1);
+        }
+
         Assembler.push(Register.x32.EAX);
 
         Type lhsType = lhs.codegen();
         if (lhsType instanceof PointerType && !isPointerArithmetic){
             isPointerArithmetic = true;
             pointerType = (PointerType) lhsType;
+            if (((BasicType) rhsType).isFloat()) {
+
+                System.err.println("Can't perform arithmetic between a float and a pointer");
+            }
 
         }
         else if (lhsType instanceof PointerType) {
-            System.err.println("Can't add perform arithmetic operation on two pointers");
+            System.err.println("Can't perform arithmetic operation on two pointers");
             System.exit(-1);
         }
-        else
-            Type.cast(lhsType, BasicType.Int);
+        else if (lhsType instanceof BasicType) {
+            if (!((BasicType) lhsType).isFloat())
+                Type.cast(lhsType, BasicType.Int);
+            else
+                // TODO: Remember to implement and use the casting to float
+                isFloatArithmetic = true;
+        }
+        else {
+            System.err.println("Invalid type for arithmetic");
+            System.exit(-1);
+        }
 
         Assembler.pop(Register.x32.EBX);
 
@@ -106,7 +218,7 @@ public class BinaryOperationExpr implements Expr {
             }
             return pointerType;
         }
-        else {
+        else if (!isFloatArithmetic) {
             switch (operator) {
                 case Sum:
                     Assembler.add(new RegisterMemory32(Register.x32.EAX), Register.x32.EBX);
@@ -148,6 +260,10 @@ public class BinaryOperationExpr implements Expr {
                     return BasicType.Bool;
             }
             return BasicType.Int;
+        }
+        else {
+            floatArithmetic(rhsType, lhsType);
+            return BasicType.Float;
         }
     }
 }

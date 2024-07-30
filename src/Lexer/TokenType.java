@@ -2,6 +2,7 @@ package Lexer;
 
 public enum TokenType {
     IntLiteral,
+    FloatLiteral,
     StringLiteral,
 
     Var,
