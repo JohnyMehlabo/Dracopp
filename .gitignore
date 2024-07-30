@@ -30,5 +30,5 @@ bin/
 
 *.o
 build.sh
-code.d++
+*.d++
 main

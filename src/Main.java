@@ -12,23 +12,29 @@ import java.util.List;
 import java.util.Objects;
 
 public class Main {
-    private static List<Token> tokens;
-    private static Stmt AST;
     private static byte[] data;
     public static void main(String[] args) throws IOException {
-        String src = Files.readString(Path.of("code.d++"));
-
-        tokens = Lexer.tokenize(src);
-        AST = Parser.parse(tokens);
-
-        logAST();
+        Stmt AST = parseFile("code.d++");
+        logAST(AST);
 
         Compiler.compile(AST);
         data = Assembler.getData().toByteArray();
         logData();
     }
 
-    static void logTokens() {
+    static Stmt parseFile(String path) {
+        String src = null;
+        try {
+            src = Files.readString(Path.of("code.d++"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        List<Token> tokens = Lexer.tokenize(src);
+        return Parser.parse(tokens);
+    }
+
+    static void logTokens(List<Token> tokens) {
         for (Token tok : tokens) {
             System.out.printf("Kind: %s", tok.kind.name());
             if (!Objects.equals(tok.value, ""))
@@ -37,7 +43,7 @@ public class Main {
         }
     }
 
-    static void logAST() {
+    static void logAST(Stmt AST) {
         AST.log();
     }
 
