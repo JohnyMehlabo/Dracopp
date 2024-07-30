@@ -31,7 +31,7 @@ public class Main {
     static Stmt parseFile(String path) {
         String src = null;
         try {
-            src = Files.readString(Path.of("code.d++"));
+            src = Files.readString(Path.of(path));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
