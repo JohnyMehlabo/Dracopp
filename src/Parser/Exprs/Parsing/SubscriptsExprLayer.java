@@ -27,9 +27,9 @@ public class SubscriptsExprLayer implements ExprLayer {
             }
             if (Parser.at().kind == TokenType.OpenBracket) {
                 Parser.eat();
-                Token indexToken = Parser.expect(TokenType.IntLiteral, "Expected index after \"[\" in array subscript");
+                Expr index = Parser.parseExpr();
                 Parser.expect(TokenType.CloseBracket, "Expected closing \"]\" after index in array subscript");
-                left = new ArraySubscriptExpr(left, Integer.parseInt(indexToken.value));
+                left = new ArraySubscriptExpr(left, index);
             }
             if (Parser.at().kind == TokenType.MemberAccessor) {
                 Parser.eat();

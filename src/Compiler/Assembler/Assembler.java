@@ -14,6 +14,7 @@ public class Assembler {
     private static Section section;
 
     private static final Map<Integer, String> labelRelocations = new HashMap<>();
+    private static final Map<String, Integer> localLabels = new HashMap<>();
 
     // Immediate
     public static void mov(Register.x32 reg, int imm32) {
@@ -96,26 +97,26 @@ public class Assembler {
         generateAddressingBytes32(src, dst.ordinal());
     }
 
-    public static void movsx(Register dst, int dstSize, RegisterMemory src, int srcSize) {
-        if (dstSize == 4 && srcSize == 2) movsx((Register.x32) dst, new RegisterMemory16(src));
-        if (dstSize == 4 && srcSize == 1) movsx((Register.x32) dst, new RegisterMemory8(src));
-        if (dstSize == 2 && srcSize == 1) movsx((Register.x16) dst, new RegisterMemory8(src));
+    public static void movzx(Register dst, int dstSize, RegisterMemory src, int srcSize) {
+        if (dstSize == 4 && srcSize == 2) movzx((Register.x32) dst, new RegisterMemory16(src));
+        if (dstSize == 4 && srcSize == 1) movzx((Register.x32) dst, new RegisterMemory8(src));
+        if (dstSize == 2 && srcSize == 1) movzx((Register.x16) dst, new RegisterMemory8(src));
 
     }
-    public static void movsx(Register.x16 dst, RegisterMemory8 src) {
+    public static void movzx(Register.x16 dst, RegisterMemory8 src) {
         data.write(0x66);
         data.write(0x0f);
-        data.write(0xbe);
+        data.write(0xb6);
         generateAddressingBytes32(src, dst.ordinal());
     }
-    public static void movsx(Register.x32 dst, RegisterMemory8 src) {
+    public static void movzx(Register.x32 dst, RegisterMemory8 src) {
         data.write(0x0f);
-        data.write(0xbe);
+        data.write(0xb6);
         generateAddressingBytes32(src, dst.ordinal());
     }
-    public static void movsx(Register.x32 dst, RegisterMemory16 src) {
+    public static void movzx(Register.x32 dst, RegisterMemory16 src) {
         data.write(0x0f);
-        data.write(0xbf);
+        data.write(0xb6);
         generateAddressingBytes32(src, dst.ordinal());
     }
 
@@ -346,8 +347,8 @@ public class Assembler {
     private static void generateAddressingBytes32(RegisterMemory32 regM, int regBits) {
         if (regM.readAddress) {
             if (regM.hasDisplacement ||  (regM.addressReg == Register.x32.EBP)) {
-                data.write(0b01000000 | regM.addressReg.ordinal() | (regBits << 3));
-                data.write(regM.displacement);
+                data.write(0b10000000 | regM.addressReg.ordinal() | (regBits << 3));
+                littleEndian(regM.displacement);
             }
             else {
                 data.write(regM.addressReg.ordinal() | (regBits << 3));
@@ -361,8 +362,8 @@ public class Assembler {
     private static void generateAddressingBytes32(RegisterMemory16 regM, int regBits) {
         if (regM.readAddress) {
             if (regM.hasDisplacement ||  (regM.addressReg == Register.x32.EBP)) {
-                data.write(0b01000000 | regM.addressReg.ordinal() | (regBits << 3));
-                data.write(regM.displacement);
+                data.write(0b010000000 | regM.addressReg.ordinal() | (regBits << 3));
+                littleEndian(regM.displacement);
             }
             else {
                 data.write(regM.addressReg.ordinal() | (regBits << 3));
@@ -375,8 +376,8 @@ public class Assembler {
     private static void generateAddressingBytes32(RegisterMemory8 regM, int regBits) {
         if (regM.readAddress) {
             if (regM.hasDisplacement ||  (regM.addressReg == Register.x32.EBP)) {
-                data.write(0b01000000 | regM.addressReg.ordinal() | (regBits << 3));
-                data.write(regM.displacement);
+                data.write(0b10000000 | regM.addressReg.ordinal() | (regBits << 3));
+                littleEndian(regM.displacement);
             }
             else {
                 data.write(regM.addressReg.ordinal() | (regBits << 3));
@@ -412,24 +413,31 @@ public class Assembler {
         for (Integer offset : labelRelocations.keySet()) {
             String name = labelRelocations.get(offset);
 
-            SymbolTableSection.Symbol sym = ElfHandler.symbolTableSection.getSymbolByName(name);
-            if (sym != null) {
-                if (sym.getSectionHeaderIndex() != 0) {
-                    int rel = sym.getValue() - offset - 4;
-                    dataAsArray[offset] = (byte) (rel & 0b11111111);
-                    dataAsArray[offset+1] = (byte) ((rel & (0b11111111 << 8)) >> 8);
-                    dataAsArray[offset+2] = (byte) ((rel & (0b11111111 << 16)) >> 16);
-                    dataAsArray[offset+3] = (byte) ((rel & (0b11111111 << 24)) >> 24);
-
-                    data.reset();
-                    data.write(dataAsArray);
-                }
-                else {
-                    ElfHandler.Text.relocationSection.addRelocation(labelRelocations.get(offset), offset, (byte) 2);
-                }
+            boolean targetFound = false;
+            int targetOffset = 0;
+            if (localLabels.get(name) != null) {
+                targetOffset = localLabels.get(name);
+                targetFound = true;
             }
             else {
-                ElfHandler.Text.relocationSection.addRelocation(labelRelocations.get(offset), offset, (byte) 2);
+                SymbolTableSection.Symbol sym = ElfHandler.symbolTableSection.getSymbolByName(name);
+                if (sym == null || sym.getSectionHeaderIndex() == 0) {
+                    ElfHandler.Text.relocationSection.addRelocation(labelRelocations.get(offset), offset, (byte) 2);
+                }
+                else {
+                    targetFound = true;
+                    targetOffset = sym.getValue();
+                }
+            }
+            if (targetFound) {
+                int rel = targetOffset - offset - 4;
+                dataAsArray[offset] = (byte) (rel & 0b11111111);
+                dataAsArray[offset+1] = (byte) ((rel & (0b11111111 << 8)) >> 8);
+                dataAsArray[offset+2] = (byte) ((rel & (0b11111111 << 16)) >> 16);
+                dataAsArray[offset+3] = (byte) ((rel & (0b11111111 << 24)) >> 24);
+
+                data.reset();
+                data.write(dataAsArray);
             }
         }
     }
@@ -445,5 +453,26 @@ public class Assembler {
     }
     public static void setSection(Section section) {
         Assembler.section = section;
+    }
+
+    public static void addLocalLabel(String label) {
+        localLabels.put(label, data.size());
+    }
+
+    public static void setDataAt(int offset, int int32) {
+        byte[] dataAsArray = data.toByteArray();
+
+        dataAsArray[offset] = (byte) (int32 & 0b11111111);
+        dataAsArray[offset+1] = (byte) ((int32 & (0b11111111 << 8)) >> 8);
+        dataAsArray[offset+2] = (byte) ((int32 & (0b11111111 << 16)) >> 16);
+        dataAsArray[offset+3] = (byte) ((int32 & (0b11111111 << 24)) >> 24);
+
+        try {
+            data.reset();
+            data.write(dataAsArray);
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+
     }
 }

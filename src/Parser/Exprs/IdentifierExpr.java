@@ -29,7 +29,7 @@ public class IdentifierExpr implements Expr {
 
         if (!(var.type instanceof ArrayType)) {
             int size = var.type.getSize();
-            Assembler.mov(Register.x32.EAX.ordinal(), size, new RegisterMemory(null, Register.x32.EBP, (byte) -var.stackPos), size);
+            Assembler.mov(Register.x32.EAX.ordinal(), size, new RegisterMemory(null, Register.x32.EBP, -var.stackPos), size);
 
             return var.type;
         }

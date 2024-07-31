@@ -4,7 +4,6 @@ import Compiler.Assembler.Assembler;
 import Compiler.Assembler.Register;
 import Compiler.Assembler.RegisterMemory;
 import Compiler.Compiler;
-import Compiler.Elf.ElfHandler;
 import Compiler.Types.Type;
 import Lexer.TokenType;
 import Parser.Exprs.Expr;
@@ -25,16 +24,20 @@ public class WhileStmt implements Stmt {
 
     @Override
     public void codegen(){
-        ElfHandler.Text.addLabel(String.format("while_%d_start", Compiler.whileCount), 0);
-        Type type = condition.codegen();
-        Assembler.test(new RegisterMemory(Register.x32.EAX), type.getSize(), Register.x32.EAX.ordinal(), type.getSize());
-        Assembler.jz(String.format("while_%d_end", Compiler.whileCount));
-
-        body.codegen();
-        Assembler.jmp(String.format("while_%d_start", Compiler.whileCount));
-        ElfHandler.Text.addLabel(String.format("while_%d_end", Compiler.whileCount), 0);
+        // TODO: Fix bug where a variable gets declared over and over
+        int currentWhileCount = Compiler.whileCount;
 
         Compiler.whileCount++;
+
+        Assembler.addLocalLabel(String.format("while_%d_start", currentWhileCount));
+        Type type = condition.codegen();
+        Assembler.test(new RegisterMemory(Register.x32.EAX), type.getSize(), Register.x32.EAX.ordinal(), type.getSize());
+        Assembler.jz(String.format("while_%d_end", currentWhileCount));
+
+        body.codegen();
+
+        Assembler.jmp(String.format("while_%d_start", currentWhileCount));
+        Assembler.addLocalLabel(String.format("while_%d_end", currentWhileCount));
     }
 
     private WhileStmt(Expr condition, Stmt body) {

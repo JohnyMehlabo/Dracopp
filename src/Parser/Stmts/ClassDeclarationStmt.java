@@ -53,14 +53,16 @@ public class ClassDeclarationStmt implements Stmt{
                 Type argType = methodDefinition.method.args.get(i).type;
                 int typeSize = argType.getSize();
                 Compiler.stackPtr += typeSize;
-                Assembler.mov(new RegisterMemory(null, Register.x32.EBP, (byte) -Compiler.stackPtr), typeSize, ARG_REGISTER_LIST.get(i).ordinal(), typeSize);
-                Assembler.sub(new RegisterMemory32(Register.x32.ESP), typeSize);
+                Assembler.mov(new RegisterMemory(null, Register.x32.EBP, -Compiler.stackPtr), typeSize, ARG_REGISTER_LIST.get(i).ordinal(), typeSize);
                 Compiler.scope.declareVar(argName, argType, Compiler.stackPtr);
             }
 
+            Assembler.sub(new RegisterMemory32(Register.x32.ESP), 0);
+            int targetOffset = Assembler.getData().size() - 4;
             for (Stmt stmt : methodDefinition.body) {
                 stmt.codegen();
             }
+            Assembler.setDataAt(targetOffset, Compiler.stackPtr);
 
             Assembler.leave();
             Assembler.ret();

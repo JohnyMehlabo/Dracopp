@@ -5,11 +5,11 @@ public class RegisterMemory32 {
     boolean readAddress = false;
     Register.x32 addressReg;
     boolean hasDisplacement = false;
-    byte displacement = 0;
+    int displacement = 0;
 
     public RegisterMemory32(RegisterMemory registerMemory) {
         if (registerMemory.reg != null)
-            this.reg = (Register.x32) Register.fromSize(registerMemory.reg.ordinal(), 2);
+            this.reg = (Register.x32) Register.fromSize(registerMemory.reg.ordinal(), 4);
 
         this.addressReg = registerMemory.addressReg;
         if (addressReg != null)
@@ -28,7 +28,7 @@ public class RegisterMemory32 {
         this.addressReg = addressReg;
     }
 
-    public RegisterMemory32(Register.x32 reg, Register.x32 addressReg, byte displacement) {
+    public RegisterMemory32(Register.x32 reg, Register.x32 addressReg, int displacement) {
         this.reg = reg;
         this.addressReg = addressReg;
         if (addressReg != null)

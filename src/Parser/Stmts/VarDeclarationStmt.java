@@ -59,13 +59,12 @@ public class VarDeclarationStmt implements Stmt {
             }
             // TODO: Implement type safety in reference variables
             initialValue.address();
-            Assembler.mov(new RegisterMemory(null, Register.x32.EBP, (byte) -Compiler.stackPtr), size, Register.x32.ECX.ordinal(), size);
+            Assembler.mov(new RegisterMemory(null, Register.x32.EBP, -Compiler.stackPtr), size, Register.x32.ECX.ordinal(), size);
         }
         else if (initialValue != null) {
             Type valueType = initialValue.codegen();
             Type.cast(valueType, type);
-            Assembler.mov(new RegisterMemory(null, Register.x32.EBP, (byte) -Compiler.stackPtr), size, Register.x32.EAX.ordinal(), size);
+            Assembler.mov(new RegisterMemory(null, Register.x32.EBP, -Compiler.stackPtr), size, Register.x32.EAX.ordinal(), size);
         }
-        Assembler.sub(new RegisterMemory32(Register.x32.ESP), type.getSize());
     }
 }

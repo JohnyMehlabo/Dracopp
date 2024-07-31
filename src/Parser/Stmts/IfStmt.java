@@ -4,7 +4,6 @@ import Compiler.Assembler.Assembler;
 import Compiler.Assembler.Register;
 import Compiler.Assembler.RegisterMemory;
 import Compiler.Compiler;
-import Compiler.Elf.ElfHandler;
 import Compiler.Types.Type;
 import Lexer.TokenType;
 import Parser.Exprs.Expr;
@@ -25,14 +24,14 @@ public class IfStmt implements Stmt {
 
     @Override
     public void codegen(){
+        int currentIfCount = Compiler.ifCount;
         Type type = condition.codegen();
         Assembler.test(new RegisterMemory(Register.x32.EAX), type.getSize(), Register.x32.EAX.ordinal(), type.getSize());
 
-        Assembler.jz(String.format("if_%d_end", Compiler.ifCount));
-        body.codegen();
-        ElfHandler.Text.addLabel(String.format("if_%d_end", Compiler.ifCount), 0);
-
         Compiler.ifCount++;
+        Assembler.jz(String.format("if_%d_end", currentIfCount));
+        body.codegen();
+        Assembler.addLocalLabel(String.format("if_%d_end", currentIfCount));
     }
 
     private IfStmt(Expr condition, Stmt body) {

@@ -4,20 +4,18 @@ import Compiler.Assembler.Assembler;
 import Compiler.Assembler.Register;
 import Compiler.Assembler.RegisterMemory;
 import Compiler.Assembler.RegisterMemory32;
-import Compiler.Types.ArrayType;
-import Compiler.Types.StructType;
-import Compiler.Types.Type;
+import Compiler.Types.*;
 
 public class ArraySubscriptExpr implements Expr {
     Expr data;
-    int index;
+    Expr index;
 
     @Override
     public void log() {
 
     }
 
-    public ArraySubscriptExpr(Expr data, int index) {
+    public ArraySubscriptExpr(Expr data, Expr index) {
         this.data = data;
         this.index = index;
     }
@@ -32,8 +30,15 @@ public class ArraySubscriptExpr implements Expr {
         }
 
         Assembler.push(Register.x32.EAX);
-        Assembler.mov(Register.x32.EAX, index);
-        if (((ArrayType) type).type instanceof StructType || ((ArrayType) type).type instanceof ArrayType) {
+        Type indexType = index.codegen();
+        if (!(indexType instanceof BasicType)) {
+            System.err.println("Index in array-subscript must be a basic type");
+            System.exit(-1);
+        } else if (((BasicType) indexType).isFloat()) {
+            System.err.println("Index in array-subscript can't be a floating point number ");
+            System.exit(-1);
+        }
+        if (((ArrayType) type).type instanceof StructType || ((ArrayType) type).type instanceof ClassType || ((ArrayType) type).type instanceof ArrayType) {
             Assembler.mov(Register.x32.EBX, ((ArrayType) type).type.getSize());
             Assembler.mul(Register.x32.EBX);
         }
@@ -51,7 +56,7 @@ public class ArraySubscriptExpr implements Expr {
     @Override
     public Type codegen() {
         Type type = address();
-        Assembler.mov(Register.x32.EAX.ordinal(), type.getSize(), new RegisterMemory(null, Register.x32.EAX), type.getSize());
+        Assembler.mov(Register.x32.EAX.ordinal(), type.getSize(), new RegisterMemory(null, Register.x32.ECX), type.getSize());
 
         return type;
     }

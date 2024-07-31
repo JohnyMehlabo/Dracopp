@@ -26,7 +26,7 @@ public interface Type {
                     Assembler.add(new RegisterMemory32(Register.x32.ESP), 4);
                 }
                 if (((BasicType) from).size < ((BasicType) to).size) {
-                    Assembler.movsx(Register.x32.EAX, ((BasicType) to).size, new RegisterMemory(Register.x32.EAX), ((BasicType) from).size);
+                    Assembler.movzx(Register.x32.EAX, ((BasicType) to).size, new RegisterMemory(Register.x32.EAX), ((BasicType) from).size);
                 }
             }
         } else if(from instanceof ReferenceType) {
@@ -41,6 +41,6 @@ public interface Type {
     }
 
     static void castToSize(Type type, int size) {
-        Assembler.movsx(Register.x32.EAX, size, new RegisterMemory(Register.x32.EAX), type.getSize());
+        Assembler.movzx(Register.x32.EAX, size, new RegisterMemory(Register.x32.EAX), type.getSize());
     }
 }

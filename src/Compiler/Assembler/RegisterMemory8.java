@@ -5,7 +5,7 @@ public class RegisterMemory8 {
     boolean readAddress = false;
     Register.x32 addressReg;
     boolean hasDisplacement = false;
-    byte displacement = 0;
+    int displacement = 0;
 
     public RegisterMemory8(RegisterMemory registerMemory) {
         if (registerMemory.reg != null)
@@ -28,7 +28,7 @@ public class RegisterMemory8 {
         this.addressReg = addressReg;
     }
 
-    public RegisterMemory8(Register.x8 reg, Register.x32 addressReg, byte displacement) {
+    public RegisterMemory8(Register.x8 reg, Register.x32 addressReg, int displacement) {
         this.reg = reg;
         this.addressReg = addressReg;
         if (addressReg != null)

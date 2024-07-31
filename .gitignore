@@ -28,6 +28,8 @@ bin/
 ### Mac OS ###
 .DS_Store
 
+projects/
+
 *.o
 build.sh
 *.d++
