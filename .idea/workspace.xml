@@ -9,22 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="Misc changes and bugfixes">
+    <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="Fixed float comparison bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Elf/ElfHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Elf/ElfHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Scope.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Scope.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Types/Class.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Types/Class.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Types/ClassType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Types/ClassType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Types/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Types/Type.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/AssignmentExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/AssignmentExpr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/BinaryOperationExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/BinaryOperationExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/IdentifierExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/IdentifierExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/PrimaryExprLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/PrimaryExprLayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/ClassDeclarationStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/ClassDeclarationStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/VarDeclarationStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/VarDeclarationStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/WhileStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/WhileStmt.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +30,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="floats" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -80,12 +67,12 @@
   "keyToString": {
     "Application.Main.executor": "Debug",
     "Application.main.executor": "Run",
-    "Application.raytracer.executor": "Run",
+    "Application.raytracer.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Shell Script.Build.executor": "Run",
-    "git-widget-placeholder": "floats",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Programacion/Proyectos/Dracopp/tests",
@@ -403,7 +390,8 @@
     <MESSAGE value="Fixed typo" />
     <MESSAGE value="Bugfix" />
     <MESSAGE value="Misc changes and bugfixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Misc changes and bugfixes" />
+    <MESSAGE value="Fixed float comparison bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed float comparison bug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -441,18 +429,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Parser/Exprs/BinaryOperationExpr.java</url>
-          <line>284</line>
+          <line>282</line>
           <option name="timeStamp" value="65" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java</url>
-          <line>44</line>
-          <option name="timeStamp" value="67" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>jar://C:/Program Files/Java/jdk-19/lib/src.zip!/java.base/java/lang/NullPointerException.java</url>
           <line>58</line>
           <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Parser/Exprs/BinaryOperationExpr.java</url>
+          <line>160</line>
+          <option name="timeStamp" value="71" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

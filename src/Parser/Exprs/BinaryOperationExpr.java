@@ -137,7 +137,7 @@ public class BinaryOperationExpr implements Expr {
                 break;
             case Less:
                 Assembler.push(Register.x32.EBX);
-                if (((BasicType) lhsType).isFloat()) {
+                if (((BasicType) rhsType).isFloat()) {
                     Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
                 }
                 else {
@@ -146,7 +146,7 @@ public class BinaryOperationExpr implements Expr {
                 Assembler.pop(Register.x32.EBX);
 
                 Assembler.push(Register.x32.EAX);
-                if (((BasicType) rhsType).isFloat()) {
+                if (((BasicType) lhsType).isFloat()) {
                     Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
                 }
                 else {
@@ -159,7 +159,7 @@ public class BinaryOperationExpr implements Expr {
                 return BasicType.Bool;
             case Greater:
                 Assembler.push(Register.x32.EBX);
-                if (((BasicType) lhsType).isFloat()) {
+                if (((BasicType) rhsType).isFloat()) {
                     Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
                 }
                 else {
@@ -168,7 +168,7 @@ public class BinaryOperationExpr implements Expr {
                 Assembler.pop(Register.x32.EBX);
 
                 Assembler.push(Register.x32.EAX);
-                if (((BasicType) rhsType).isFloat()) {
+                if (((BasicType) lhsType).isFloat()) {
                     Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
                 }
                 else {
@@ -181,7 +181,7 @@ public class BinaryOperationExpr implements Expr {
                 return BasicType.Bool;
             case LessEqual:
                 Assembler.push(Register.x32.EBX);
-                if (((BasicType) lhsType).isFloat()) {
+                if (((BasicType) rhsType).isFloat()) {
                     Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
                 }
                 else {
@@ -190,7 +190,7 @@ public class BinaryOperationExpr implements Expr {
                 Assembler.pop(Register.x32.EBX);
 
                 Assembler.push(Register.x32.EAX);
-                if (((BasicType) rhsType).isFloat()) {
+                if (((BasicType) lhsType).isFloat()) {
                     Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
                 }
                 else {
@@ -203,7 +203,7 @@ public class BinaryOperationExpr implements Expr {
                 return BasicType.Bool;
             case GreaterEqual:
                 Assembler.push(Register.x32.EBX);
-                if (((BasicType) lhsType).isFloat()) {
+                if (((BasicType) rhsType).isFloat()) {
                     Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
                 }
                 else {
@@ -212,7 +212,7 @@ public class BinaryOperationExpr implements Expr {
                 Assembler.pop(Register.x32.EBX);
 
                 Assembler.push(Register.x32.EAX);
-                if (((BasicType) rhsType).isFloat()) {
+                if (((BasicType) lhsType).isFloat()) {
                     Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
                 }
                 else {
@@ -262,10 +262,8 @@ public class BinaryOperationExpr implements Expr {
             isPointerArithmetic = true;
             pointerType = (PointerType) lhsType;
             if (((BasicType) rhsType).isFloat()) {
-
                 System.err.println("Can't perform arithmetic between a float and a pointer");
             }
-
         }
         else if (lhsType instanceof PointerType) {
             System.err.println("Can't perform arithmetic operation on two pointers");
