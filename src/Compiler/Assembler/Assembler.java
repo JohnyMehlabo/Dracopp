@@ -145,6 +145,27 @@ public class Assembler {
         data.write(0x9e);
         generateAddressingBytes32(regM, 0);
     }
+    public static void setb(RegisterMemory8 regM) {
+        data.write(0x0f);
+        data.write(0x92);
+        generateAddressingBytes32(regM, 0);
+    }
+    public static void setbe(RegisterMemory8 regM) {
+        data.write(0x0f);
+        data.write(0x96);
+        generateAddressingBytes32(regM, 0);
+    }
+    public static void seta(RegisterMemory8 regM) {
+        data.write(0x0f);
+        data.write(0x97);
+        generateAddressingBytes32(regM, 0);
+    }
+    public static void setae(RegisterMemory8 regM) {
+        data.write(0x0f);
+        data.write(0x93);
+        generateAddressingBytes32(regM, 0);
+    }
+
 
     public static void test(RegisterMemory regM, int regMSize, int registerOrdinal, int registerSize) {
         if (regMSize == registerSize) {
@@ -292,10 +313,24 @@ public class Assembler {
         generateAddressingBytes32(intMemory, 6);
     }
 
+    public static void fcomip(int st0, int sti) {
+        if (st0 != 0) {
+            System.err.println("St0 arg mus be 0");
+            System.exit(-1);
+        }
+        data.write(0xdf);
+        data.write(0xf0+sti);
+    }
+
     public static void fstp(RegisterMemory32 floatMemory) {
         checkOnlyMemory(floatMemory);
         data.write(0xd9);
         generateAddressingBytes32(floatMemory, 3);
+    }
+
+    public static void fstp(int sti) {
+        data.write(0xdd);
+        data.write(0xd8 + sti);
     }
 
     // TODO: Reminder: CVTTSS2SI

@@ -9,23 +9,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="Bugfix">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="Misc changes and bugfixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dracopp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Dracopp.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory16.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory16.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory32.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory32.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory8.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory8.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Elf/ElfHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Elf/ElfHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Scope.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Scope.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Types/Class.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Types/Class.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Types/ClassType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Types/ClassType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Types/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Types/Type.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/ArraySubscriptExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/ArraySubscriptExpr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/AssignmentExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/AssignmentExpr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/BinaryOperationExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/BinaryOperationExpr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/IdentifierExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/IdentifierExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/SubscriptsExprLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/SubscriptsExprLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/PrimaryExprLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/Parsing/PrimaryExprLayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/ClassDeclarationStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/ClassDeclarationStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/FuncDeclarationStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/FuncDeclarationStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/IfStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/IfStmt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/VarDeclarationStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/VarDeclarationStmt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/WhileStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/WhileStmt.java" afterDir="false" />
     </list>
@@ -83,6 +80,7 @@
   "keyToString": {
     "Application.Main.executor": "Debug",
     "Application.main.executor": "Run",
+    "Application.raytracer.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -114,11 +112,24 @@
       <recent name="Compiler.Assembler" />
     </key>
   </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="a" />
+    </option>
+  </component>
   <component name="RunManager" selected="Application.main">
     <configuration name="main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Dracopp" />
       <option name="PROGRAM_PARAMETERS" value="code.d++" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="raytracer" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Dracopp" />
+      <option name="PROGRAM_PARAMETERS" value="projects/raytracer.d++" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -142,6 +153,7 @@
     </configuration>
     <list>
       <item itemvalue="Application.main" />
+      <item itemvalue="Application.raytracer" />
       <item itemvalue="Shell Script.Build" />
     </list>
   </component>
@@ -345,7 +357,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722376252612</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Misc changes and bugfixes">
+      <option name="closed" value="true" />
+      <created>1722433418267</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1722433418267</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -382,7 +402,8 @@
     <MESSAGE value="File is now passed as argument" />
     <MESSAGE value="Fixed typo" />
     <MESSAGE value="Bugfix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bugfix" />
+    <MESSAGE value="Misc changes and bugfixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Misc changes and bugfixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -408,19 +429,30 @@
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java</url>
-          <line>413</line>
-          <option name="timeStamp" value="53" />
+          <condition expression="Parser.at().kind != TokenType.Semicolon" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/Parser/Stmts/ExprStmt.java</url>
+          <line>27</line>
+          <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Compiler/Assembler/Assembler.java</url>
-          <line>152</line>
-          <option name="timeStamp" value="57" />
+          <url>file://$PROJECT_DIR$/src/Parser/Exprs/BinaryOperationExpr.java</url>
+          <line>253</line>
+          <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Compiler/Assembler/RegisterMemory32.java</url>
-          <line>10</line>
-          <option name="timeStamp" value="58" />
+          <url>file://$PROJECT_DIR$/src/Parser/Exprs/BinaryOperationExpr.java</url>
+          <line>284</line>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java</url>
+          <line>44</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://C:/Program Files/Java/jdk-19/lib/src.zip!/java.base/java/lang/NullPointerException.java</url>
+          <line>58</line>
+          <option name="timeStamp" value="69" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

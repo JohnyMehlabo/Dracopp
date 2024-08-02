@@ -11,11 +11,13 @@ public class Scope {
         public String name;
         public int stackPos;
         public Type type;
+        public boolean isGlobal;
 
-        Variable(String name, Type type, int stackPos) {
+        Variable(String name, Type type, int stackPos, boolean isGlobal) {
             this.name = name;
             this.type = type;
             this.stackPos = stackPos;
+            this.isGlobal = isGlobal;
         }
     }
 
@@ -31,7 +33,15 @@ public class Scope {
             System.err.printf("Redefinition of variable '%s'\n", name);
             System.exit(-1);
         }
-        variables.add(new Variable(name, type, stackPos));
+        variables.add(new Variable(name, type, stackPos, false));
+    }
+
+    public void declareVar(String name, Type type) {
+        if (variables.stream().anyMatch(v -> v.name.equals(name))) {
+            System.err.printf("Redefinition of variable '%s'\n", name);
+            System.exit(-1);
+        }
+        variables.add(new Variable(name, type, 0, true));
     }
 
     public Variable resolveVar(String name) {
@@ -43,5 +53,9 @@ public class Scope {
             System.exit(-1);
         }
         return parentScope.resolveVar(name);
+    }
+
+    public boolean isGlobalScope() {
+        return this.parentScope == null;
     }
 }

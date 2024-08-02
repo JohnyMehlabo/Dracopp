@@ -24,7 +24,6 @@ public class WhileStmt implements Stmt {
 
     @Override
     public void codegen(){
-        // TODO: Fix bug where a variable gets declared over and over
         int currentWhileCount = Compiler.whileCount;
 
         Compiler.whileCount++;

@@ -52,7 +52,7 @@ public class BinaryOperationExpr implements Expr {
         System.out.printf("Operator: %s\n", operator.toString());
     }
 
-    private void floatArithmetic(Type rhsType, Type lhsType) {
+    private Type floatArithmetic(Type rhsType, Type lhsType) {
         // TODO: Clean the code for the 4 basic operations
         switch (operator) {
             case Sum:
@@ -135,10 +135,99 @@ public class BinaryOperationExpr implements Expr {
                 Assembler.fstp(new RegisterMemory32(null, Register.x32.ESP));
                 Assembler.pop(Register.x32.EAX);
                 break;
+            case Less:
+                Assembler.push(Register.x32.EBX);
+                if (((BasicType) lhsType).isFloat()) {
+                    Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                else {
+                    Assembler.fild(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                Assembler.pop(Register.x32.EBX);
+
+                Assembler.push(Register.x32.EAX);
+                if (((BasicType) rhsType).isFloat()) {
+                    Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                else {
+                    Assembler.fild(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                Assembler.pop(Register.x32.EAX);
+                Assembler.fcomip(0, 1);
+                Assembler.fstp(0);
+                Assembler.setb(new RegisterMemory8(Register.x8.AL));
+                return BasicType.Bool;
+            case Greater:
+                Assembler.push(Register.x32.EBX);
+                if (((BasicType) lhsType).isFloat()) {
+                    Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                else {
+                    Assembler.fild(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                Assembler.pop(Register.x32.EBX);
+
+                Assembler.push(Register.x32.EAX);
+                if (((BasicType) rhsType).isFloat()) {
+                    Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                else {
+                    Assembler.fild(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                Assembler.pop(Register.x32.EAX);
+                Assembler.fcomip(0, 1);
+                Assembler.fstp(0);
+                Assembler.seta(new RegisterMemory8(Register.x8.AL));
+                return BasicType.Bool;
+            case LessEqual:
+                Assembler.push(Register.x32.EBX);
+                if (((BasicType) lhsType).isFloat()) {
+                    Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                else {
+                    Assembler.fild(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                Assembler.pop(Register.x32.EBX);
+
+                Assembler.push(Register.x32.EAX);
+                if (((BasicType) rhsType).isFloat()) {
+                    Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                else {
+                    Assembler.fild(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                Assembler.pop(Register.x32.EAX);
+                Assembler.fcomip(0, 1);
+                Assembler.fstp(0);
+                Assembler.setbe(new RegisterMemory8(Register.x8.AL));
+                return BasicType.Bool;
+            case GreaterEqual:
+                Assembler.push(Register.x32.EBX);
+                if (((BasicType) lhsType).isFloat()) {
+                    Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                else {
+                    Assembler.fild(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                Assembler.pop(Register.x32.EBX);
+
+                Assembler.push(Register.x32.EAX);
+                if (((BasicType) rhsType).isFloat()) {
+                    Assembler.fld(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                else {
+                    Assembler.fild(new RegisterMemory32(null, Register.x32.ESP));
+                }
+                Assembler.pop(Register.x32.EAX);
+                Assembler.fcomip(0, 1);
+                Assembler.fstp(0);
+                Assembler.setae(new RegisterMemory8(Register.x8.AL));
+                return BasicType.Bool;
             default:
                 System.err.println("Not implemented");
                 System.exit(-1);
         }
+        return BasicType.Float;
     }
 
     @Override
@@ -152,8 +241,11 @@ public class BinaryOperationExpr implements Expr {
             isPointerArithmetic = true;
             pointerType = (PointerType) rhsType;
         }
-        else if (rhsType instanceof BasicType) {
-            if (!((BasicType) rhsType).isFloat())
+        else if (rhsType instanceof BasicType || rhsType instanceof ReferenceType) {
+            if (rhsType instanceof ReferenceType) {
+                rhsType = ((ReferenceType) rhsType).to;
+            }
+            else if (!((BasicType) rhsType).isFloat())
                 Type.cast(rhsType, BasicType.Int);
             else
                 isFloatArithmetic = true;
@@ -179,8 +271,11 @@ public class BinaryOperationExpr implements Expr {
             System.err.println("Can't perform arithmetic operation on two pointers");
             System.exit(-1);
         }
-        else if (lhsType instanceof BasicType) {
-            if (!((BasicType) lhsType).isFloat())
+        else if (lhsType instanceof BasicType || lhsType instanceof ReferenceType) {
+            if (lhsType instanceof ReferenceType) {
+                lhsType = ((ReferenceType) lhsType).to;
+            }
+            else if (!((BasicType) lhsType).isFloat())
                 Type.cast(lhsType, BasicType.Int);
             else
                 // TODO: Remember to implement and use the casting to float
@@ -262,8 +357,7 @@ public class BinaryOperationExpr implements Expr {
             return BasicType.Int;
         }
         else {
-            floatArithmetic(rhsType, lhsType);
-            return BasicType.Float;
+            return floatArithmetic(rhsType, lhsType);
         }
     }
 }

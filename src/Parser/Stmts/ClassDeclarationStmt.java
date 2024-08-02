@@ -146,6 +146,9 @@ public class ClassDeclarationStmt implements Stmt{
             Token parentNameToken = Parser.expect(TokenType.Identifier, "Expected identifier after \"extends\" keyword");
             parentClass = Class.resolveClass(parentNameToken.value);
         }
+
+        Class aClass = Class.declareClass(name, parentClass);
+
         Parser.expect(TokenType.OpenBrace, "Expected \"{\" after class initialization");
 
         while (Parser.notEOF() && Parser.at().kind != TokenType.CloseBrace) {
@@ -164,7 +167,8 @@ public class ClassDeclarationStmt implements Stmt{
         Parser.expect(TokenType.CloseBrace, "Missing closing \"}\" in class declaration");
         Parser.expect(TokenType.Semicolon, "Expected \";\" after class declaration");
 
-        Class.declareClass(name, parentClass, members, methods);
+        aClass.setData(members, methods);
+
         return new ClassDeclarationStmt(name, members, methodDefinitions);
     }
 

@@ -9,6 +9,10 @@ public class ClassType implements Type {
 
     @Override
     public int getSize() {
+        if (!aClass.isDefined) {
+            System.err.println("Cannot get size of class before it is defined");
+            System.exit(-1);
+        }
         return aClass.size;
     }
 

@@ -24,8 +24,14 @@ public interface Type {
                     Assembler.push(Register.x32.EAX);
                     Assembler.cvttss2si(Register.x32.EAX, new RegisterMemory32(null, Register.x32.ESP));
                     Assembler.add(new RegisterMemory32(Register.x32.ESP), 4);
+                } else if (!((BasicType) from).isFloat() && ((BasicType) to).isFloat()) {
+                    // Be careful with assuming the non-float is 32 bit wide
+                    Assembler.push(Register.x32.EAX);                     // Push integer value onto the stack
+                    Assembler.fild(new RegisterMemory32(null, Register.x32.ESP)); // Load integer as float into st(0)
+                    Assembler.fstp(new RegisterMemory32(null, Register.x32.ESP)); // Store float back to the top of the stack
+                    Assembler.pop(Register.x32.EAX);
                 }
-                if (((BasicType) from).size < ((BasicType) to).size) {
+                else if (((BasicType) from).size < ((BasicType) to).size) {
                     Assembler.movzx(Register.x32.EAX, ((BasicType) to).size, new RegisterMemory(Register.x32.EAX), ((BasicType) from).size);
                 }
             }

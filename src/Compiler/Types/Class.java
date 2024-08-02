@@ -5,29 +5,14 @@ import java.util.*;
 public class Class {
     static Map<String, Class> classes = new HashMap<>();
 
-    public static void declareClass(String name, Class parent, LinkedHashMap<String, Type> members, LinkedHashMap<String, Method> methods) {
-        classes.put(name, new Class(parent, members, methods));
+    public static Class declareClass(String name, Class parent) {
+        Class aClass = new Class(parent);
+        classes.put(name, aClass);
+        return aClass;
     }
 
-    public static Class resolveClass(String name) {
-        Class struct = classes.get(name);
-        if (struct == null) {
-            System.err.printf("Undeclared class \"%s\"\n", name);
-            System.exit(-1);
-        }
-        return struct;
-    }
-
-    Class parent;
-    LinkedHashMap<String, Member> members = new LinkedHashMap<>();
-    LinkedHashMap<String, Method> methods = new LinkedHashMap<>();
-
-    int size;
-    int alignmentSize;
-
-    private Class(Class parent, LinkedHashMap<String, Type> members, LinkedHashMap<String, Method> methods) {
-        this.parent = parent;
-
+    public void setData(LinkedHashMap<String, Type> members, LinkedHashMap<String, Method> methods) {
+        isDefined = true;
         if (parent != null)
             // Add super member
             this.members.put("super", new Member(new ClassType(parent), 0));
@@ -71,6 +56,27 @@ public class Class {
             method.args.add(0, new Method.Arg("this", new PointerType(new ClassType(this))));
             this.methods.put(methodName, method);
         }
+    }
+
+    public static Class resolveClass(String name) {
+        Class struct = classes.get(name);
+        if (struct == null) {
+            System.err.printf("Undeclared class \"%s\"\n", name);
+            System.exit(-1);
+        }
+        return struct;
+    }
+
+    boolean isDefined = false;
+    Class parent;
+    LinkedHashMap<String, Member> members = new LinkedHashMap<>();
+    LinkedHashMap<String, Method> methods = new LinkedHashMap<>();
+
+    int size;
+    int alignmentSize;
+
+    private Class(Class parent) {
+        this.parent = parent;
     }
 
     public Member getMember(String name) {

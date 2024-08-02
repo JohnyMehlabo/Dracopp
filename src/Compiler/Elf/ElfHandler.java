@@ -124,6 +124,40 @@ public class ElfHandler {
         }
     }
 
+    public static class BSS {
+        private static Section bssSection;
+        private static final ByteArrayOutputStream bssSectionData = new ByteArrayOutputStream();
+
+        private static final Map<String, Label> labels = new HashMap<>();
+
+        public static void addLabel(String name, int global) {
+            int value = bssSectionData.size();
+            short index = bssSection.getIndex();
+
+            Label label = new Label(value, index, name);
+            labels.put(name, label);
+
+            try {
+                symbolTableSection.addSymbol(name, value, 0, (byte) (global << 4), (byte) 0, index);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        public static Label getLabel(String name) {
+            return labels.get(name);
+        }
+
+        public static void reserveBytes(int bytes) {
+            for (int i = 0; i < bytes; i++) {
+                bssSectionData.write(0x0);
+            }
+        }
+
+        public static short getSectionIndex() {
+            return bssSection.getIndex();
+        }
+    }
+
     public static void initElfHandler() throws IOException {
         addSection(0, 0, 0, 0, 0, 0, 0, 0);
         initStringTableSection();
@@ -131,6 +165,7 @@ public class ElfHandler {
 
         Text.textSection = addSection(".text", 1,  2 | 4, 0, 0, 0, 16, 0);
         Data.dataSection = addSection(".data", 1,  2, 0, 0, 0, 16, 0);
+        BSS.bssSection = addSection(".bss", 1,  1 | 2, 0, 0, 0, 16, 0);
         Text.initRelocationSection();
         Assembler.setData(Text.textSectionData);
         Assembler.setSection(Text.textSection);
@@ -140,6 +175,7 @@ public class ElfHandler {
         Assembler.computeRelocations();
         Text.textSection.setData(Assembler.getData().toByteArray());
         Data.dataSection.setData(Data.dataSectionData.toByteArray());
+        BSS.bssSection.setData(BSS.bssSectionData.toByteArray());
 
         Elf.save(outputFile);
 

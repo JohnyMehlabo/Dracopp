@@ -27,7 +27,7 @@ public class AssignmentExpr implements Expr{
     public Type codegen() {
         Type srcType = src.codegen();
         Type dstType = dst.address();
-        Type.cast(dstType, srcType);
+        Type.cast(srcType, dstType);
 
         Assembler.mov(new RegisterMemory(null, Register.x32.ECX), dstType.getSize(), Register.x32.EAX.ordinal(), dstType.getSize());
         return dstType;

@@ -8,7 +8,7 @@ public class PrimaryExprLayer implements ExprLayer {
     @Override
     public Expr parse(int depth) {
         return switch (Parser.at().kind) {
-            case IntLiteral -> new IntegerLiteralExpr(Integer.parseInt(Parser.eat().value));
+            case IntLiteral -> new IntegerLiteralExpr((int) Long.parseLong(Parser.eat().value));
             case FloatLiteral -> new FloatLiteralExpr(Float.parseFloat(Parser.eat().value));
             case StringLiteral -> new StringLiteralExpr(Parser.eat().value);
             case OpenParen -> {

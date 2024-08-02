@@ -86,7 +86,7 @@ public class FuncCallExpr implements Expr{
 
             if (dstType instanceof ReferenceType && !(argType instanceof ReferenceType) ) {
                 // TODO: Implement type safety for T --> T& casting
-                args.get(i).address();
+                args.get(i-1).address();
                 Assembler.mov(Register.x32.EAX, new RegisterMemory32(Register.x32.ECX));
             } else {
                 Type.cast(argType, dstType);
