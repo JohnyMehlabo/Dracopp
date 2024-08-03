@@ -76,7 +76,12 @@ public class Assembler {
         }
     }
 
-    // TODO
+    public static void lea(Register.x32 dst, RegisterMemory32 memory) {
+        checkOnlyMemory(memory);
+        data.write(0x8d);
+        generateAddressingBytes32(memory, dst.ordinal());
+    }
+
     public static void lea(Register.x32 dst, int memory) {
         data.write(0x8d);
         data.write(dst.ordinal() << 3 | 0x05);
@@ -332,8 +337,6 @@ public class Assembler {
         data.write(0xdd);
         data.write(0xd8 + sti);
     }
-
-    // TODO: Reminder: CVTTSS2SI
 
     public static void cvttss2si(Register.x32 register, RegisterMemory32 regM) {
         checkOnlyMemory(regM);

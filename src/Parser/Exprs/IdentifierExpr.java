@@ -45,9 +45,7 @@ public class IdentifierExpr implements Expr {
                 return ((ReferenceType) var.type).to;
             }
             else {
-                Assembler.mov(Register.x32.EAX, new RegisterMemory32(Register.x32.EBP));
-                Assembler.sub(new RegisterMemory32(Register.x32.EAX), var.stackPos);
-
+                Assembler.lea(Register.x32.EAX, new RegisterMemory32(null, Register.x32.EBP, -var.stackPos));
                 return new PointerType(((ArrayType) var.type).type);
             }
         }
@@ -88,8 +86,7 @@ public class IdentifierExpr implements Expr {
     public Type address() {
         Variable var = Compiler.scope.resolveVar(symbol);
         if (!var.isGlobal) {
-            Assembler.mov(Register.x32.ECX, new RegisterMemory32(Register.x32.EBP));
-            Assembler.sub(new RegisterMemory32(Register.x32.ECX), var.stackPos);
+            Assembler.lea(Register.x32.ECX, new RegisterMemory32(null, Register.x32.EBP, -var.stackPos));
         }
         else {
             Assembler.lea(Register.x32.ECX, 0);

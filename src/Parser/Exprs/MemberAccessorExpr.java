@@ -31,14 +31,14 @@ public class MemberAccessorExpr implements Expr {
             Struct struct = ((StructType) type).struct;
             Struct.Member member = struct.getMember(memberName);
 
-            Assembler.add(new RegisterMemory32(Register.x32.ECX), member.offset);
+            Assembler.lea(Register.x32.ECX, new RegisterMemory32(null, Register.x32.ECX, member.offset));
             return member.type;
         }
         else if (type instanceof ClassType) {
             Class aClass = ((ClassType) type).aClass;
             Class.Member member = aClass.getMember(memberName);
 
-            Assembler.add(new RegisterMemory32(Register.x32.ECX), member.offset);
+            Assembler.lea(Register.x32.ECX, new RegisterMemory32(null, Register.x32.ECX, member.offset));
             return member.type;
         }
         else {

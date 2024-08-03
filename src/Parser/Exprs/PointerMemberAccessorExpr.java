@@ -34,9 +34,8 @@ public class PointerMemberAccessorExpr implements Expr {
             Struct struct = ((StructType) ((PointerType) type).to).struct;
             Struct.Member member = struct.getMember(memberName);
 
-            Assembler.mov(Register.x32.ECX, new RegisterMemory32(Register.x32.EAX));
+            Assembler.lea(Register.x32.ECX, new RegisterMemory32(null, Register.x32.EAX, member.offset));
             Assembler.pop(Register.x32.EAX);
-            Assembler.add(new RegisterMemory32(Register.x32.ECX), member.offset);
             return member.type;
 
         }
@@ -44,9 +43,8 @@ public class PointerMemberAccessorExpr implements Expr {
             Class aClass = ((ClassType) ((PointerType) type).to).aClass;
             Class.Member member = aClass.getMember(memberName);
 
-            Assembler.mov(Register.x32.ECX, new RegisterMemory32(Register.x32.EAX));
+            Assembler.lea(Register.x32.ECX, new RegisterMemory32(null, Register.x32.EAX, member.offset));
             Assembler.pop(Register.x32.EAX);
-            Assembler.add(new RegisterMemory32(Register.x32.ECX), member.offset);
             return member.type;
 
         }
