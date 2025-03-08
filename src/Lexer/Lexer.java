@@ -35,6 +35,18 @@ public class Lexer {
                 }
                 tokens.add(new Token(TokenType.Equals, "="));
             }
+            else if (src.getFirst().equals("!")) {
+                if (src.size() > 1) {
+                    src.removeFirst();
+                    if (src.getFirst().equals("=")) {
+                        src.removeFirst();
+                        tokens.add(new Token(TokenType.BinaryOperator, "!="));
+                        continue;
+                    }
+                }
+                System.err.println("Invalid token '!'");
+                System.exit(-1);
+            }
             else if (src.getFirst().equals(">")) {
                 if (src.size() > 1) {
                     src.removeFirst();

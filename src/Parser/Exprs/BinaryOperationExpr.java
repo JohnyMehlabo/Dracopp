@@ -12,7 +12,7 @@ import java.util.Map;
 public class BinaryOperationExpr implements Expr {
 
     public enum Operator {
-        Sum, Subtraction, Multiplication, Division, Equal, Greater, GreaterEqual, Less, LessEqual, Modulus;
+        Sum, Subtraction, Multiplication, Division, Equal, NotEqual, Greater, GreaterEqual, Less, LessEqual, Modulus;
 
         static final Map<String, Operator> STRING_OPERATOR_MAP;
         static {
@@ -23,6 +23,7 @@ public class BinaryOperationExpr implements Expr {
             STRING_OPERATOR_MAP.put("/", Division);
             STRING_OPERATOR_MAP.put("%", Modulus);
             STRING_OPERATOR_MAP.put("==", Equal);
+            STRING_OPERATOR_MAP.put("!=", NotEqual);
             STRING_OPERATOR_MAP.put(">", Greater);
             STRING_OPERATOR_MAP.put(">=", GreaterEqual);
             STRING_OPERATOR_MAP.put("<", Less);
@@ -355,6 +356,10 @@ public class BinaryOperationExpr implements Expr {
                 case Equal:
                     Assembler.cmp(new RegisterMemory32(Register.x32.EAX), Register.x32.EBX);
                     Assembler.sete(new RegisterMemory8(Register.x8.AL));
+                    return BasicType.Bool;
+                case NotEqual:
+                    Assembler.cmp(new RegisterMemory32(Register.x32.EAX), Register.x32.EBX);
+                    Assembler.setne(new RegisterMemory8(Register.x8.AL));
                     return BasicType.Bool;
             }
             return BasicType.Int;

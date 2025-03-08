@@ -135,6 +135,11 @@ public class Assembler {
         data.write(0x94);
         generateAddressingBytes32(regM, 0);
     }
+    public static void setne(RegisterMemory8 regM) {
+        data.write(0x0f);
+        data.write(0x95);
+        generateAddressingBytes32(regM, 0);
+    }
     public static void setg(RegisterMemory8 regM) {
         data.write(0x0f);
         data.write(0x9f);
