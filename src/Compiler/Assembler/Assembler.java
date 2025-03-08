@@ -130,6 +130,11 @@ public class Assembler {
         generateAddressingBytes32(regM, reg.ordinal());
     }
 
+    public static void sete(RegisterMemory8 regM) {
+        data.write(0x0f);
+        data.write(0x94);
+        generateAddressingBytes32(regM, 0);
+    }
     public static void setg(RegisterMemory8 regM) {
         data.write(0x0f);
         data.write(0x9f);
@@ -384,8 +389,9 @@ public class Assembler {
     }
     private static void generateAddressingBytes32(RegisterMemory32 regM, int regBits) {
         if (regM.readAddress) {
-            if (regM.hasDisplacement ||  (regM.addressReg == Register.x32.EBP)) {
+            if (regM.hasDisplacement || (regM.addressReg == Register.x32.EBP)) {
                 data.write(0b10000000 | regM.addressReg.ordinal() | (regBits << 3));
+                if (regM.addressReg ==  Register.x32.ESP) data.write(0x24);
                 littleEndian(regM.displacement);
             }
             else {
@@ -401,10 +407,12 @@ public class Assembler {
         if (regM.readAddress) {
             if (regM.hasDisplacement ||  (regM.addressReg == Register.x32.EBP)) {
                 data.write(0b010000000 | regM.addressReg.ordinal() | (regBits << 3));
+                if (regM.addressReg ==  Register.x32.ESP) data.write(0x24);
                 littleEndian(regM.displacement);
             }
             else {
                 data.write(regM.addressReg.ordinal() | (regBits << 3));
+                if (regM.addressReg ==  Register.x32.ESP) data.write(0x24);
             }
         }
         else {
@@ -415,10 +423,12 @@ public class Assembler {
         if (regM.readAddress) {
             if (regM.hasDisplacement ||  (regM.addressReg == Register.x32.EBP)) {
                 data.write(0b10000000 | regM.addressReg.ordinal() | (regBits << 3));
+                if (regM.addressReg ==  Register.x32.ESP) data.write(0x24);
                 littleEndian(regM.displacement);
             }
             else {
                 data.write(regM.addressReg.ordinal() | (regBits << 3));
+                if (regM.addressReg ==  Register.x32.ESP) data.write(0x24);
             }
         }
         else {

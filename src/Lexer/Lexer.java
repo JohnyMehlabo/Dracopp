@@ -22,74 +22,83 @@ public class Lexer {
         List<String> src = new ArrayList<>(List.of(code.split("")));
 
         while (!src.isEmpty()) {
-            if (src.get(0).equals("="))
-                tokens.add(new Token(TokenType.Equals, src.remove(0)));
-            else if (src.get(0).equals(">")) {
+            if (src.getFirst().equals("=")) {
                 if (src.size() > 1) {
-                    src.remove(0);
-                    if (src.get(0).equals("=")) {
-                        src.remove(0);
+                    src.removeFirst();
+                    if (src.getFirst().equals("=")) {
+                        src.removeFirst();
+                        tokens.add(new Token(TokenType.BinaryOperator, "=="));
+                        continue;
+                    }
+                }
+                tokens.add(new Token(TokenType.Equals, "="));
+            }
+            else if (src.getFirst().equals(">")) {
+                if (src.size() > 1) {
+                    src.removeFirst();
+                    if (src.getFirst().equals("=")) {
+                        src.removeFirst();
                         tokens.add(new Token(TokenType.BinaryOperator, ">="));
                         continue;
                     }
                 }
                 tokens.add(new Token(TokenType.BinaryOperator, ">"));
             }
-            else if (src.get(0).equals("<")) {
+            else if (src.getFirst().equals("<")) {
                 if (src.size() > 1) {
-                    src.remove(0);
-                    if (src.get(0).equals("=")) {
-                        src.remove(0);
+                    src.removeFirst();
+                    if (src.getFirst().equals("=")) {
+                        src.removeFirst();
                         tokens.add(new Token(TokenType.BinaryOperator, "<="));
                         continue;
                     }
                 }
                 tokens.add(new Token(TokenType.BinaryOperator, "<"));
             }
-            else if (src.get(0).equals("&"))
-                tokens.add(new Token(TokenType.AddressOf, src.remove(0)));
-            else if (src.get(0).equals(";"))
-                tokens.add(new Token(TokenType.Semicolon, src.remove(0)));
-            else if (src.get(0).equals(","))
-                tokens.add(new Token(TokenType.Comma, src.remove(0)));
-            else if (src.get(0).equals("."))
-                tokens.add(new Token(TokenType.MemberAccessor, src.remove(0)));
-            else if (src.get(0).equals(":"))
-                tokens.add(new Token(TokenType.PointerMemberAccessor, src.remove(0)));
-            else if (src.get(0).equals("("))
-                tokens.add(new Token(TokenType.OpenParen, src.remove(0)));
-            else if (src.get(0).equals(")"))
-                tokens.add(new Token(TokenType.CloseParen, src.remove(0)));
-            else if (src.get(0).equals("{"))
-                tokens.add(new Token(TokenType.OpenBrace, src.remove(0)));
-            else if (src.get(0).equals("}"))
-                tokens.add(new Token(TokenType.CloseBrace, src.remove(0)));
-            else if (src.get(0).equals("["))
-                tokens.add(new Token(TokenType.OpenBracket, src.remove(0)));
-            else if (src.get(0).equals("]"))
-                tokens.add(new Token(TokenType.CloseBracket, src.remove(0)));
-            else if (src.get(0).equals("+") || src.get(0).equals("*") || src.get(0).equals("/") || src.get(0).equals("%"))
-                tokens.add(new Token(TokenType.BinaryOperator, src.remove(0)));
-            else if (src.get(0).equals("-")) {
+            else if (src.getFirst().equals("&"))
+                tokens.add(new Token(TokenType.AddressOf, src.removeFirst()));
+            else if (src.getFirst().equals(";"))
+                tokens.add(new Token(TokenType.Semicolon, src.removeFirst()));
+            else if (src.getFirst().equals(","))
+                tokens.add(new Token(TokenType.Comma, src.removeFirst()));
+            else if (src.getFirst().equals("."))
+                tokens.add(new Token(TokenType.MemberAccessor, src.removeFirst()));
+            else if (src.getFirst().equals(":"))
+                tokens.add(new Token(TokenType.PointerMemberAccessor, src.removeFirst()));
+            else if (src.getFirst().equals("("))
+                tokens.add(new Token(TokenType.OpenParen, src.removeFirst()));
+            else if (src.getFirst().equals(")"))
+                tokens.add(new Token(TokenType.CloseParen, src.removeFirst()));
+            else if (src.getFirst().equals("{"))
+                tokens.add(new Token(TokenType.OpenBrace, src.removeFirst()));
+            else if (src.getFirst().equals("}"))
+                tokens.add(new Token(TokenType.CloseBrace, src.removeFirst()));
+            else if (src.getFirst().equals("["))
+                tokens.add(new Token(TokenType.OpenBracket, src.removeFirst()));
+            else if (src.getFirst().equals("]"))
+                tokens.add(new Token(TokenType.CloseBracket, src.removeFirst()));
+            else if (src.getFirst().equals("+") || src.getFirst().equals("*") || src.getFirst().equals("/") || src.getFirst().equals("%"))
+                tokens.add(new Token(TokenType.BinaryOperator, src.removeFirst()));
+            else if (src.getFirst().equals("-")) {
                 if (src.size() > 1){
-                    src.remove(0);
-                    if (src.get(0).equals(">")) {
-                        src.remove(0);
+                    src.removeFirst();
+                    if (src.getFirst().equals(">")) {
+                        src.removeFirst();
                         tokens.add(new Token(TokenType.Arrow, "->"));
                         continue;
                     }
                 }
                 tokens.add(new Token(TokenType.BinaryOperator, "-"));
             }
-            else if (isSkippable(src.get(0)))
-                src.remove(0);
-            else if (src.get(0).equals("\"")) {
-                src.remove(0);
+            else if (isSkippable(src.getFirst()))
+                src.removeFirst();
+            else if (src.getFirst().equals("\"")) {
+                src.removeFirst();
                 StringBuilder stringBuilder = new StringBuilder();
-                while (!src.isEmpty() && !src.get(0).equals("\"")) {
-                    if (src.get(0).equals("\\")) {
-                        src.remove(0);
-                        switch (src.remove(0)) {
+                while (!src.isEmpty() && !src.getFirst().equals("\"")) {
+                    if (src.getFirst().equals("\\")) {
+                        src.removeFirst();
+                        switch (src.removeFirst()) {
                             case "\"": stringBuilder.append("\""); break;
                             case "n": stringBuilder.append("\n"); break;
                             case "t": stringBuilder.append("\t"); break;
@@ -101,7 +110,7 @@ public class Lexer {
                         }
                     }
                     else {
-                        stringBuilder.append(src.remove(0));
+                        stringBuilder.append(src.removeFirst());
                     }
                 }
                 stringBuilder.append("\0");
@@ -109,29 +118,29 @@ public class Lexer {
                     System.err.println("Missing closing \" at end of string literal");
                     System.exit(-1);
                 }
-                src.remove(0);
+                src.removeFirst();
                 tokens.add(new Token(TokenType.StringLiteral, stringBuilder.toString()));
             }
-            else if (isInt(src.get(0))) {
+            else if (isInt(src.getFirst())) {
                 boolean isFloat = false;
                 StringBuilder num = new StringBuilder();
-                while (!src.isEmpty() && (isInt(src.get(0)) || src.get(0).equals("."))) {
-                    if (src.get(0).equals(".") && !isFloat)
+                while (!src.isEmpty() && (isInt(src.getFirst()) || src.getFirst().equals("."))) {
+                    if (src.getFirst().equals(".") && !isFloat)
                         isFloat = true;
-                    else if (src.get(0).equals(".") && isFloat) {
+                    else if (src.getFirst().equals(".") && isFloat) {
                         System.err.println("Invalid number construction. Unexpected \".\"");
                         System.exit(-1);
                     }
-                    num.append(src.remove(0));
+                    num.append(src.removeFirst());
                 }
                 if (!isFloat)
                     tokens.add(new Token(TokenType.IntLiteral, num.toString()));
                 else
                     tokens.add(new Token(TokenType.FloatLiteral, num.toString()));
-            } else if (isAlpha(src.get(0))) {
+            } else if (isAlpha(src.getFirst())) {
                 StringBuilder identifier = new StringBuilder();
-                while (!src.isEmpty() && (isAlpha(src.get(0)) || isInt(src.get(0)) || src.get(0).equals("_"))) {
-                    identifier.append(src.remove(0));
+                while (!src.isEmpty() && (isAlpha(src.getFirst()) || isInt(src.getFirst()) || src.getFirst().equals("_"))) {
+                    identifier.append(src.removeFirst());
                 }
 
                 // CHECK FOR RESERVED KEYWORDS
@@ -141,7 +150,7 @@ public class Lexer {
                 // Unrecognized name must mean user defined symbol.
                 tokens.add(new Token(Objects.requireNonNullElse(reserved, TokenType.Identifier), identifier.toString()));
             } else {
-                System.err.printf("Unknown token: '%s'%n", src.remove(0));
+                System.err.printf("Unknown token: '%s'%n", src.removeFirst());
                 System.exit(-1);
             }
         }

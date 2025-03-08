@@ -48,20 +48,26 @@ public class ClassDeclarationStmt implements Stmt{
             Assembler.push(Register.x32.EBP);
             Assembler.mov(new RegisterMemory32(Register.x32.EBP), Register.x32.ESP);
 
+            Assembler.sub(new RegisterMemory32(Register.x32.ESP), 0);
+            int targetOffset = Assembler.getData().size() - 4;
+
             for (int i = 0; i < methodDefinition.method.args.size(); i++) {
                 String argName = methodDefinition.method.args.get(i).name;
                 Type argType = methodDefinition.method.args.get(i).type;
-                int typeSize = argType.getSize();
-                Compiler.stackPtr += typeSize;
-                Assembler.mov(new RegisterMemory(null, Register.x32.EBP, -Compiler.stackPtr), typeSize, ARG_REGISTER_LIST.get(i).ordinal(), typeSize);
+
+                Compiler.stackPtr += argType.getSize();
+
+                // 4 + (i+1) * 4; ebp+4 is for address, then the last argument is at 8, the next at 12 ...
+                Assembler.mov(Register.x32.EAX, new RegisterMemory32(null, Register.x32.EBP, 4+(methodDefinition.method.args.size()-i)*4 ));
+                Assembler.mov(new RegisterMemory(null, Register.x32.EBP, -Compiler.stackPtr), argType.getSize(), Register.x32.EAX.ordinal(), argType.getSize() );
+
                 Compiler.scope.declareVar(argName, argType, Compiler.stackPtr);
             }
 
-            Assembler.sub(new RegisterMemory32(Register.x32.ESP), 0);
-            int targetOffset = Assembler.getData().size() - 4;
             for (Stmt stmt : methodDefinition.body) {
                 stmt.codegen();
             }
+
             Assembler.setDataAt(targetOffset, Compiler.stackPtr);
 
             Assembler.leave();
