@@ -20,8 +20,6 @@ public class FuncDeclarationStmt implements Stmt {
     Type returnType;
     boolean defined;
 
-    static final List<Register.x32> ARG_REGISTER_LIST = new ArrayList<>(List.of(Register.x32.EAX, Register.x32.EBX, Register.x32.ECX, Register.x32.EDX, Register.x32.ESI, Register.x32.EDI));
-
     @Override
     public void log() {
         System.out.println("Function Declaration Statement:");
@@ -41,27 +39,28 @@ public class FuncDeclarationStmt implements Stmt {
         if (!defined) return;
         Compiler.startScope();
 
-
-        if (args.size() > ARG_REGISTER_LIST.size()) {
-            System.err.printf("Function with too many arguments. Maximum of %d\n", ARG_REGISTER_LIST.size());
-            System.exit(-1);
-        }
-
         ElfHandler.Text.addLabel(name, 1);
+
+        // Initialize stack
         Assembler.push(Register.x32.EBP);
         Assembler.mov(new RegisterMemory32(Register.x32.EBP), Register.x32.ESP);
+
+        Assembler.sub(new RegisterMemory32(Register.x32.ESP), 0);
+        int targetOffset = Assembler.getData().size() - 4;
 
         for (int i = 0; i < args.keySet().size(); i++) {
             String argName = (String) args.keySet().toArray()[i];
             Type argType = args.get(argName);
-            int typeSize = argType.getSize();
-            Compiler.stackPtr += typeSize;
-            Assembler.mov(new RegisterMemory(null, Register.x32.EBP, -Compiler.stackPtr), typeSize, ARG_REGISTER_LIST.get(i).ordinal(), typeSize);
+
+            Compiler.stackPtr += argType.getSize();
+
+            // 4 + (i+1) * 4; ebp+4 is for address, then the last argument is at 8, the next at 12 ...
+            Assembler.mov(Register.x32.EAX, new RegisterMemory32(null, Register.x32.EBP, 4+(args.size()-i)*4 ));
+            Assembler.mov(new RegisterMemory(null, Register.x32.EBP, -Compiler.stackPtr), argType.getSize(), Register.x32.EAX.ordinal(), argType.getSize() );
+
             Compiler.scope.declareVar(argName, argType, Compiler.stackPtr);
         }
 
-        Assembler.sub(new RegisterMemory32(Register.x32.ESP), 0);
-        int targetOffset = Assembler.getData().size() - 4;
         for (Stmt stmt : body) {
             stmt.codegen();
         }
@@ -71,7 +70,6 @@ public class FuncDeclarationStmt implements Stmt {
         Assembler.ret();
 
         Compiler.endScope();
-
         Compiler.stackPtr = 0;
     }
 

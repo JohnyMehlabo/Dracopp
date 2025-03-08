@@ -2,6 +2,7 @@ package Parser.Exprs;
 
 import Compiler.Assembler.Assembler;
 import Compiler.Assembler.Register;
+import Compiler.Assembler.RegisterMemory;
 import Compiler.Assembler.RegisterMemory32;
 import Compiler.Compiler;
 import Compiler.Function;
@@ -32,11 +33,7 @@ public class FuncCallExpr implements Expr{
             System.exit(-1);
         }
 
-        int protectedRegistersCount = 0;
-
         for (int i = 0; i < function.args.size(); i++) {
-            Register.x32 register = ARG_REGISTER_LIST.get(i);
-
             Type argType = args.get(i).codegen();
             Type dstType = function.args.get(i).type;
 
@@ -47,19 +44,12 @@ public class FuncCallExpr implements Expr{
             } else {
                 Type.cast(argType, dstType);
             }
-            Type.castToSize(dstType, 4);
-            Assembler.mov(register, new RegisterMemory32(Register.x32.EAX));
-            if (PROTECTED_REGISTER_LIST.contains(register)) {
-                Assembler.push(register);
-                protectedRegistersCount++;
-            }
-        }
-
-        for (int i = protectedRegistersCount - 1; i >= 0 ; i--) {
-            Assembler.pop(PROTECTED_REGISTER_LIST.get(i));
+            Assembler.push(Register.x32.EAX);
         }
 
         Assembler.call(function.name);
+        Assembler.add(new RegisterMemory32(Register.x32.ESP), args.size()*4);
+
         return function.returnType;
     }
 
@@ -72,8 +62,6 @@ public class FuncCallExpr implements Expr{
         int protectedRegistersCount = 0;
 
         for (int i = 0; i < method.args.size(); i++) {
-            Register.x32 register = ARG_REGISTER_LIST.get(i);
-
             Type argType;
             if (i == 0){
                 Assembler.mov(Register.x32.EAX, new RegisterMemory32(Register.x32.ECX));
@@ -91,19 +79,12 @@ public class FuncCallExpr implements Expr{
             } else {
                 Type.cast(argType, dstType);
             }
-            Type.castToSize(dstType, 4);
-            Assembler.mov(register, new RegisterMemory32(Register.x32.EAX));
-            if (PROTECTED_REGISTER_LIST.contains(register)) {
-                Assembler.push(register);
-                protectedRegistersCount++;
-            }
-        }
-
-        for (int i = protectedRegistersCount - 1; i >= 0 ; i--) {
-            Assembler.pop(PROTECTED_REGISTER_LIST.get(i));
+            Assembler.push(Register.x32.EAX);
         }
 
         Assembler.call(method.symbol);
+        Assembler.add(new RegisterMemory32(Register.x32.ESP), args.size()*4);
+
         return method.returnType;
     }
 
