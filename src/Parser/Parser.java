@@ -15,10 +15,10 @@ public class Parser {
     public static List<Token> tokens;
 
     public static Token at() {
-        return tokens.get(0);
+        return tokens.getFirst();
     }
     public static Token eat() {
-        return tokens.remove(0);
+        return tokens.removeFirst();
     }
     public static Token expect(TokenType tokenType, String err) {
         if (at().kind != tokenType) {
@@ -28,7 +28,7 @@ public class Parser {
         return eat();
     }
     public static boolean notEOF() {
-        return tokens.get(0).kind != TokenType.EOF;
+        return tokens.getFirst().kind != TokenType.EOF;
     }
 
     public static Stmt parseStmt() {
@@ -38,6 +38,7 @@ public class Parser {
             case If -> IfStmt.parse();
             case While -> WhileStmt.parse();
             case Func -> FuncDeclarationStmt.parse();
+            case Return -> ReturnStmt.parse();
             case Struct -> StructDeclarationStmt.parse();
             case Class -> ClassDeclarationStmt.parse();
             default -> ExprStmt.parse();

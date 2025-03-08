@@ -9,10 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="Adopted cdecl calling convention">
+    <list default="true" id="e782a7cc-4e05-4d45-869d-a1198c29437d" name="Changes" comment="Equal comparison and method fix">
+      <change afterPath="$PROJECT_DIR$/src/Parser/Stmts/ReturnStmt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Exprs/FuncCallExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/FuncDeclarationStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/FuncDeclarationStmt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Lexer/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/Lexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Lexer/TokenType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/TokenType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Stmts/IfStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Stmts/IfStmt.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,19 +45,17 @@
     &quot;assignee&quot;: &quot;JohnyMehlabo&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="d06ee4db-47a7-4ec7-93b6-2a28ff5d385a" />
-        <option name="url" value="https://github.com/JohnyMehlabo/Dracopp.git" />
-      </UrlAndAccount>
-    </option>
-  </component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/JohnyMehlabo/Dracopp.git",
+    "accountId": "979f85ee-68ae-4bc0-ac01-797eead06834"
+  }
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -367,7 +368,23 @@
       <option name="project" value="LOCAL" />
       <updated>1722695610335</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Adopted cdecl calling convention">
+      <option name="closed" value="true" />
+      <created>1741427393227</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1741427393227</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Equal comparison and method fix">
+      <option name="closed" value="true" />
+      <created>1741427485234</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1741427485234</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -382,7 +399,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Got rid of interpreter" />
     <MESSAGE value="Added basic compiling" />
     <MESSAGE value="Added while loops" />
     <MESSAGE value="Added basic functions" />
@@ -407,7 +423,8 @@
     <MESSAGE value="Fixed float comparison bug" />
     <MESSAGE value="Adopted LEA" />
     <MESSAGE value="Adopted cdecl calling convention" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adopted cdecl calling convention" />
+    <MESSAGE value="Equal comparison and method fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Equal comparison and method fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

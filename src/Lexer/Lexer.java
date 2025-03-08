@@ -9,8 +9,10 @@ public class Lexer {
         KEYWORDS = new HashMap<>();
         KEYWORDS.put("var", TokenType.Var);
         KEYWORDS.put("if", TokenType.If);
+        KEYWORDS.put("else", TokenType.Else);
         KEYWORDS.put("while", TokenType.While);
         KEYWORDS.put("func", TokenType.Func);
+        KEYWORDS.put("return", TokenType.Return);
         KEYWORDS.put("struct", TokenType.Struct);
         KEYWORDS.put("class", TokenType.Class);
         KEYWORDS.put("extends", TokenType.Extends);

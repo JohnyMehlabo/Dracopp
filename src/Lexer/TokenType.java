@@ -23,8 +23,10 @@ public enum TokenType {
     CloseBracket,
 
     If,
+    Else,
     While,
     Func,
+    Return,
     Struct,
     Class,
     Extends,
